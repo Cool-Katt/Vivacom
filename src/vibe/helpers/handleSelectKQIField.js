@@ -207,39 +207,41 @@ const formatGroupLabel = data => (
 class SelectComponent extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            someOptions: [],
+        }
     }
 
     read() {
-        let receivedFileContents;
         let obj = [];
         //TODO: Change api url, maybe  surround the fetch in try too
-        fetch('http://panorama3:8080/file.txt')
+        fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
             .then(response => response.text())
             .then(text => {
-                receivedFileContents = text
-                    .replaceAll(/\([\w+\s+]*\)/gm, ' ')
-                    .replaceAll('COLUMN_NAME', ' ')
-                    .replace('date', '')
-                    .replace('msisdn', '')
-                    .replaceAll(/\W+/gm, '\n')
-                    .trim().split('\n');
-                receivedFileContents.forEach(word => {
+                text.split('\n').forEach(word => {
                     obj.push({
-                        value: word.toString().replace(/\b[A-Z][a-z0-9A-Z]+/g, str =>
-                            str.toLocaleLowerCase()).replaceAll('_', ''),
-                        label: word
+                        value: word,
+                        label: word,
                     })
                 })
             })
-        return obj;
+        newNewNewOptions.pop();
+        obj.push({label: 'Select All', value: '*'})
+        newNewNewOptions.push({label: 'options', options: obj});
+    }
+
+    onChange = (option, event) => {
+        if (event.action === 'select-option' && event.option.value === '*') {
+            option = JSON.parse(JSON.stringify(newNewNewOptions[0].options));
+            option.shift()
+        } else if (event.action === 'remove-value' && event.removedValue.value === '*') {
+            option = [];
+        }
+        return this.setState({someOptions: option});
     }
 
     componentDidMount() {
-        try {
-            newNewNewOptions.push({label: 'options', options: this.read()});
-        } catch (err) {
-            console.log(err);
-        }
+        this.read();
     }
 
     render() {
@@ -255,6 +257,8 @@ class SelectComponent extends Component {
             placeholder="Click here to select something"
             defaultValue={null}
             formatGroupLabel={formatGroupLabel}
+            onChange={this.onChange}
+            value={this.state.someOptions}
         />)
     }
 }

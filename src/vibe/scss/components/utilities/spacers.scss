@@ -14,6 +14,19 @@ $xxl: $baseSpacer * 3;
 
 //Margins
 // All
+.m-a-auto {
+  margin: 0 auto;
+  padding-left: 0;
+}
+
+.m-l-auto {
+  margin: 0 0 0 auto;
+}
+
+.m-r-auto {
+  margin: 0 auto 0 0;
+}
+
 .m-a-none {
   margin: 0 !important;
 }

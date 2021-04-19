@@ -5,15 +5,19 @@ import PageAlertContext from "../../vibe/components/PageAlert/PageAlertContext";
 import SelectComponent from "../../vibe/helpers/handleSelectKQIField";
 
 export default class FormsMonthlyMSISDN extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         let thisMonth = new Date().toISOString().split("T")[0].slice(0, 7);
         //TODO: set min date for startDate after checking the db
         this.state = {
             thisMonth,
             redirectFlag: false,
+            type: 'monthly-MSISDN',
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        if (!props.location.state) {
+            props.location.state = {}
+        }
     }
 
     render() {
@@ -24,7 +28,7 @@ export default class FormsMonthlyMSISDN extends Component {
             <CardBody>
                 <PageAlertContext.Consumer>
                 {context => (
-                    <Form onSubmit={this.handleSubmit(context)}>
+                    <Form onSubmit={this.handleSubmit(context, this.props)}>
                         <legend>Query selection:</legend>
                         <FormGroup>
                             <Label for="name">MSISDN</Label>
@@ -47,10 +51,13 @@ export default class FormsMonthlyMSISDN extends Component {
                         <legend>KQIs</legend>
                         <FormGroup>
                             <Label for="exampleSelect">Select KQIs to query</Label>
-                            <SelectComponent />
+                            <SelectComponent type={this.state.type}/>
                         </FormGroup>
                         <Button>Submit</Button>
-                        {this.state.redirect ? <Redirect to="/home"/> : ''}
+                        {this.state.redirect ? <Redirect to={{
+                            pathname: '/apps/analytics',
+                            state: {data: this.props.location.state.data}
+                        }}/> : ''}
                     </Form>
                     )
                 }
@@ -61,7 +68,8 @@ export default class FormsMonthlyMSISDN extends Component {
             </Row>
         )
     }
-    handleSubmit(context) {
+
+    handleSubmit(context, props) {
         return (e => {
             e.preventDefault();
             let formData = new FormData(e.currentTarget);
@@ -71,15 +79,17 @@ export default class FormsMonthlyMSISDN extends Component {
                 startDate: formData.get('startDate'),
                 endDate: formData.get('endDate'),
                 kqis: formData.getAll('kqi'),
-                type: 'monthly-MSISDN'
+                type: this.state.type,
             }
 
-            if (formData.getAll('kqi')[0] === '') {
-                context.setAlert('⚠️ Please select at least one KQI!', 'warning')
-            } else {
-                console.log(data);
-                this.setState({redirect: true});
-            }
-        })
+                if (formData.getAll('kqi')[0] === '') {
+                    context.setAlert('⚠️ Please select at least one KQI!', 'warning')
+                } else {
+                    context.setAlert('⚠️ Please wait for data to load. It shouldn\'t take more than a minute.', 'info')
+                    props.location.state.data = data;
+                    //console.log(data);
+                    this.setState({redirect: true});
+                }
+            })
     }
 }

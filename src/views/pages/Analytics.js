@@ -56,12 +56,12 @@ const tableOptions = {
     autoColumns: true,
     tooltipsHeader: true,
     movableColumns: true,
+    placeholder: 'Please Wait! Your data is being loaded.',
     //responsiveLayout: 'collapse',
     initialSort: {column: 'date', dir: 'asc'},
     downloadDataFormatter: (data) => data,
     downloadReady: (fileContents, blob) => blob,
 };
-
 
 function transformDataForCharts(data, isMulti = true) {
     let labels = [];
@@ -179,7 +179,6 @@ export default class AnalyticsPage extends Component {
             arr.reduce((rows, key, index) => (index % width === 0 ? rows.push([key])
                 : rows[rows.length-1].push(key)) && rows, []);
         let rows = toMatrix(Array.from(transformDataForCharts(this.state.res, false)), 2);
-
 
         return (
             <DashboardLayoutContext.Consumer>{context => (

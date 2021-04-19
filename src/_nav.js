@@ -1,4 +1,4 @@
-export default {
+const nav = {
   top: [
     {
       name: 'Home',
@@ -70,12 +70,6 @@ export default {
       url: '/widget',
       icon: 'Gitlab',
     },
-    /*{
-      name: 'Get Vibe',
-      url: 'https://github.com/NiceDash/Vibe',
-      icon: 'GitHub',
-      external: true,
-      target: '_blank',
-    },*/
   ],
 };
+export default nav;

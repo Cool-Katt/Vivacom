@@ -78,10 +78,12 @@ export default class DashboardLayout extends Component {
                             }}>
                                 <PageContent >
                                     <Switch>
+                                        <Route exact path="/">
+                                            <Redirect to="/home" />
+                                        </Route>
                                         {routes.map((page, key) => (
                                             <Route path={page.path} component={page.component} key={key} />
                                         ))}
-                                        <Redirect from="/" to="/home"/>
                                     </Switch>
                                 </PageContent>
                             </DashboardLayoutContext.Provider>

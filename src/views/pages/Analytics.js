@@ -84,13 +84,13 @@ function transformDataForCharts(data, isMulti = true) {
         datasets.push(newObj);
     })
     for (const dataset of datasets) {
-        //TODO: finish
         if (dataset.label === 'Date'){
             labels = dataset.data;
             datasets.splice(datasets.indexOf(dataset), 1);
         }
     }
     for (const dataset of datasets) {
+        //TODO: finish
         if (dataset.label === 'Msisdn' || dataset.label === 'L2regionname'){
             datasets.splice(datasets.indexOf(dataset), 1);
         }

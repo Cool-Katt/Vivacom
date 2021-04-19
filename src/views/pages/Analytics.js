@@ -91,8 +91,6 @@ export default class AnalyticsPage extends Component {
         super(props);
 
         this.state = {
-            facebook: true,
-            twitter: false,
             res: [],
         };
 

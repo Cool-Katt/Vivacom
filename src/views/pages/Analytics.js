@@ -85,14 +85,16 @@ function transformDataForCharts(data, isMulti = true) {
     })
     for (const dataset of datasets) {
         //TODO: finish
-        if (dataset.label === 'Msisdn' || dataset.label === 'L2regionname'){
-            datasets.shift();
+        if (dataset.label === 'Date'){
+            labels = dataset.data;
+            datasets.splice(datasets.indexOf(dataset), 1);
         }
     }
-    /*if (datasets[0].label === 'L2regionname') {
-        datasets.shift()
-    }*/
-    labels = datasets.shift().data;
+    for (const dataset of datasets) {
+        if (dataset.label === 'Msisdn' || dataset.label === 'L2regionname'){
+            datasets.splice(datasets.indexOf(dataset), 1);
+        }
+    }
     /*let ddd = JSON.parse(JSON.stringify(datasets));
     let avr = [];
     ddd.forEach((o) => {
@@ -171,10 +173,10 @@ export default class AnalyticsPage extends Component {
                 //obj[key] === null && delete (obj[key]);
                 key !== 'Msisdn' && (!isNaN(obj[key]) && (Object.assign(obj,
                     {[key]: Math.round((obj[key] + Number.EPSILON) * 1000) / 1000})));
-                key === 'L2regionid' && obj[key] === null && delete obj[key];
-                key === 'L3regionid' && obj[key] === null && delete obj[key];
-                key === 'L2regionname' && obj[key] === null && delete obj[key];
-                key === 'L3regionname' && obj[key] === null && delete obj[key];
+                key === 'L2regionid' && obj[key] === 0 && delete obj[key];
+                key === 'L3regionid' && obj[key] === 0 && delete obj[key];
+                key === 'L2regionname' && obj[key] === 0 && delete obj[key];
+                key === 'L3regionname' && obj[key] === 0 && delete obj[key];
                 key === 'Date' && (Object.assign(obj, {[key]: obj[key].split('T')[0]}));
             });
         })
@@ -188,7 +190,8 @@ export default class AnalyticsPage extends Component {
             <DashboardLayoutContext.Consumer>{context => (
                 <div
                     onMouseEnter={!context.sidebarCollapsed ? context.toggleSideCollapse : null}
-                    onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}>
+                   //onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
+                    >
                     <div className="m-b">
                         <p className="text-muted" style={{margin: '0 0 0 60px'}}>
                             Query results: {this.props.location.state.data?.type}

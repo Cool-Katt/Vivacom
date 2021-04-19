@@ -9,20 +9,6 @@ export default {
       divider: true,
     },
     {
-      name: 'MSISDN',
-      icon: 'Smartphone',
-      children: [
-        {
-          name: 'Daily',
-          url: '/msisdn/daily',
-        },
-        {
-          name: 'Monthly',
-          url: '/msisdn/monthly',
-        },
-      ],
-    },
-    {
       name: 'Network',
       icon: 'GitBranch',
       children: [
@@ -47,6 +33,20 @@ export default {
         {
           name: 'Monthly',
           url: '/region/monthly',
+        },
+      ],
+    },
+    {
+      name: 'MSISDN',
+      icon: 'Smartphone',
+      children: [
+        {
+          name: 'Daily',
+          url: '/msisdn/daily',
+        },
+        {
+          name: 'Monthly',
+          url: '/msisdn/monthly',
         },
       ],
     },

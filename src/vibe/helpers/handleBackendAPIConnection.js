@@ -43,7 +43,7 @@ export const getData = (data) => {
 
 
     if (typ === 'network'){
-        return fetch(`${baseURL}/${typ}/${mod}?dateStart=${startDate}&dateEnd=${endDate}&selectedFields=${kqis.join(',')}`)
+        return fetch(`http://panoramamed/API_KQI_PI/network/${mod}?dateStart=${startDate}&dateEnd=${endDate}&selectedFields=${kqis.join(',')}`)
             .then(response => response.json())
             .catch(err => console.log(err));
     }

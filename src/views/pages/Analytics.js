@@ -84,7 +84,8 @@ function transformDataForCharts(data, isMulti = true) {
         datasets.push(newObj);
     })
     for (const dataset of datasets) {
-        if (dataset.label === 'Msisdn'){
+        //TODO: finish
+        if (dataset.label === 'Msisdn' || dataset.label === 'L2regionname'){
             datasets.shift();
         }
     }
@@ -170,7 +171,10 @@ export default class AnalyticsPage extends Component {
                 //obj[key] === null && delete (obj[key]);
                 key !== 'Msisdn' && (!isNaN(obj[key]) && (Object.assign(obj,
                     {[key]: Math.round((obj[key] + Number.EPSILON) * 1000) / 1000})));
-
+                key === 'L2regionid' && obj[key] === null && delete obj[key];
+                key === 'L3regionid' && obj[key] === null && delete obj[key];
+                key === 'L2regionname' && obj[key] === null && delete obj[key];
+                key === 'L3regionname' && obj[key] === null && delete obj[key];
                 key === 'Date' && (Object.assign(obj, {[key]: obj[key].split('T')[0]}));
             });
         })

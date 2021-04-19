@@ -7,7 +7,9 @@ import SelectComponent from '../../vibe/helpers/handleSelectKQIField'
 export default class FormsMonthlyMSISDN extends Component {
     constructor(props) {
         super(props);
-        let thisMonth = new Date().toISOString().split("T")[0].slice(0, 7);
+        let thisMonth = new Date();
+        thisMonth.setMonth(thisMonth.getMonth() - 1);
+        thisMonth = thisMonth.toISOString().split("T")[0].slice(0, 7);
         this.state = {
             thisMonth,
             redirectFlag: false,

@@ -7,7 +7,9 @@ import SelectComponent from "../../vibe/helpers/handleSelectKQIField";
 export default class FormsMonthlyMSISDN extends Component {
     constructor(props) {
         super(props);
-        let thisMonth = new Date().toISOString().split("T")[0].slice(0, 7);
+        let thisMonth = new Date();
+        thisMonth.setMonth(thisMonth.getMonth() - 1);
+        thisMonth = thisMonth.toISOString().split("T")[0].slice(0, 7);
         //TODO: set min date for startDate after checking the db
         this.state = {
             thisMonth,
@@ -85,7 +87,7 @@ export default class FormsMonthlyMSISDN extends Component {
                 if (formData.getAll('kqi')[0] === '') {
                     context.setAlert('⚠️ Please select at least one KQI!', 'warning')
                 } else {
-                    context.setAlert('⚠️ Please wait for data to load. It shouldn\'t take more than a minute.', 'info')
+                    context.setAlert('⚠️ Please wait for data to load. It can take up to 5 minutes!', 'danger')
                     props.location.state.data = data;
                     //console.log(data);
                     this.setState({redirect: true});

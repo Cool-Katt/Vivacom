@@ -37,6 +37,32 @@ const chartColors = {
     primaryShade7: 'rgb(10,49,81)',
 };
 
+const columns = [
+    //{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center",},
+    /* {title: "date", field: "date", },
+     {title: "name", field: "name", },
+     {title: "value", field: "value"},*/
+    /*{title: 'valueBar', field: 'value', hozAlign: 'left', formatter: 'progress', editable: false, formatterParams:{
+        min: 3.9,
+        max: 5,
+        color: chartColors.primary,
+      },},*/
+];
+
+const tableOptions = {
+    height: 450,
+    layout: "fitColumns",
+    columnMinWidth: 200,
+    autoColumns: true,
+    tooltipsHeader: true,
+    movableColumns: true,
+    //responsiveLayout: 'collapse',
+    initialSort: {column: 'date', dir: 'asc'},
+    downloadDataFormatter: (data) => data,
+    downloadReady: (fileContents, blob) => blob,
+};
+
+
 function transformDataForCharts(data, isMulti = true) {
     let labels = [];
     let datasets = [];
@@ -57,9 +83,14 @@ function transformDataForCharts(data, isMulti = true) {
         })
         datasets.push(newObj);
     })
-    if (datasets[0].label === 'L2regionname') {
-        datasets.shift()
+    for (const dataset of datasets) {
+        if (dataset.label === 'Msisdn'){
+            datasets.shift();
+        }
     }
+    /*if (datasets[0].label === 'L2regionname') {
+        datasets.shift()
+    }*/
     labels = datasets.shift().data;
     /*let ddd = JSON.parse(JSON.stringify(datasets));
     let avr = [];
@@ -101,6 +132,7 @@ export default class AnalyticsPage extends Component {
 
     componentDidMount() {
         API.getData(this.props.location.state.data).then(res => this.setState({res: JSON.parse(res)}));
+        //API.getData(this.props.location.state.data).then(res => console.log(res));
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -135,45 +167,19 @@ export default class AnalyticsPage extends Component {
     render() {
         this.state.res.forEach(obj => {
             Object.keys(obj).forEach(key => {
-                obj[key] === 0 && delete (obj[key]);
-                !isNaN(obj[key]) && (Object.assign(obj,
-                    {[key]: Math.round((obj[key] + Number.EPSILON) * 1000) / 1000}));
-                key === 'Date' && (Object.assign(obj, {[key]: obj[key].split('T')[0]}))
+                //obj[key] === null && delete (obj[key]);
+                key !== 'Msisdn' && (!isNaN(obj[key]) && (Object.assign(obj,
+                    {[key]: Math.round((obj[key] + Number.EPSILON) * 1000) / 1000})));
+
+                key === 'Date' && (Object.assign(obj, {[key]: obj[key].split('T')[0]}));
             });
         })
-        /*const rows = Array.from(transformDataForCharts(this.state.res, false)).reduce(function (rows, key, index) {
-            return (index % 2 === 0 ? rows.push([key])
-                : rows[rows.length-1].push(key)) && rows;
-        }, []);*/
+
         const toMatrix = (arr, width) =>
             arr.reduce((rows, key, index) => (index % width === 0 ? rows.push([key])
                 : rows[rows.length-1].push(key)) && rows, []);
-        let rows = toMatrix(Array.from(transformDataForCharts(this.state.res, false)), 2)
+        let rows = toMatrix(Array.from(transformDataForCharts(this.state.res, false)), 2);
 
-        const columns = [
-            //{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center",},
-            /* {title: "date", field: "date", },
-             {title: "name", field: "name", },
-             {title: "value", field: "value"},*/
-            /*{title: 'valueBar', field: 'value', hozAlign: 'left', formatter: 'progress', editable: false, formatterParams:{
-                min: 3.9,
-                max: 5,
-                color: chartColors.primary,
-              },},*/
-        ]
-        console.log(this.state.res)
-
-        const tableOptions = {
-            height: 450,
-            layout: "fitColumns",
-            columnMinWidth: 200,
-            autoColumns: true,
-            tooltipsHeader: true,
-            //responsiveLayout: 'collapse',
-            initialSort: {column: 'date', dir: 'asc'},
-            downloadDataFormatter: (data) => data,
-            downloadReady: (fileContents, blob) => blob,
-        };
 
         return (
             <DashboardLayoutContext.Consumer>{context => (
@@ -236,9 +242,9 @@ export default class AnalyticsPage extends Component {
                         </Col>
                     </Row>
                     <hr/>
-                    {Object.values(rows).map(row => (
-                        <Row >
-                            { row.map(col => (<Col className='m-a-auto' md={5}>{
+                    {Object.values(rows).map((row, index) => (
+                        <Row key={index}>
+                            { row.map((col, index) => (<Col key={index} className='m-a-auto' md={5}>{
                                 <Card>
                                     <CardHeader>{col.datasets[0].label}</CardHeader>
                                     <CardBody>
@@ -250,32 +256,6 @@ export default class AnalyticsPage extends Component {
                             }</Col>)) }
                         </Row>
                     ))}
-                   {/* {Array.from(transformDataForCharts(this.state.res, false)).map((chartData, index, arr) => (
-                        <Row key={index}>
-                            <Col className='m-a-auto' md={5}>
-                                <Card>
-                                    <CardHeader>{arr[index].datasets[0].label}</CardHeader>
-                                    <CardBody>
-                                        <Bar data={arr[index]}
-                                             options={{legend: {display: false}, tooltips: {enabled: true}}}
-                                        />
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            {index < arr.length - 1 ?
-                                (<Col className='m-r-auto' md={5}>
-                                    <Card>
-                                        <CardHeader>{arr[index + 1].datasets[0].label}</CardHeader>
-                                        <CardBody>
-                                            <Bar data={arr[index + 1]}
-                                                 options={{legend: {display: false}, tooltips: {enabled: true}}}
-                                            />
-                                        </CardBody>
-                                    </Card>
-                                </Col>) : null}
-                            {index % 2 === 0 ? index++ : null}
-                        </Row>
-                    ))}*/}
                 </div>
             )}</DashboardLayoutContext.Consumer>
         );

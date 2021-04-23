@@ -79,7 +79,8 @@ export default class FormMonthlyRegion extends Component {
             let formData = new FormData(e.currentTarget);
 
             let data = {
-                region: formData.get('region'),
+                region: formData.get('region').split(':')[0],
+                regionLevel: formData.get('region').split(':')[1],
                 startDate: formData.get('startDate'),
                 endDate: formData.get('endDate'),
                 kqis: formData.getAll('kqi'),

@@ -4,6 +4,7 @@ export const getData = (data) => {
     let [mod, typ] = type.split('-');
     let region = rest.region ? rest.region : null;
     let msisdn = rest.msisdn ? rest.msisdn : null;
+    let regionLevel = rest.regionLevel ? rest.regionLevel : null;
     let url = baseURL;
 
     switch (mod){

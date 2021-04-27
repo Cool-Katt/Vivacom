@@ -9,8 +9,11 @@ export const getData = (data) => {
 
     switch (mod){
         case 'daily':
-            endDate = endDate ? endDate : new Date().toISOString().split("T")[0].slice(0, 10);
-            break;
+            if (!endDate){
+                let thisDay = new Date();
+                thisDay.setDate(thisDay.getDate() - 1);
+                endDate = thisDay.toISOString().split("T")[0];
+            }            break;
         case 'monthly':
             if (!endDate){
                 let thisMonth = new Date();
@@ -20,6 +23,7 @@ export const getData = (data) => {
             break;
         default:
             endDate = 'unknown value';
+            break;
     }
 
     let body = {
@@ -30,23 +34,20 @@ export const getData = (data) => {
 
     switch (typ){
         case 'region':
-            //TODO: Consolidate region endpoints
-            url += `/regionL2p/${mod}`;
+            url += `/${regionLevel}/${mod}`;
             Object.assign(body, {Region: region});
             break;
         case 'MSISDN':
             url += `/userp/${mod}`;
             Object.assign(body, {Msisdn: msisdn});
             break;
+        case 'network':
+            //TODO: change this to POST too
+            return fetch(`http://panoramamed/API_KQI_PI/network/${mod}?dateStart=${startDate}&dateEnd=${endDate}&selectedFields=${kqis.join(',')}`)
+                .then(response => response.json())
+                .catch(err => console.log(err));
         default:
             break;
-    }
-
-
-    if (typ === 'network'){
-        return fetch(`http://panoramamed/API_KQI_PI/network/${mod}?dateStart=${startDate}&dateEnd=${endDate}&selectedFields=${kqis.join(',')}`)
-            .then(response => response.json())
-            .catch(err => console.log(err));
     }
 
     //TODO: deal with the url and API endpoints

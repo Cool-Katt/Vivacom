@@ -7,7 +7,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route component={DashboardLayout} />
+          <Route component={DashboardLayout} />
       </Switch>
     </BrowserRouter>
   );

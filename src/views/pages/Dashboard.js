@@ -4,9 +4,10 @@ import msisdnFeature from '../../assets/images/sim-card-svgrepo-com.svg';
 import areaFeature from '../../assets/images/planet-earth-svgrepo-com.svg';
 import networkFeature from '../../assets/images/server-svgrepo-com.svg';
 import underConstructionFeature from '../../assets/images/construction-svgrepo-com.svg';
-import {Card, CardBody, CardFooter, Button, Row, Col,} from 'reactstrap';
+import {Card, CardBody, CardFooter, Button, Row, Col} from 'reactstrap';
 
 class Dashboard extends Component {
+
     render() {
         const heroStyles = {
             padding: '50px 0 70px'
@@ -43,10 +44,12 @@ class Dashboard extends Component {
                             </CardBody>
                             <CardFooter>
                                 <NavLink to="/msisdn/daily">
-                                    <Button color="primary" outline><i className="fa fa-calendar"/> Daily</Button>
+                                    <Button color="primary" outline><i
+                                        className="fa fa-calendar"/> Daily</Button>
                                 </NavLink>
                                 <NavLink to="/msisdn/monthly">
-                                    <Button color="info" outline><i className="fa fa-calendar-o"/> Monthly</Button>
+                                    <Button color="info" outline><i
+                                        className="fa fa-calendar-o"/> Monthly</Button>
                                 </NavLink>
                             </CardFooter>
                         </Card>
@@ -69,10 +72,12 @@ class Dashboard extends Component {
                             </CardBody>
                             <CardFooter>
                                 <NavLink to="/network/daily">
-                                    <Button color="primary" outline><i className="fa fa-calendar"/> Daily</Button>
+                                    <Button color="primary" outline><i
+                                        className="fa fa-calendar"/> Daily</Button>
                                 </NavLink>
                                 <NavLink to="/network/monthly">
-                                    <Button color="info" outline><i className="fa fa-calendar-o"/> Monthly</Button>
+                                    <Button color="info" outline><i
+                                        className="fa fa-calendar-o"/> Monthly</Button>
                                 </NavLink>
                             </CardFooter>
                         </Card>
@@ -97,10 +102,12 @@ class Dashboard extends Component {
                             </CardBody>
                             <CardFooter>
                                 <NavLink to="/region/daily">
-                                    <Button color="primary" outline><i className="fa fa-calendar"/> Daily</Button>
+                                    <Button color="primary" outline><i
+                                        className="fa fa-calendar"/> Daily</Button>
                                 </NavLink>
                                 <NavLink to="/region/monthly">
-                                    <Button color="info" outline><i className="fa fa-calendar-o"/> Monthly</Button>
+                                    <Button color="info" outline><i
+                                        className="fa fa-calendar-o"/> Monthly</Button>
                                 </NavLink>
                             </CardFooter>
                         </Card>

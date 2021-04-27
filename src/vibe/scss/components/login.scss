@@ -7,9 +7,12 @@
     z-index: 1;
 }
 .login-wrap {
-	width: auto;
+	width: 220px;
     max-width: 400px;
     display: block;
-    margin-top: 30px;
-    margin: auto;
+    margin: 200px auto;
+}
+
+.login-button {
+    margin-left: 0 !important;
 }

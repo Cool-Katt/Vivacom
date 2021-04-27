@@ -215,7 +215,8 @@ class SelectComponent extends Component {
     read() {
         let obj = [];
         //TODO: Change api url, maybe  surround the fetch in try too
-        fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
+        //fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
+        fetch(`http://panoramamed:8001/file.txt?type=${this.props.type}`)
             .then(response => response.text())
             .then(text => {
                 text.split('\n').forEach(word => {

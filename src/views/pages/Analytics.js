@@ -50,7 +50,7 @@ const columns = [
 ];
 
 const tableOptions = {
-    height: 450,
+    height: 475,
     layout: "fitColumns",
     columnMinWidth: 200,
     autoColumns: true,
@@ -89,12 +89,14 @@ function transformDataForCharts(data, isMulti = true) {
             datasets.splice(datasets.indexOf(dataset), 1);
         }
     }
+    let delCount = 0;
     for (const dataset of datasets) {
-        //TODO: finish
-        if (dataset.label === 'Msisdn' || dataset.label === 'L2regionname'){
-            datasets.splice(datasets.indexOf(dataset), 1);
+        if (dataset.label === 'Msisdn' || dataset.label === 'L2regionname' || dataset.label === 'L3regionname'
+             || dataset.label === 'L2regionid' || dataset.label === 'L3regionid') {
+            delCount++;
         }
     }
+    datasets.splice(0, delCount);
     /*let ddd = JSON.parse(JSON.stringify(datasets));
     let avr = [];
     ddd.forEach((o) => {
@@ -173,8 +175,8 @@ export default class AnalyticsPage extends Component {
                 //obj[key] === null && delete (obj[key]);
                 key !== 'Msisdn' && (!isNaN(obj[key]) && (Object.assign(obj,
                     {[key]: Math.round((obj[key] + Number.EPSILON) * 1000) / 1000})));
-                key === 'L2regionid' && obj[key] === 0 && delete obj[key];
-                key === 'L3regionid' && obj[key] === 0 && delete obj[key];
+                key === 'L2regionid' && delete obj[key];
+                key === 'L3regionid' && delete obj[key];
                 key === 'L2regionname' && obj[key] === 0 && delete obj[key];
                 key === 'L3regionname' && obj[key] === 0 && delete obj[key];
                 key === 'Date' && (Object.assign(obj, {[key]: obj[key].split('T')[0]}));
@@ -192,11 +194,7 @@ export default class AnalyticsPage extends Component {
                     onMouseEnter={!context.sidebarCollapsed ? context.toggleSideCollapse : null}
                    //onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
                     >
-                    <div className="m-b">
-                        <p className="text-muted" style={{margin: '0 0 0 60px'}}>
-                            Query results: {this.props.location.state.data?.type}
-                        </p>
-                    </div>
+
                     <Row>
                         <Col className='m-a-auto' md={{size: 11}}>
                             <Card>

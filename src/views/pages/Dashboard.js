@@ -30,34 +30,6 @@ class Dashboard extends Component {
                         <Card>
                             <CardBody className="display-flex">
                                 <img
-                                    src={msisdnFeature}
-                                    style={{width: 70, height: 70}}
-                                    alt="msisdn"
-                                    aria-hidden={true}
-                                />
-                                <div className="m-l">
-                                    <h2 className="h4">Check by MSISDN</h2>
-                                    <p className="text-muted">
-                                        Run a query for selected daily or monthly KQIs by MSISDN.
-                                    </p>
-                                </div>
-                            </CardBody>
-                            <CardFooter>
-                                <NavLink to="/msisdn/daily">
-                                    <Button color="primary" outline><i
-                                        className="fa fa-calendar"/> Daily</Button>
-                                </NavLink>
-                                <NavLink to="/msisdn/monthly">
-                                    <Button color="info" outline><i
-                                        className="fa fa-calendar-o"/> Monthly</Button>
-                                </NavLink>
-                            </CardFooter>
-                        </Card>
-                    </Col>
-                    <Col md={6}>
-                        <Card>
-                            <CardBody className="display-flex">
-                                <img
                                     src={networkFeature}
                                     style={{width: 70, height: 70}}
                                     alt="Network"
@@ -82,8 +54,6 @@ class Dashboard extends Component {
                             </CardFooter>
                         </Card>
                     </Col>
-                </Row>
-                <Row>
                     <Col md={6}>
                         <Card>
                             <CardBody className="display-flex">
@@ -106,6 +76,36 @@ class Dashboard extends Component {
                                         className="fa fa-calendar"/> Daily</Button>
                                 </NavLink>
                                 <NavLink to="/region/monthly">
+                                    <Button color="info" outline><i
+                                        className="fa fa-calendar-o"/> Monthly</Button>
+                                </NavLink>
+                            </CardFooter>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={6}>
+                        <Card>
+                            <CardBody className="display-flex">
+                                <img
+                                    src={msisdnFeature}
+                                    style={{width: 70, height: 70}}
+                                    alt="msisdn"
+                                    aria-hidden={true}
+                                />
+                                <div className="m-l">
+                                    <h2 className="h4">Check by MSISDN</h2>
+                                    <p className="text-muted">
+                                        Run a query for selected daily or monthly KQIs by MSISDN.
+                                    </p>
+                                </div>
+                            </CardBody>
+                            <CardFooter>
+                                <NavLink to="/msisdn/daily">
+                                    <Button color="primary" outline><i
+                                        className="fa fa-calendar"/> Daily</Button>
+                                </NavLink>
+                                <NavLink to="/msisdn/monthly">
                                     <Button color="info" outline><i
                                         className="fa fa-calendar-o"/> Monthly</Button>
                                 </NavLink>

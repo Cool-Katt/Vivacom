@@ -7,13 +7,13 @@ import {
     CardBody,
     Button, CardFooter
 } from 'reactstrap';
-import { Bar } from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 import Chart from 'chart.js'
 //import 'react-tabulator/lib/css/bootstrap/tabulator_bootstrap4.css';
 import 'react-tabulator/lib/css/tabulator_modern.css'
 import * as API from '../../vibe/helpers/handleBackendAPIConnection'
-import { ReactTabulator } from 'react-tabulator'
-import { DashboardLayoutContext } from "../../layouts/DashboardLayout";
+import {ReactTabulator} from 'react-tabulator'
+import {DashboardLayoutContext} from "../../layouts/DashboardLayout";
 
 const chartColors = {
     red: 'rgb(233, 30, 99)',
@@ -81,10 +81,14 @@ function transformDataForCharts(data, isMulti = true) {
         data.forEach((obj) => {
             newObj['data'].push(obj[key]);
         })
+
+        if (newObj['data'].reduce((acc, curr) => acc + curr) === 0) {
+            newObj['data'] = [];
+        }
         datasets.push(newObj);
     })
     for (const dataset of datasets) {
-        if (dataset.label === 'Date'){
+        if (dataset.label === 'Date') {
             labels = dataset.data;
             datasets.splice(datasets.indexOf(dataset), 1);
         }
@@ -92,7 +96,7 @@ function transformDataForCharts(data, isMulti = true) {
     let delCount = 0;
     for (const dataset of datasets) {
         if (dataset.label === 'Msisdn' || dataset.label === 'L2regionname' || dataset.label === 'L3regionname'
-             || dataset.label === 'L2regionid' || dataset.label === 'L3regionid') {
+            || dataset.label === 'L2regionid' || dataset.label === 'L3regionid') {
             delCount++;
         }
     }
@@ -115,7 +119,10 @@ for (let i = 0; i < avr.length; i++) {
             datasets: [s],
         }))
         return res;
+    } else {
+        datasets = datasets.filter(s => s.data.length > 0);
     }
+
     return ({
         labels,
         datasets,
@@ -185,15 +192,15 @@ export default class AnalyticsPage extends Component {
 
         const toMatrix = (arr, width) =>
             arr.reduce((rows, key, index) => (index % width === 0 ? rows.push([key])
-                : rows[rows.length-1].push(key)) && rows, []);
+                : rows[rows.length - 1].push(key)) && rows, []);
         let rows = toMatrix(Array.from(transformDataForCharts(this.state.res, false)), 2);
 
         return (
             <DashboardLayoutContext.Consumer>{context => (
                 <div
                     onMouseEnter={!context.sidebarCollapsed ? context.toggleSideCollapse : null}
-                   //onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
-                    >
+                    //onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
+                >
 
                     <Row>
                         <Col className='m-a-auto' md={{size: 11}}>
@@ -207,7 +214,7 @@ export default class AnalyticsPage extends Component {
                                                     hover
                                     />
                                 </CardBody>
-                                <CardFooter>
+                                <CardFooter className='m-a-auto'>
                                     <Button color="info" outline
                                             onClick={() => this.ref.table.download("csv", "data.cv")}>Download
                                         Data (CSV format)</Button>
@@ -230,7 +237,10 @@ export default class AnalyticsPage extends Component {
                                             data={transformDataForCharts(this.state.res)}
                                             width={2068}
                                             height={846}
-                                            options={{legend: {display: false}, tooltips: {enabled: true}}}
+                                            options={{
+                                                legend: {display: false}, tooltips: {enabled: true},
+                                                scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
+                                            }}
                                         />
                                     </div>
                                 </CardBody>
@@ -248,16 +258,40 @@ export default class AnalyticsPage extends Component {
                     <hr/>
                     {Object.values(rows).map((row, index) => (
                         <Row key={index}>
-                            { row.map((col, index) => (<Col key={index} className='m-a-auto' md={5}>{
-                                <Card>
-                                    <CardHeader>{col.datasets[0].label}</CardHeader>
-                                    <CardBody>
-                                        <Bar data={col}
-                                             options={{legend: {display: false}, tooltips: {enabled: true}}}
-                                        />
-                                    </CardBody>
-                                </Card>
-                            }</Col>)) }
+                            {row.map((col, index) => (<Col key={index} className='m-a-auto' md={5}>{
+                                !col.datasets[0].data.length < 1 ?
+                                    (<Card
+                                        onMouseEnter={() => document.getElementById(col.datasets[0].label).style.display = 'inline-block'}
+                                        onMouseLeave={() => document.getElementById(col.datasets[0].label).style.display = 'none'}>
+                                        <CardHeader>{col.datasets[0].label}</CardHeader>
+                                        <CardBody>
+                                            <Bar ref={ref => (this.childChart = ref)}
+                                                 data={col}
+                                                 options={{
+                                                     legend: {display: false}, tooltips: {enabled: true},
+                                                     scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
+                                                     animation: {
+                                                         onComplete: function () {
+                                                             let a = document.getElementById(col.datasets[0].label).firstChild.firstChild;
+                                                             a.setAttribute('href', this.toBase64Image());
+                                                             a.download = `${col.datasets[0].label}.png`;
+                                                         }
+                                                     },
+                                                 }}
+                                            />
+                                        </CardBody>
+                                        <CardFooter className='m-a-auto' id={col.datasets[0].label}
+                                                    style={{display: 'none'}}>
+                                            <Button color='info' outline><a href='#'>Save As Image</a></Button>
+                                        </CardFooter>
+                                    </Card>) :
+                                    (<Card style={{width: '100%', height: '95%'}}>
+                                        <CardHeader>{col.datasets[0].label}</CardHeader>
+                                        <CardBody style={{textAlign: 'center'}}>
+                                            <h1 className='m-a-auto'>No Data!</h1>
+                                        </CardBody>
+                                    </Card>)
+                            }</Col>))}
                         </Row>
                     ))}
                 </div>

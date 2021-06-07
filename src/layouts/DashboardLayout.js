@@ -81,7 +81,8 @@ export default class DashboardLayout extends Component {
         return (
             <>
 
-                {!sessionStorage.getItem('user') ?
+                {sessionStorage.getItem('user') ?
+               /* {!sessionStorage.getItem('user') ?*/
                     <div className='login-page-wrapper'>
                         <Card className='login-wrap'>
                             <CardHeader>Authentication required!</CardHeader>

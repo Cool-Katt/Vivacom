@@ -7,7 +7,7 @@ import {
     CardBody,
     Button, CardFooter
 } from 'reactstrap';
-import {Bar} from 'react-chartjs-2';
+import {Bar, Line} from 'react-chartjs-2';
 import Chart from 'chart.js'
 //import 'react-tabulator/lib/css/bootstrap/tabulator_bootstrap4.css';
 import 'react-tabulator/lib/css/tabulator_modern.css'
@@ -77,6 +77,11 @@ function transformDataForCharts(data, isMulti = true) {
             backgroundColor: chartColors[Object.keys(chartColors)[Math.floor(Math.random() * Object.keys(chartColors).length)]],
             //backgroundColor: Object.values(chartColors)[count++],
             fill: false,
+        }
+        if (!isMulti){
+            newObj.steppedLine = true;
+            newObj.borderColor = JSON.parse(JSON.stringify(newObj.backgroundColor));
+            delete(newObj.backgroundColor)
         }
         data.forEach((obj) => {
             newObj['data'].push(obj[key]);
@@ -201,7 +206,6 @@ export default class AnalyticsPage extends Component {
                     onMouseEnter={!context.sidebarCollapsed ? context.toggleSideCollapse : null}
                     //onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
                 >
-
                     <Row>
                         <Col className='m-a-auto' md={{size: 11}}>
                             <Card>
@@ -277,7 +281,7 @@ export default class AnalyticsPage extends Component {
                                         onMouseLeave={() => document.getElementById(col.datasets[0].label).style.display = 'none'}>
                                         <CardHeader>{col.datasets[0].label}</CardHeader>
                                         <CardBody>
-                                            <Bar ref={ref => (this.childChart = ref)}
+                                            <Line ref={ref => (this.childChart = ref)}
                                                  data={col}
                                                  options={{
                                                      legend: {display: false}, tooltips: {enabled: true},

@@ -197,8 +197,8 @@ let newNewNewOptions = [];
 let selectAll = [];
 
 const colourStyles = {
-    control: styles => ({ ...styles, backgroundColor: 'white' }),
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    control: styles => ({...styles, backgroundColor: 'white'}),
+    option: (styles, {data, isDisabled, isFocused, isSelected}) => {
         const color = chroma(data.color);
         return {
             ...styles,
@@ -225,18 +225,18 @@ const colourStyles = {
             },
         };
     },
-    multiValue: (styles, { data }) => {
+    multiValue: (styles, {data}) => {
         const color = chroma(data.color);
         return {
             ...styles,
             backgroundColor: color.alpha(0.1).css(),
         };
     },
-    multiValueLabel: (styles, { data }) => ({
+    multiValueLabel: (styles, {data}) => ({
         ...styles,
         color: data.color,
     }),
-    multiValueRemove: (styles, { data }) => ({
+    multiValueRemove: (styles, {data}) => ({
         ...styles,
         color: data.color,
         ':hover': {
@@ -281,13 +281,14 @@ class SelectComponent extends Component {
 
     read() {
         let obj = [];
-        let SMS = {label: 'SMS', options: [], color: '#00B8D9',};
-        let WEB = {label: 'WEB', options: [], color: '#0052CC',};
-        let Voice = {label: 'Voice', options: [], color: '#5243AA',};
-        let Video = {label: 'Video_Streaming', options: [], color: '#36B37E',};
-        let IM = {label: 'IM', options: [], color: '#00875A',};
-        let File = {label: 'File_Transfer', options: [], color: '#253858',};
-        let Other = {label: 'Other', options: [], color: '#666666',};
+        let SMS = {label: 'SMS', options: [{value: '*-SMS', label: 'Select All in Category', color: '#00B8D9',}],};
+        let WEB = {label: 'WEB', options: [{value: '*-WEB', label: 'Select All in Category', color: '#5243AA',}],};
+        let Voice = {label: 'Voice', options: [{value: '*-Voice', label: 'Select All in Category', color: '#0052CC',}],};
+        let Video = {label: 'Video_Streaming', options: [{value: '*-Video', label: 'Select All in Category', color: '#36B37E',}],};
+        let IM = {label: 'IM', options: [{value: '*-IM', label: 'Select All in Category', color: '#00875A',}],};
+        let File = {label: 'File_Transfer', options: [{value: '*-File', label: 'Select All in Category', color: '#253858',}],};
+        let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category', color: '#666666',}],};
+        let SelectAll = {label: '*', options: [{value: '*', label: 'Select All', color: '#FF8B00',}]};
         //TODO: Change api url, maybe  surround the fetch in try too
         fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
             //fetch(`http://panoramamed:8001/file.txt?type=${this.props.type}`)
@@ -297,6 +298,7 @@ class SelectComponent extends Component {
                     obj.push({
                         value: word,
                         label: word,
+                        color: '#FF8B00',
                     })
 
                     if (word.startsWith('SMS_')) {
@@ -311,7 +313,7 @@ class SelectComponent extends Component {
                         WEB.options.push({value: word, label: word, color: '#5243AA',});
                     } else if (word.startsWith('Video_') || word.startsWith('Video_Streaming_')) {
                         //Video_Streaming
-                        Video.options.push({value: word, label: word,  color: '#36B37E',});
+                        Video.options.push({value: word, label: word, color: '#36B37E',});
                     } else if (word.startsWith('IM_')) {
                         //IM
                         IM.options.push({value: word, label: word, color: '#00875A',});
@@ -324,18 +326,40 @@ class SelectComponent extends Component {
                     }
                 })
             })
-        obj.push({label: 'Select All', value: '*'});
         newNewNewOptions.splice(0, newNewNewOptions.length)
-        newNewNewOptions.push(SMS, WEB, Video, Voice, File, IM, Other);
-        selectAll = obj;
+        newNewNewOptions.push(SelectAll, SMS, WEB, Video, Voice, File, IM, Other);
+        selectAll = obj
     }
 
     onChange = (option, event) => {
-        if (event.action === 'select-option' && event.option.value === '*') {
-            //option = JSON.parse(JSON.stringify(newNewNewOptions[0].options));
-            option = selectAll;
-            option.shift()
-        } else if (event.action === 'remove-value' && event.removedValue.value === '*') {
+        if (event.action === 'select-option' && event.option.value.startsWith('*')) {
+            switch (event.option.value) {
+                case '*-SMS':
+                    option = JSON.parse(JSON.stringify(newNewNewOptions[1].options));
+                    break;
+                case '*-WEB':
+                    option = JSON.parse(JSON.stringify(newNewNewOptions[2].options));
+                    break;
+                case '*-Video':
+                    option = JSON.parse(JSON.stringify(newNewNewOptions[3].options));
+                    break;
+                case '*-Voice':
+                    option = JSON.parse(JSON.stringify(newNewNewOptions[4].options));
+                    break;
+                case '*-File':
+                    option = JSON.parse(JSON.stringify(newNewNewOptions[5].options));
+                    break;
+                case '*-IM':
+                    option = JSON.parse(JSON.stringify(newNewNewOptions[6].options));
+                    break;
+                case '*-Other':
+                    option = JSON.parse(JSON.stringify(newNewNewOptions[7].options));
+                    break;
+                default:
+                    option = selectAll;
+            }
+            option.shift();
+        } else if (event.action === 'remove-value' && event.removedValue.value.startsWith('*')) {
             option = [];
         }
         return this.setState({someOptions: option});

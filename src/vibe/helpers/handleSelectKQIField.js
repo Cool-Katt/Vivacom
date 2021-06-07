@@ -281,14 +281,14 @@ class SelectComponent extends Component {
 
     read() {
         let obj = [];
-        let SMS = {label: 'SMS', options: [{value: '*-SMS', label: 'Select All in Category', color: '#00B8D9',}],};
-        let WEB = {label: 'WEB', options: [{value: '*-WEB', label: 'Select All in Category', color: '#5243AA',}],};
-        let Voice = {label: 'Voice', options: [{value: '*-Voice', label: 'Select All in Category', color: '#0052CC',}],};
-        let Video = {label: 'Video_Streaming', options: [{value: '*-Video', label: 'Select All in Category', color: '#36B37E',}],};
-        let IM = {label: 'IM', options: [{value: '*-IM', label: 'Select All in Category', color: '#00875A',}],};
-        let File = {label: 'File_Transfer', options: [{value: '*-File', label: 'Select All in Category', color: '#253858',}],};
-        let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category', color: '#666666',}],};
-        let SelectAll = {label: '*', options: [{value: '*', label: 'Select All', color: '#FF8B00',}]};
+        let SMS = {label: 'SMS', options: [{value: '*-SMS', label: 'Select All in Category',}],};
+        let WEB = {label: 'WEB', options: [{value: '*-WEB', label: 'Select All in Category',}],};
+        let Voice = {label: 'Voice', options: [{value: '*-Voice', label: 'Select All in Category',}],};
+        let Video = {label: 'Video_Streaming', options: [{value: '*-Video', label: 'Select All in Category',}],};
+        let IM = {label: 'IM', options: [{value: '*-IM', label: 'Select All in Category',}],};
+        let File = {label: 'File_Transfer', options: [{value: '*-File', label: 'Select All in Category',}],};
+        let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category',}],};
+        let SelectAll = {label: '*', options: [{value: '*', label: 'Select All',}]};
         //TODO: Change api url, maybe  surround the fetch in try too
         fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
             //fetch(`http://panoramamed:8001/file.txt?type=${this.props.type}`)

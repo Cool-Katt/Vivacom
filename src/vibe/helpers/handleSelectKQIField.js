@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import chroma from 'chroma-js';
 
+//REMOVE THIS
 /*const level1options = [
     {value: 'CS', label: 'CS'},
     {value: 'PS', label: 'PS'},
@@ -105,8 +107,9 @@ const newOptions = [
         options: level4options,
     },
 ]*/
+/*
 const optionGroups = [
-    /*
+    /!*
         {value: 'Voice', label: 'Voice'},
         {value: 'SMS', label: 'SMS'},
         {value: 'WEB', label: 'WEB'},
@@ -130,13 +133,13 @@ const optionGroups = [
         {value: 'File_Sharing_Retainability', label: 'File_Sharing_Retainability'},
         {value: 'Multimedia_Integrity', label: 'Multimedia_Integrity'},
 
-    */
-    /*{group: 'SMS', label: 'SMS_Origination_Delay_ms'},
+    *!/
+    /!*{group: 'SMS', label: 'SMS_Origination_Delay_ms'},
     {group: 'SMS', label: 'SMS_Termination_Delay_ms'},
     {group: 'SMS', label: 'SMS_Termination_Rate'},
-    {group: 'SMS', label: 'SMS_Origination_Success_Rate'},*/
+    {group: 'SMS', label: 'SMS_Origination_Success_Rate'},*!/
     {group: 'SMS', label: 'SMS_'},
-    /*{group: 'Voice', label: 'Perceived_Call_Success_Rate'},
+    /!*{group: 'Voice', label: 'Perceived_Call_Success_Rate'},
     {group: 'Voice', label: 'VoLTE_MO_Network_Connection_Rate'},
     {group: 'Voice', label: 'VoWiFi_MO_Connection_Rate'},
     {group: 'Voice', label: 'Perceived_Call_Drop_Rate'},
@@ -145,36 +148,36 @@ const optionGroups = [
     {group: 'Voice', label: 'E2E_Call_Connection_Delay_ms'},
     {group: 'Voice', label: 'V2V_MO_Connection_Delay'},
     {group: 'Voice', label: 'VoWiFi_MO_Connection_Delay_ms'},
-    {group: 'Voice', label: 'VoLTE_to_VoLTE_Voice_MOS'},*/
+    {group: 'Voice', label: 'VoLTE_to_VoLTE_Voice_MOS'},*!/
     {group: 'Voice', label: 'VoLTE_'},
     {group: 'Voice', label: 'VoWiFi_'},
     {group: 'Voice', label: 'V2V_'},
     {group: 'Voice', label: 'E2E_'},
     {group: 'Voice', label: 'Perceived_'},
-    /*{group: 'WEB', label: 'Page_UL_TCP_Retransmission_Rate'},
+    /!*{group: 'WEB', label: 'Page_UL_TCP_Retransmission_Rate'},
     {group: 'WEB', label: 'Page_DL_TCP_Retransmission_Rate'},
     {group: 'WEB', label: 'Page_Server_Side_RTT'},
     {group: 'WEB', label: 'Page_Client_Side_RTT'},
     {group: 'WEB', label: 'Page_E2E_Delay'},
     {group: 'WEB', label: 'Page_Response_Delay_ms'},
-    {group: 'WEB', label: 'Page_DL_Throughput_Kbps'},*/
+    {group: 'WEB', label: 'Page_DL_Throughput_Kbps'},*!/
     {group: 'WEB', label: 'Page_'},
-    /* {group: 'Video_Streaming', label: 'Video_Stream_DL_TCP_Retransmission_Rate'},
+    /!* {group: 'Video_Streaming', label: 'Video_Stream_DL_TCP_Retransmission_Rate'},
      {group: 'Video_Streaming', label: 'Video_Streaming_xKB_Start_Delay'},
      {group: 'Video_Streaming', label: 'Video_Stream_Client_Side_Round_Trip_Time_ms'},
      {group: 'Video_Streaming', label: 'Video_Stream_E2E_Delay'},
      {group: 'Video_Streaming', label: 'Video_Stream_UL_TCP_Retransmission_Rate'},
      {group: 'Video_Streaming', label: 'Video_Stream_Server_Side_Round_Trip_Time_ms'},
-     {group: 'Video_Streaming', label: 'Video_Streaming_Download_Throughput_Kbps'},*/
+     {group: 'Video_Streaming', label: 'Video_Streaming_Download_Throughput_Kbps'},*!/
     {group: 'Video_Streaming', label: 'Video_Streaming_'},
     {group: 'Video_Streaming', label: 'Video_'},
-    /* {group: 'IM', label: 'IM_DL_TCP_Packets_Loss_Rate'},
+    /!* {group: 'IM', label: 'IM_DL_TCP_Packets_Loss_Rate'},
      {group: 'IM', label: 'IM_UL_TCP_Packets_Loss_Rate'},
      {group: 'IM', label: 'IM_Interacting_Delay'},
      {group: 'IM', label: 'IM_Server_Side_Round_Trip_Time_ms'},
-     {group: 'IM', label: 'IM_Client_Side_Round_Trip_Time_ms'},*/
+     {group: 'IM', label: 'IM_Client_Side_Round_Trip_Time_ms'},*!/
     {group: 'IM', label: 'IM_'},
-    /*{group: 'File_Transfer', label: 'File_Access_Server_Side_Uplink_TCP_Packet_Loss_Rate'},
+    /!*{group: 'File_Transfer', label: 'File_Access_Server_Side_Uplink_TCP_Packet_Loss_Rate'},
     {group: 'File_Transfer', label: 'File_Access_Server_Side_Downlink_TCP_Packet_Loss_Rate'},
     {group: 'File_Transfer', label: 'File_Access_Client_Side_Uplink_TCP_Packet_Loss_Rate'},
     {group: 'File_Transfer', label: 'File_Access_Client_Side_Downlink_TCP_Packet_Loss_Rate'},
@@ -183,14 +186,65 @@ const optionGroups = [
     {group: 'File_Transfer', label: 'File_Sharing_DL_Throughput_Kbps'},
     {group: 'File_Transfer', label: 'Multimedia_Response_Delay'},
     {group: 'File_Transfer', label: 'Multimedia_UL_Throughput_Kbps'},
-    {group: 'File_Transfer', label: 'Multimedia_DL_Throughput_Kbps'},*/
+    {group: 'File_Transfer', label: 'Multimedia_DL_Throughput_Kbps'},*!/
     {group: 'File_Transfer', label: 'Multimedia_'},
     {group: 'File_Transfer', label: 'File_'},
 ]
+*/
 
 const animate = makeAnimated();
 let newNewNewOptions = [];
 let selectAll = [];
+
+const colourStyles = {
+    control: styles => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+        const color = chroma(data.color);
+        return {
+            ...styles,
+            backgroundColor: isDisabled
+                ? null
+                : isSelected
+                    ? data.color
+                    : isFocused
+                        ? color.alpha(0.1).css()
+                        : null,
+            color: isDisabled
+                ? '#ccc'
+                : isSelected
+                    ? chroma.contrast(color, 'white') > 2
+                        ? 'white'
+                        : 'black'
+                    : data.color,
+            cursor: isDisabled ? 'not-allowed' : 'default',
+
+            ':active': {
+                ...styles[':active'],
+                backgroundColor:
+                    !isDisabled && (isSelected ? data.color : color.alpha(0.3).css()),
+            },
+        };
+    },
+    multiValue: (styles, { data }) => {
+        const color = chroma(data.color);
+        return {
+            ...styles,
+            backgroundColor: color.alpha(0.1).css(),
+        };
+    },
+    multiValueLabel: (styles, { data }) => ({
+        ...styles,
+        color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+        ...styles,
+        color: data.color,
+        ':hover': {
+            backgroundColor: data.color,
+            color: 'white',
+        },
+    }),
+};
 
 const groupStyles = {
     display: 'flex',
@@ -227,13 +281,13 @@ class SelectComponent extends Component {
 
     read() {
         let obj = [];
-        let SMS = {label: 'SMS', options: []};
-        let WEB = {label: 'WEB', options: []};
-        let Voice = {label: 'Voice', options: []};
-        let Video = {label: 'Video_Streaming', options: []};
-        let IM = {label: 'IM', options: []};
-        let File = {label: 'File_Transfer', options: []};
-        let Other = {label: 'Other', options: []};
+        let SMS = {label: 'SMS', options: [], color: '#00B8D9',};
+        let WEB = {label: 'WEB', options: [], color: '#0052CC',};
+        let Voice = {label: 'Voice', options: [], color: '#5243AA',};
+        let Video = {label: 'Video_Streaming', options: [], color: '#36B37E',};
+        let IM = {label: 'IM', options: [], color: '#00875A',};
+        let File = {label: 'File_Transfer', options: [], color: '#253858',};
+        let Other = {label: 'Other', options: [], color: '#666666',};
         //TODO: Change api url, maybe  surround the fetch in try too
         fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
             //fetch(`http://panoramamed:8001/file.txt?type=${this.props.type}`)
@@ -247,32 +301,32 @@ class SelectComponent extends Component {
 
                     if (word.startsWith('SMS_')) {
                         //SMS
-                        SMS.options.push({value: word, label: word,});
+                        SMS.options.push({value: word, label: word, color: '#00B8D9',});
                     } else if (word.startsWith('VoLTE_') || word.startsWith('VoWiFi_') || word.startsWith('V2V_') ||
                         word.startsWith('E2E_') || word.startsWith('Perceived_')) {
                         //Voice
-                        Voice.options.push({value: word, label: word,});
+                        Voice.options.push({value: word, label: word, color: '#0052CC',});
                     } else if (word.startsWith('Page_')) {
                         //WEB
-                        WEB.options.push({value: word, label: word,});
+                        WEB.options.push({value: word, label: word, color: '#5243AA',});
                     } else if (word.startsWith('Video_') || word.startsWith('Video_Streaming_')) {
                         //Video_Streaming
-                        Video.options.push({value: word, label: word,});
+                        Video.options.push({value: word, label: word,  color: '#36B37E',});
                     } else if (word.startsWith('IM_')) {
                         //IM
-                        IM.options.push({value: word, label: word,});
+                        IM.options.push({value: word, label: word, color: '#00875A',});
                     } else if (word.startsWith('Multimedia_') || word.startsWith('File_')) {
                         //File_Transfer
-                        File.options.push({value: word, label: word,});
+                        File.options.push({value: word, label: word, color: '#253858',});
                     } else {
                         //Other
-                        Other.options.push({value: word, label: word,});
+                        Other.options.push({value: word, label: word, color: '#666666',});
                     }
                 })
             })
         obj.push({label: 'Select All', value: '*'});
         newNewNewOptions.splice(0, newNewNewOptions.length)
-        newNewNewOptions.push(SMS, WEB, Video, Voice, File, IM, File, Other);
+        newNewNewOptions.push(SMS, WEB, Video, Voice, File, IM, Other);
         selectAll = obj;
     }
 
@@ -305,6 +359,7 @@ class SelectComponent extends Component {
             defaultValue={null}
             formatGroupLabel={formatGroupLabel}
             onChange={this.onChange}
+            styles={colourStyles}
             value={this.state.someOptions}
         />)
     }

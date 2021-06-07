@@ -228,7 +228,8 @@ export default class AnalyticsPage extends Component {
                     <hr/>
                     <Row>
                         <Col className='m-l-auto' md={8}>
-                            <Card>
+                            <Card onMouseEnter={() => document.getElementById('mainGraph').style.display = 'inline-block'}
+                                  onMouseLeave={() => document.getElementById('mainGraph').style.display = 'none'}>
                                 <CardHeader> Graph </CardHeader>
                                 <CardBody>
                                     <div>
@@ -240,10 +241,21 @@ export default class AnalyticsPage extends Component {
                                             options={{
                                                 legend: {display: false}, tooltips: {enabled: true},
                                                 scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
+                                                animation: {
+                                                    onComplete: function () {
+                                                        let a = document.getElementById('mainGraph').firstChild.firstChild;
+                                                        a.setAttribute('href', this.toBase64Image());
+                                                        a.download = 'summarized-graph.png';
+                                                    }
+                                                },
                                             }}
                                         />
                                     </div>
                                 </CardBody>
+                                <CardFooter className='m-a-auto' id='mainGraph'
+                                            style={{display: 'none'}}>
+                                    <Button color='info' outline><a href='#'>Save As Image</a></Button>
+                                </CardFooter>
                             </Card>
                         </Col>
                         <Col className='m-r-auto' md={3}>

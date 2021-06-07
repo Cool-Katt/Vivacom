@@ -8,7 +8,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
+    "chroma-js": "^2.1.2",
     "classnames": "^2.2.6",
     "firebase": "^8.4.2",
     "node-sass": "^4.14.1",

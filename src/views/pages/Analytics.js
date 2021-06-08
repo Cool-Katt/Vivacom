@@ -79,7 +79,10 @@ function transformDataForCharts(data, isMulti = true) {
             fill: false,
         }
         if (!isMulti){
-            newObj.steppedLine = true;
+            //newObj.steppedLine = true;
+            newObj.tension = 0.3
+            newObj.pointRadius= 6;
+            newObj.pointHoverRadius= 8;
             newObj.borderColor = JSON.parse(JSON.stringify(newObj.backgroundColor));
             delete(newObj.backgroundColor)
         }
@@ -285,7 +288,8 @@ export default class AnalyticsPage extends Component {
                                                  data={col}
                                                  options={{
                                                      legend: {display: false}, tooltips: {enabled: true},
-                                                     scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
+                                                     //scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
+                                                     scales: {yAxes: [{ticks: {padding: 21}}]},
                                                      animation: {
                                                          onComplete: function () {
                                                              let a = document.getElementById(col.datasets[0].label).firstChild.firstChild;

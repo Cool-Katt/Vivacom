@@ -42,6 +42,7 @@ export default class FormsDailyMSISDN extends Component {
                         <FormGroup>
                              <Label for="name">End Date</Label>
                              <Input type="date" name="endDate" id="endDate"
+                                    defaultValue={this.state.today.toString()}
                                     max={this.state.today.toString()}/>
                         </FormGroup>
                         <legend>KQIs</legend>

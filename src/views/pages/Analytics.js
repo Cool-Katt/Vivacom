@@ -286,7 +286,7 @@ export default class AnalyticsPage extends Component {
                                         onMouseLeave={() => document.getElementById(col.datasets[0].label).style.display = 'none'}>
                                         <CardHeader>{col.datasets[0].label}</CardHeader>
                                         <CardBody>
-                                            <Line ref={ref => (this.childChart[index] = ref)}
+                                            <Line ref={ref => (this.childChart[col.datasets[0].label] = ref)}
                                                   data={col}
                                                   options={{
                                                      legend: {display: false}, tooltips: {enabled: true},
@@ -307,13 +307,15 @@ export default class AnalyticsPage extends Component {
                                             <Button color='info' outline><a href='#'>Save As Image</a></Button>
                                             <Button color='warning' outline onClick={() => {
                                                 if (this.state.isScaleZero){
-                                                    this.childChart[index].chart_instance.options.scales = {yAxes:[{ticks: {padding: 21, suggestedMin: 0, min: 0}}]};
+                                                    this.childChart[col.datasets[0].label]
+                                                        .chart_instance.options.scales = {yAxes:[{ticks: {padding: 21, suggestedMin: 0, min: 0}}]};
                                                     this.setState({isScaleZero: false});
                                                 } else {
-                                                    this.childChart[index].chart_instance.options.scales = {yAxes:[{ticks: {padding: 21,}}]};
+                                                    this.childChart[col.datasets[0].label]
+                                                        .chart_instance.options.scales = {yAxes:[{ticks: {padding: 21,}}]};
                                                     this.setState({isScaleZero: true});
                                                 }
-                                                this.childChart[index].chart_instance.update();
+                                                this.childChart[col.datasets[0].label].chart_instance.update();
                                             }}>Change Y Scale Origin</Button>
                                         </CardFooter>
                                     </Card>) :

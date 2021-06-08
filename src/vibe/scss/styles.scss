@@ -23,3 +23,11 @@
   margin-right: 15px;
   width: 10px;
 }
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
+  white-space: pre-line;
+}
+
+.tabulator .tabulator-header .tabulator-col {
+  height: 10vh;
+}

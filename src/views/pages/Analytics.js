@@ -138,11 +138,13 @@ for (let i = 0; i < avr.length; i++) {
 }
 
 export default class AnalyticsPage extends Component {
+    childChart = [];
     constructor(props) {
         super(props);
 
         this.state = {
             res: [],
+            isScaleZero: false,
         };
 
         if (!props.location.state) {
@@ -277,16 +279,16 @@ export default class AnalyticsPage extends Component {
                     <hr/>
                     {Object.values(rows).map((row, index) => (
                         <Row key={index}>
-                            {row.map((col, index) => (<Col key={index} className='m-a-auto' md={5}>{
-                                !col.datasets[0].data.length < 1 ?
+                            {row.map((col, index) => (<Col key={index} className='m-a-auto' md={5}>
+                                {!col.datasets[0].data.length < 1 ?
                                     (<Card
                                         onMouseEnter={() => document.getElementById(col.datasets[0].label).style.display = 'inline-block'}
                                         onMouseLeave={() => document.getElementById(col.datasets[0].label).style.display = 'none'}>
                                         <CardHeader>{col.datasets[0].label}</CardHeader>
                                         <CardBody>
-                                            <Line ref={ref => (this.childChart = ref)}
-                                                 data={col}
-                                                 options={{
+                                            <Line ref={ref => (this.childChart[index] = ref)}
+                                                  data={col}
+                                                  options={{
                                                      legend: {display: false}, tooltips: {enabled: true},
                                                      //scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
                                                      scales: {yAxes: [{ticks: {padding: 21}}]},
@@ -303,6 +305,16 @@ export default class AnalyticsPage extends Component {
                                         <CardFooter className='m-a-auto' id={col.datasets[0].label}
                                                     style={{display: 'none'}}>
                                             <Button color='info' outline><a href='#'>Save As Image</a></Button>
+                                            <Button color='warning' outline onClick={() => {
+                                                if (this.state.isScaleZero){
+                                                    this.childChart[index].chart_instance.options.scales = {yAxes:[{ticks: {padding: 21, suggestedMin: 0, min: 0}}]};
+                                                    this.setState({isScaleZero: false});
+                                                } else {
+                                                    this.childChart[index].chart_instance.options.scales = {yAxes:[{ticks: {padding: 21,}}]};
+                                                    this.setState({isScaleZero: true});
+                                                }
+                                                this.childChart[index].chart_instance.update();
+                                            }}>Change Y Scale Origin</Button>
                                         </CardFooter>
                                     </Card>) :
                                     (<Card style={{width: '100%', height: '95%'}}>

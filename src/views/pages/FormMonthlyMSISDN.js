@@ -48,6 +48,7 @@ export default class FormsMonthlyMSISDN extends Component {
                             <Input type="month" name="endDate" id="endDate"
                                    max={this.state.thisMonth.toString()}
                                    placeholder="20yy-MM"
+                                   defaultValue={this.state.thisMonth.toString()}
                                    pattern="20[0-9]{2}-[0-1][0-9]"/>
                         </FormGroup>
                         <legend>KQIs</legend>

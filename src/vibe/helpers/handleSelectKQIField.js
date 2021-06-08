@@ -281,14 +281,15 @@ class SelectComponent extends Component {
 
     read() {
         let obj = [];
-        let SMS = {label: 'SMS', options: [{value: '*-SMS', label: 'Select All in Category',}],};
-        let WEB = {label: 'WEB', options: [{value: '*-WEB', label: 'Select All in Category',}],};
-        let Voice = {label: 'Voice', options: [{value: '*-Voice', label: 'Select All in Category',}],};
-        let Video = {label: 'Video_Streaming', options: [{value: '*-Video', label: 'Select All in Category',}],};
-        let IM = {label: 'IM', options: [{value: '*-IM', label: 'Select All in Category',}],};
-        let File = {label: 'File_Transfer', options: [{value: '*-File', label: 'Select All in Category',}],};
-        let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category',}],};
-        let SelectAll = {label: '*', options: [{value: '*', label: 'Select All',}]};
+        let SMS = {label: 'SMS', options: [{value: '*-SMS', label: 'Select All in Category', color: '#0093B3',}],};
+        let WEB = {label: 'WEB', options: [{value: '*-WEB', label: 'Select All in Category', color: '#362C70',}],};
+        let Voice = {label: 'Voice', options: [{value: '*-Voice', label: 'Select All in Category', color: '#0042A6',}],};
+        let Video = {label: 'Video_Streaming', options: [{value: '*-Video', label: 'Select All in Category', color: '#008F5D',}],};
+        let IM = {label: 'IM', options: [{value: '*-IM', label: 'Select All in Category', color: '#006E49',}],};
+        let File = {label: 'File_Transfer', options: [{value: '*-File', label: 'Select All in Category', color: '#253858',}],};
+        let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category', color: '#666666',}],};
+        let SelectAll = {label: '*', options: [{value: '*', label: 'Select All', color: '#E67E00',}]};
+
         //TODO: Change api url, maybe  surround the fetch in try too
         fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
             //fetch(`http://panoramamed:8001/file.txt?type=${this.props.type}`)
@@ -300,7 +301,6 @@ class SelectComponent extends Component {
                         label: word,
                         color: '#FF8B00',
                     })
-
                     if (word.startsWith('SMS_')) {
                         //SMS
                         SMS.options.push({value: word, label: word, color: '#00B8D9',});
@@ -319,16 +319,16 @@ class SelectComponent extends Component {
                         IM.options.push({value: word, label: word, color: '#00875A',});
                     } else if (word.startsWith('Multimedia_') || word.startsWith('File_')) {
                         //File_Transfer
-                        File.options.push({value: word, label: word, color: '#253858',});
+                        File.options.push({value: word, label: word, color: '#7181A6',});
                     } else {
                         //Other
-                        Other.options.push({value: word, label: word, color: '#666666',});
+                        Other.options.push({value: word, label: word, color: '#828282',});
                     }
                 })
             })
-        newNewNewOptions.splice(0, newNewNewOptions.length)
+        newNewNewOptions.splice(0, newNewNewOptions.length);
         newNewNewOptions.push(SelectAll, SMS, WEB, Video, Voice, File, IM, Other);
-        selectAll = obj
+        selectAll = obj;
     }
 
     onChange = (option, event) => {
@@ -336,6 +336,7 @@ class SelectComponent extends Component {
             switch (event.option.value) {
                 case '*-SMS':
                     option = JSON.parse(JSON.stringify(newNewNewOptions[1].options));
+                    //option = option.concat(newNewNewOptions[1].options)
                     break;
                 case '*-WEB':
                     option = JSON.parse(JSON.stringify(newNewNewOptions[2].options));
@@ -360,9 +361,11 @@ class SelectComponent extends Component {
             }
             option.shift();
         } else if (event.action === 'remove-value' && event.removedValue.value.startsWith('*')) {
-            option = [];
+            //this part is currently not in effect because the select all option is removed from the list prior
+            option.splice(0, option.length);
         }
         return this.setState({someOptions: option});
+
     }
 
     componentDidMount() {

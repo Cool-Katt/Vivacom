@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Button, Form, FormGroup, Label, Input, Col, Row, Card, CardBody} from 'reactstrap';
-import selectRegionComponent from '../../vibe/helpers/handleSelectRegionField'
 import Redirect from "react-router-dom/Redirect";
 import PageAlertContext from "../../vibe/components/PageAlert/PageAlertContext";
 import SelectComponent from "../../vibe/helpers/handleSelectKQIField";

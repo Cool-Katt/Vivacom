@@ -364,15 +364,20 @@ class SelectComponent extends Component {
             //this part is currently not in effect because the select all option is removed from the list prior
             option.splice(0, option.length);
         }
-        return this.setState({someOptions: option});
-
+        this.setState({someOptions: option,});
     }
 
     componentDidMount() {
         this.read();
+        let prevSelection = JSON.parse(sessionStorage.getItem(this.props.type))
+        if (prevSelection){
+            this.setState({someOptions: prevSelection.kqis})
+        }
     }
 
     render() {
+        //console.log(this.state.someOptions)
+        //console.log(this.state.prevOptions)
         return (<Select
             isMulti
             name="kqi"
@@ -383,7 +388,8 @@ class SelectComponent extends Component {
             className="selectKQIs"
             classNamePrefix="select"
             placeholder="Click here to select something"
-            defaultValue={null}
+            //defaultValue={this.props?.prevSelection}
+            defaultValue={this.state.someOptions}
             formatGroupLabel={formatGroupLabel}
             onChange={this.onChange}
             styles={colourStyles}

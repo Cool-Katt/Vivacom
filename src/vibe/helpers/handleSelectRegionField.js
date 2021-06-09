@@ -297,7 +297,8 @@ const formatGroupLabel = data => (
     </div>
 );
 
-export default function SelectRegionComponent() {
+export default function SelectRegionComponent(prevQuery) {
+    console.log(prevQuery)
     return (<Select
                 //isMulti={true}
                 components={animate}
@@ -309,7 +310,9 @@ export default function SelectRegionComponent() {
                 className="selectRegion"
                 classNamePrefix="select"
                 placeholder="Click here to select something"
-                defaultValue={null}
+                defaultValue={prevQuery ? {value: prevQuery, label: prevQuery} : null}
+                //defaultValue={{value: prevQuery, label: prevQuery}}
+                //defaultValue={{value: 'ass', label: 'ass'}}
                 formatGroupLabel={formatGroupLabel}
                 required={true}
                 getOptionValue={op => `${op.value}:${op.group}`}

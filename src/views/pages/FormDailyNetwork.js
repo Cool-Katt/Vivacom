@@ -7,17 +7,25 @@ import SelectComponent from '../../vibe/helpers/handleSelectKQIField'
 export default class FormsDailyMSISDN extends Component {
     constructor(props) {
         super(props);
+        this.selectRef = React.createRef();
         let today = new Date().toISOString().split("T")[0];
         //TODO: set min date for startDate after checking the db
         this.state = {
             today,
             redirectFlag: false,
             type: 'daily-network',
+            prevQuery: null,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+
         if (!props.location.state) {
             props.location.state = {}
         }
+    }
+
+    componentDidMount() {
+        let data = JSON.parse(sessionStorage.getItem(this.state.type));
+        this.setState(prevState => {return {...prevState, prevQuery: data}})
     }
 
     render() {
@@ -33,6 +41,7 @@ export default class FormsDailyMSISDN extends Component {
                                         <FormGroup>
                                             <Label for="name">Start Date</Label>
                                             <Input type="date" name="startDate" id="startDate" required
+                                                   defaultValue={this.state.prevQuery?.startDate}
                                                    max={this.state.today.toString()}/>
                                         </FormGroup>
                                         <FormGroup>
@@ -44,7 +53,8 @@ export default class FormsDailyMSISDN extends Component {
                                         <legend>KQIs</legend>
                                         <FormGroup>
                                             <Label for="exampleSelect">Select KQIs to query</Label>
-                                            <SelectComponent type={this.state.type}/>
+                                            <SelectComponent type={this.state.type} prevSelection={this.state.prevQuery?.kqis}
+                                                             ref={this.selectRef}/>
                                         </FormGroup>
                                         <Button>Submit</Button>
                                         {this.state.redirect ? <Redirect to={{
@@ -66,6 +76,7 @@ export default class FormsDailyMSISDN extends Component {
         return (e => {
             e.preventDefault();
             let formData = new FormData(e.currentTarget)
+
             let data = {
                 startDate: formData.get('startDate'),
                 endDate: formData.get('endDate'),
@@ -79,6 +90,10 @@ export default class FormsDailyMSISDN extends Component {
                 context.setAlert('⚠️ Please wait for data to load. It shouldn\'t take more than a minute.', 'info')
                 props.location.state.data = data;
                 //console.log(data);
+                let tempData = JSON.parse(JSON.stringify(data));
+                tempData.kqis = this.selectRef.current.state.someOptions;
+                sessionStorage.setItem(this.state.type, JSON.stringify(tempData));
+
                 this.setState({redirect: true});
             }
         })

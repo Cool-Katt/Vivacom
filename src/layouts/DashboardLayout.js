@@ -39,12 +39,11 @@ export default class DashboardLayout extends Component {
 
     onLogout() {
         firebase.auth().signOut();
+        sessionStorage.clear();
         this.setState(prevState => {
             delete prevState.user;
             return {...prevState,}
         })
-        sessionStorage.clear();
-        console.log(this.state)
     }
 
     handleResize = () => {

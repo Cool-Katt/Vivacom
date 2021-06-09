@@ -298,7 +298,6 @@ const formatGroupLabel = data => (
 );
 
 export default function SelectRegionComponent(prevQuery) {
-    console.log(prevQuery)
     return (<Select
                 //isMulti={true}
                 components={animate}

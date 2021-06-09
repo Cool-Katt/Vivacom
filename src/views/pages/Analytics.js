@@ -80,9 +80,10 @@ function transformDataForCharts(data, isMulti = true) {
         }
         if (!isMulti){
             //newObj.steppedLine = true;
-            newObj.tension = 0.3
-            newObj.pointRadius= 6;
-            newObj.pointHoverRadius= 8;
+            newObj.tension = 0.3;
+            //newObj.pointRadius= 6;
+            //newObj.pointHitRadius= 10;
+            //newObj.pointHoverRadius= 8;
             newObj.borderColor = JSON.parse(JSON.stringify(newObj.backgroundColor));
             delete(newObj.backgroundColor)
         }
@@ -263,7 +264,7 @@ export default class AnalyticsPage extends Component {
                                 </CardBody>
                                 <CardFooter className='m-a-auto' id='mainGraph'
                                             style={{display: 'none'}}>
-                                    <Button color='info' outline><a href='#'>Save As Image</a></Button>
+                                    <Button color='info' outline><a href='/'>Save As Image</a></Button>
                                 </CardFooter>
                             </Card>
                         </Col>
@@ -272,6 +273,7 @@ export default class AnalyticsPage extends Component {
                                 <CardHeader> Legend </CardHeader>
                                 <CardBody>
                                     <div id='legend-container'/>
+                                    <div id='legend-def'/>
                                 </CardBody>
                             </Card>
                         </Col>
@@ -292,6 +294,7 @@ export default class AnalyticsPage extends Component {
                                                      legend: {display: false}, tooltips: {enabled: true},
                                                      //scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
                                                      scales: {yAxes: [{ticks: {padding: 21}}]},
+                                                     layout: {padding: 15,},
                                                      animation: {
                                                          onComplete: function () {
                                                              let a = document.getElementById(col.datasets[0].label).firstChild.firstChild;
@@ -309,10 +312,20 @@ export default class AnalyticsPage extends Component {
                                                 if (this.state.isScaleZero){
                                                     this.childChart[col.datasets[0].label]
                                                         .chart_instance.options.scales = {yAxes:[{ticks: {padding: 21, suggestedMin: 0, min: 0}}]};
+
+                                                    this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointRadius = 0
+                                                    this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointHoverRadius = 0
+                                                    this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointHitRadius = 20
+
                                                     this.setState({isScaleZero: false});
                                                 } else {
                                                     this.childChart[col.datasets[0].label]
                                                         .chart_instance.options.scales = {yAxes:[{ticks: {padding: 21,}}]};
+
+                                                    this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointRadius = 6
+                                                    this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointHoverRadius = 8
+                                                    this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointHitRadius = 10
+
                                                     this.setState({isScaleZero: true});
                                                 }
                                                 this.childChart[col.datasets[0].label].chart_instance.update();

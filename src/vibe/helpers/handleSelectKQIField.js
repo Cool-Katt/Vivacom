@@ -281,14 +281,14 @@ class SelectComponent extends Component {
 
     read() {
         let obj = [];
-        let SMS = {label: 'SMS', options: [{value: '*-SMS', label: 'Select All in Category', color: '#0093B3',}],};
-        let WEB = {label: 'WEB', options: [{value: '*-WEB', label: 'Select All in Category', color: '#362C70',}],};
-        let Voice = {label: 'Voice', options: [{value: '*-Voice', label: 'Select All in Category', color: '#0042A6',}],};
-        let Video = {label: 'Video_Streaming', options: [{value: '*-Video', label: 'Select All in Category', color: '#008F5D',}],};
-        let IM = {label: 'IM', options: [{value: '*-IM', label: 'Select All in Category', color: '#006E49',}],};
-        let File = {label: 'File_Transfer', options: [{value: '*-File', label: 'Select All in Category', color: '#253858',}],};
-        let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category', color: '#666666',}],};
-        let SelectAll = {label: '*', options: [{value: '*', label: 'Select All', color: '#E67E00',}]};
+        let SMS = {label: 'SMS', options: [{value: '*-SMS', label: 'Select All in Category', color: '#0088a7',}],};
+        let WEB = {label: 'WEB', options: [{value: '*-WEB', label: 'Select All in Category', color: '#191b7a',}],};
+        let Voice = {label: 'Voice', options: [{value: '*-Voice', label: 'Select All in Category', color: '#002b9a',}],};
+        let Video = {label: 'Video_Streaming', options: [{value: '*-Video', label: 'Select All in Category', color: '#009b00',}],};
+        let IM = {label: 'IM', options: [{value: '*-IM', label: 'Select All in Category', color: '#00943e',}],};
+        let File = {label: 'File_Transfer', options: [{value: '*-File', label: 'Select All in Category', color: '#005200',}],};
+        let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category', color: '#445577',}],};
+        let SelectAll = {label: '*', options: [{value: '*', label: 'Select All', color: '#c55c00',}]};
 
         //TODO: Change api url, maybe  surround the fetch in try too
         fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
@@ -313,16 +313,16 @@ class SelectComponent extends Component {
                         WEB.options.push({value: word, label: word, color: '#5243AA',});
                     } else if (word.startsWith('Video_') || word.startsWith('Video_Streaming_')) {
                         //Video_Streaming
-                        Video.options.push({value: word, label: word, color: '#36B37E',});
+                        Video.options.push({value: word, label: word, color: '#32cd32',});
                     } else if (word.startsWith('IM_')) {
                         //IM
-                        IM.options.push({value: word, label: word, color: '#00875A',});
+                        IM.options.push({value: word, label: word, color: '#00c66b',});
                     } else if (word.startsWith('Multimedia_') || word.startsWith('File_')) {
                         //File_Transfer
-                        File.options.push({value: word, label: word, color: '#7181A6',});
+                        File.options.push({value: word, label: word, color: '#008000',});
                     } else {
                         //Other
-                        Other.options.push({value: word, label: word, color: '#828282',});
+                        Other.options.push({value: word, label: word, color: '#7181A6',});
                     }
                 })
             })

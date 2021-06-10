@@ -14,6 +14,7 @@ import 'react-tabulator/lib/css/tabulator_modern.css'
 import * as API from '../../vibe/helpers/handleBackendAPIConnection'
 import {ReactTabulator} from 'react-tabulator'
 import {DashboardLayoutContext} from "../../layouts/DashboardLayout";
+import {colourMaker} from "../../KQICategorizedList"
 
 const chartColors = {
     red: 'rgb(233, 30, 99)',
@@ -74,8 +75,9 @@ function transformDataForCharts(data, isMulti = true) {
         const newObj = {
             label: key,
             data: [],
-            backgroundColor: chartColors[Object.keys(chartColors)[Math.floor(Math.random() * Object.keys(chartColors).length)]],
+            //backgroundColor: chartColors[Object.keys(chartColors)[Math.floor(Math.random() * Object.keys(chartColors).length)]],
             //backgroundColor: Object.values(chartColors)[count++],
+            backgroundColor: colourMaker(key),
             fill: false,
         }
         if (!isMulti){

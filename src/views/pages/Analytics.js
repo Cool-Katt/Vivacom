@@ -307,7 +307,7 @@ export default class AnalyticsPage extends Component {
                                         </CardBody>
                                         <CardFooter className='m-a-auto' id={col.datasets[0].label}
                                                     style={{display: 'none'}}>
-                                            <Button color='info' outline><a href='#'>Save As Image</a></Button>
+                                            <Button color='info' outline><a href='/'>Save As Image</a></Button>
                                             <Button color='warning' outline onClick={() => {
                                                 if (this.state.isScaleZero){
                                                     this.childChart[col.datasets[0].label]
@@ -335,7 +335,7 @@ export default class AnalyticsPage extends Component {
                                     (<Card style={{width: '100%', height: '95%'}}>
                                         <CardHeader>{col.datasets[0].label}</CardHeader>
                                         <CardBody style={{textAlign: 'center'}}>
-                                            <h1 className='m-a-auto'>No Data!</h1>
+                                            <h1 className='m-a-auto p-a-xxl'>No Data!</h1>
                                         </CardBody>
                                     </Card>)
                             }</Col>))}

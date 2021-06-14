@@ -81,19 +81,19 @@ export const tree = {
                 },
                 {
                     name: 'SMS',
-                    attributes: {value: 5,},
+                    attributes: {value: 4,},
                     children: [
                         {
                             name: 'SMS Delay',
-                            attributes: {value: 5,},
+                            attributes: {value: 3,},
                             children: [
                                 {
                                     name: 'SMS Origination Delay ms',
-                                    attributes: {value: 5,},
+                                    attributes: {value: 2,},
                                 },
                                 {
                                     name: 'SMS Termination Delay ms',
-                                    attributes: {value: 5,},
+                                    attributes: {value: 1,},
                                 },
                             ]
                         },
@@ -103,7 +103,7 @@ export const tree = {
                             children: [
                                 {
                                     name: 'SMS Termination Rate',
-                                    attributes: {value: 5,},
+                                    //attributes: {value: 5,},
                                 },
                                 {
                                     name: 'SMS Origination Success Rate',

@@ -10,7 +10,7 @@ class PITree extends Component {
             <div>
                 <Row style={{ height: '80vh' }}>
 
-                                <Tree data={tree} translate={{x: '50', y: '220'}} zoom='0.69' initialDepth='1' enableLegacyTransitions={true}/>
+                                <Tree data={tree} translate={{x: '150', y: '270'}} zoom='0.69' initialDepth='1' enableLegacyTransitions={true}/>
 
                 </Row>
             </div>

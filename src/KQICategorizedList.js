@@ -72,7 +72,7 @@ export const tree = {
     name: 'Network',
     children: [
         {
-            name: 'PS',
+            name: 'CS',
             attributes: {value: 5,},
             children: [
                 {
@@ -116,7 +116,7 @@ export const tree = {
             ],
         },
         {
-            name: 'CS',
+            name: 'PS',
             attributes: {value: 5,},
             children: [
                 {

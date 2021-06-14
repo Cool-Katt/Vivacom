@@ -9,46 +9,13 @@ import {
 } from 'reactstrap';
 import {Bar, Line} from 'react-chartjs-2';
 import Chart from 'chart.js'
-//import 'react-tabulator/lib/css/bootstrap/tabulator_bootstrap4.css';
 import 'react-tabulator/lib/css/tabulator_modern.css'
 import * as API from '../../vibe/helpers/handleBackendAPIConnection'
 import {ReactTabulator} from 'react-tabulator'
 import {DashboardLayoutContext} from "../../layouts/DashboardLayout";
 import {colourMaker} from "../../KQICategorizedList"
 
-const chartColors = {
-    red: 'rgb(233, 30, 99)',
-    danger: 'rgb(233, 30, 99)',
-    dangerTransparent: 'rgba(233, 30, 99, 0.8)',
-    orange: 'rgb(255, 159, 64)',
-    yellow: 'rgb(255, 180, 0)',
-    green: 'rgb(34, 182, 110)',
-    blue: 'rgb(68, 159, 238)',
-    primary: 'rgb(68,159,238)',
-    primaryTransparent: 'rgba(68,159,238,0.8)',
-    purple: 'rgb(153, 102, 255)',
-    grey: 'rgb(201, 203, 207)',
-
-    primaryShade1: 'rgb(68,159,238)',
-    primaryShade2: 'rgb(23,139,234)',
-    primaryShade3: 'rgb(14,117,202)',
-    primaryShade4: 'rgb(9,85,148)',
-    primaryShade5: 'rgb(12,70,117)',
-    primaryShade6: 'rgb(10,56,93)',
-    primaryShade7: 'rgb(10,49,81)',
-};
-
-const columns = [
-    //{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center",},
-    /* {title: "date", field: "date", },
-     {title: "name", field: "name", },
-     {title: "value", field: "value"},*/
-    /*{title: 'valueBar', field: 'value', hozAlign: 'left', formatter: 'progress', editable: false, formatterParams:{
-        min: 3.9,
-        max: 5,
-        color: chartColors.primary,
-      },},*/
-];
+const columns = [];
 
 const tableOptions = {
     height: 475,
@@ -147,7 +114,7 @@ export default class AnalyticsPage extends Component {
 
         this.state = {
             res: [],
-            isScaleZero: false,
+            isScaleZero: true,
         };
 
         if (!props.location.state) {
@@ -331,7 +298,7 @@ export default class AnalyticsPage extends Component {
                                                     this.setState({isScaleZero: true});
                                                 }
                                                 this.childChart[col.datasets[0].label].chart_instance.update();
-                                            }}>Change Y Scale Origin</Button>
+                                            }}>Normalize Scale</Button>
                                         </CardFooter>
                                     </Card>) :
                                     (<Card style={{width: '100%', height: '95%'}}>

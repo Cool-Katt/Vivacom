@@ -70,6 +70,7 @@ const hierarchy = [
 
 export const tree = {
     name: 'Network',
+    attributes: {},
     children: [
         {
             name: 'CS',
@@ -103,7 +104,7 @@ export const tree = {
                             children: [
                                 {
                                     name: 'SMS Termination Rate',
-                                    //attributes: {value: 5,},
+                                    attributes: {level: 4,},
                                 },
                                 {
                                     name: 'SMS Origination Success Rate',

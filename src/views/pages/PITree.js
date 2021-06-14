@@ -26,6 +26,13 @@ const chartColors = {
 };
 
 class PITree extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          treeData: tree,
+        };
+    }
+
     renderRectSvgNode = ({nodeDatum, toggleNode}) => {
         let colour = 'rgb(153, 102, 255, 0.8)';
 
@@ -69,11 +76,21 @@ class PITree extends Component {
     render() {
         return (
             <div>
-                <Row style={{height: '80vh'}}>
-                    <Tree data={tree} translate={{x: '200', y: '400'}} zoom='0.69' initialDepth='6'
-                          enableLegacyTransitions={true}
-                          renderCustomNodeElement={this.renderRectSvgNode}
-                    />
+                <Row style={{height: '85vh'}}>
+                    <Col md={11} className='m-a-auto'>
+                        <Card className='capture-node' style={{height: '100%'}}>
+                            <CardHeader> PI </CardHeader>
+                            <CardBody>
+                                <Tree data={this.state.treeData} translate={{x: '200', y: '330'}} zoom='0.6' initialDepth='6'
+                                      enableLegacyTransitions={true}
+                                      renderCustomNodeElement={this.renderRectSvgNode}
+                                />
+                            </CardBody>
+                            <CardFooter>
+                                <Button color='danger' outline>Don't click</Button>
+                            </CardFooter>
+                        </Card>
+                    </Col>
                 </Row>
             </div>
         );

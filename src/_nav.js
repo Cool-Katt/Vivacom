@@ -10,7 +10,7 @@ const nav = {
     },
     {
       name: 'Network',
-      icon: 'GitBranch',
+      icon: 'BarChart',
       children: [
         {
           name: 'Daily',
@@ -24,7 +24,7 @@ const nav = {
     },
     {
       name: 'Region',
-      icon: 'Globe',
+      icon: 'MapPin',
       children: [
         {
           name: 'Daily',

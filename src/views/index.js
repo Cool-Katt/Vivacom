@@ -7,6 +7,7 @@ import FormDailyRegions from "./pages/FormDailyRegions";
 import FormMonthlyRegions from "./pages/FormMonthlyRegions";
 import Analytics from './pages/Analytics';
 import ErrorPage from './pages/404';
+import PITree from "./pages/PITree";
 
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [
@@ -54,6 +55,11 @@ const pageList = [
     name: 'Analytics',
     path: '/apps/analytics',
     component: Analytics,
+  },
+  {
+    name: 'PI Tree',
+    path: '/tree',
+    component: PITree,
   },
   {
     name: '404',

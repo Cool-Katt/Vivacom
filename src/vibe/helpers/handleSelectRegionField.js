@@ -310,8 +310,6 @@ export default function SelectRegionComponent(prevQuery) {
                 classNamePrefix="select"
                 placeholder="Click here to select something"
                 defaultValue={prevQuery ? {value: prevQuery, label: prevQuery} : null}
-                //defaultValue={{value: prevQuery, label: prevQuery}}
-                //defaultValue={{value: 'ass', label: 'ass'}}
                 formatGroupLabel={formatGroupLabel}
                 required={true}
                 getOptionValue={op => `${op.value}:${op.group}`}

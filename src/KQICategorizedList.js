@@ -68,6 +68,78 @@ const hierarchy = [
     {level: 3, color: '#23841b', father: 'Multimedia_Integrity', label: 'Multimedia_DL_Throughput_Kbps'},
 ]
 
+export const tree = {
+    name: 'Network',
+    children: [
+        {
+            name: 'PS',
+            attributes: {value: 5,},
+            children: [
+                {
+                    name: 'Voice',
+                    attributes: {value: 5,},
+                },
+                {
+                    name: 'SMS',
+                    attributes: {value: 5,},
+                    children: [
+                        {
+                            name: 'SMS Delay',
+                            attributes: {value: 5,},
+                            children: [
+                                {
+                                    name: 'SMS Origination Delay ms',
+                                    attributes: {value: 5,},
+                                },
+                                {
+                                    name: 'SMS Termination Delay ms',
+                                    attributes: {value: 5,},
+                                },
+                            ]
+                        },
+                        {
+                            name: 'SMS Service Availability',
+                            attributes: {value: 5,},
+                            children: [
+                                {
+                                    name: 'SMS Termination Rate',
+                                    attributes: {value: 5,},
+                                },
+                                {
+                                    name: 'SMS Origination Success Rate',
+                                    attributes: {value: 5,},
+                                },
+                            ]
+                        },
+                    ]
+                },
+            ],
+        },
+        {
+            name: 'CS',
+            attributes: {value: 5,},
+            children: [
+                {
+                    name: 'WEB',
+                    attributes: {value: 5,},
+                },
+                {
+                    name: 'Video Streaming',
+                    attributes: {value: 5,},
+                },
+                {
+                    name: 'IM',
+                    attributes: {value: 5,},
+                },
+                {
+                    name: 'File Transfer',
+                    attributes: {value: 5,},
+                },
+            ],
+        },
+    ],
+}
+
 export const colourMaker = (key) => {
     let colour = '#7181A6';
     hierarchy.forEach(item => {

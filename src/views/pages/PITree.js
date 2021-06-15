@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
-import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader} from 'reactstrap';
+import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Label, Input} from 'reactstrap';
 import {tree} from '../../KQICategorizedList'
 import Tree from 'react-d3-tree'
-import TreeLegend from "../../vibe/components/PITreeLegend/TreeLegend";
+import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 
 const chartColors = {
     red: 'rgb(233, 30, 99)',
@@ -29,12 +29,16 @@ const chartColors = {
 class PITree extends Component {
     constructor(props) {
         super(props);
+        let thisMonth = new Date();
+        thisMonth.setMonth(thisMonth.getMonth() - 1);
+        thisMonth = thisMonth.toISOString().split("T")[0].slice(0, 7);
         this.state = {
-          treeData: tree,
+            thisMonth,
+            //treeData: tree,
         };
     }
 
-    renderRectSvgNode = ({nodeDatum, toggleNode}) => {
+    renderSvgNode = ({nodeDatum, toggleNode}) => {
         let colour = 'rgb(153, 102, 255, 0.8)';
 
         switch (nodeDatum.attributes?.value) {
@@ -74,18 +78,47 @@ class PITree extends Component {
         )
     };
 
+    handleSubmit() {
+        return (e => {
+            e.preventDefault()
+            console.log('submit')
+            this.setState(prevState => {return({...prevState, treeData: tree})})
+        })
+    }
+
     render() {
         return (
             <div>
                 <Row style={{height: '85vh'}}>
                     <Col md={11} className='m-a-auto'>
                         <Card className='capture-node' style={{height: '100%'}}>
-                            <CardHeader> PI </CardHeader>
+                            <CardHeader>
+                                <Form onSubmit={this.handleSubmit()} style={{display: 'flex', alignContent: 'flex-start'}}>
+                                    <FormGroup className='p-t-md p-r-sm p-l'>
+                                        <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN/empty"/>
+                                    </FormGroup>
+                                    <FormGroup className='p-t-md'>
+                                        <Input type="month" name="endDate" id="endDate"
+                                               max={this.state.thisMonth.toString()}
+                                               placeholder="20yy-MM"
+                                               defaultValue={this.state.thisMonth.toString()}
+                                               pattern="20[0-9]{2}-[0-1][0-9]"/>
+                                    </FormGroup>
+                                    <FormGroup className='p-t-md'>
+                                        <Button color='info' outline>
+                                            <i className="fa fa-chevron-right"/> Submit
+                                        </Button>
+                                    </FormGroup>
+                                </Form>
+                            </CardHeader>
                             <CardBody>
-                                <Tree data={this.state.treeData} translate={{x: '200', y: '330'}} zoom='0.6' initialDepth='6'
-                                      enableLegacyTransitions={true}
-                                      renderCustomNodeElement={this.renderRectSvgNode}
-                                />
+                                {this.state.treeData ?
+                                    (<Tree data={this.state.treeData} translate={{x: '200', y: '330'}} zoom='0.6'
+                                                              initialDepth='7'
+                                                              enableLegacyTransitions={true}
+                                                              renderCustomNodeElement={this.renderSvgNode}/>)
+                                    : (<p className='m-a-auto p-a-xxl'>Nothing to see here yet.</p>)
+                                }
                             </CardBody>
                             <CardFooter>
                                 {TreeLegend()}

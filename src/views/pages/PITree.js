@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Label, Input} from 'reactstrap';
+import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Input} from 'reactstrap';
 import {tree} from '../../KQICategorizedList'
 import Tree from 'react-d3-tree'
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
@@ -34,6 +34,8 @@ class PITree extends Component {
                 break;
             case 1:
                 colour = 'rgba(233,30,99,0.8)';
+                break;
+            default:
                 break;
         }
 
@@ -75,13 +77,13 @@ class PITree extends Component {
     render() {
         return (
             <div>
-                <Row style={{height: '85vh'}}>
+                <Row style={{height: '83vh'}}>
                     <Col md={11} className='m-a-auto'>
                         <Card className='capture-node' style={{height: '100%'}}>
                             <CardHeader>
                                 <Form onSubmit={this.handleSubmit()} style={{display: 'flex', alignContent: 'flex-start'}}>
                                     <FormGroup className='p-t-md p-r-sm p-l'>
-                                        <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN/empty"/>
+                                        <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN -or- empty"/>
                                     </FormGroup>
                                     <FormGroup className='p-t-md'>
                                         <Input type="month" name="date" id="endDate"
@@ -92,7 +94,7 @@ class PITree extends Component {
                                     </FormGroup>
                                     <FormGroup className='p-t-md'>
                                         <Button color='info' outline>
-                                            <i className="fa fa-chevron-right"/> Submit
+                                            <i className='fa fa-search'/>
                                         </Button>
                                     </FormGroup>
                                 </Form>

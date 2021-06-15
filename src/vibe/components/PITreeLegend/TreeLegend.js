@@ -3,7 +3,7 @@ import React from "react";
 export default function TreeLegend() {
     return (<>
         <div style={{
-            content: 'linear-gradient(to right, #449FEE, #22B66E, #FFE600, #FF9F40, #E91E63)',
+            content: 'linear-gradient(to left, #449FEE, #22B66E, #FFE600, #FF9F40, #E91E63)',
             width: '150px',
             height: '15px',
             position: 'absolute',

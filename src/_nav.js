@@ -53,6 +53,11 @@ const nav = {
     {
       divider: true,
     },
+    {
+      name: 'PI Tree',
+      url: '/tree',
+      icon: 'Layers',
+    },
     /*{
       name: 'Go to Google',
       url: 'https://google.com',

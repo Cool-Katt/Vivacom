@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom';
 import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader} from 'reactstrap';
 import {tree} from '../../KQICategorizedList'
 import Tree from 'react-d3-tree'
+import TreeLegend from "../../vibe/components/PITreeLegend/TreeLegend";
 
 const chartColors = {
     red: 'rgb(233, 30, 99)',
@@ -38,19 +39,19 @@ class PITree extends Component {
 
         switch (nodeDatum.attributes?.value) {
             case 5:
-                colour = 'rgb(68, 159, 238, 0.8)';
+                colour = 'rgba(68,159,238,0.8)';
                 break;
             case 4:
-                colour = 'rgb(34, 182, 110, 0.8)';
+                colour = 'rgba(34,182,110,0.8)';
                 break;
             case 3:
-                colour = 'rgb(255, 230, 0, 0.8)';
+                colour = 'rgba(255,230,0,0.8)';
                 break;
             case 2:
-                colour = 'rgb(255, 159, 64, 0.8)';
+                colour = 'rgba(255,159,64,0.8)';
                 break;
             case 1:
-                colour = 'rgba(233, 30, 99, 0.8)';
+                colour = 'rgba(233,30,99,0.8)';
                 break;
         }
 
@@ -87,7 +88,7 @@ class PITree extends Component {
                                 />
                             </CardBody>
                             <CardFooter>
-                                <Button color='danger' outline>Don't click</Button>
+                                {TreeLegend()}
                             </CardFooter>
                         </Card>
                     </Col>

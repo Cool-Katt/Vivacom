@@ -1,30 +1,8 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
 import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Label, Input} from 'reactstrap';
 import {tree} from '../../KQICategorizedList'
 import Tree from 'react-d3-tree'
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
-
-const chartColors = {
-    red: 'rgb(233, 30, 99)',
-    danger: 'rgb(233, 30, 99)',
-    dangerTransparent: 'rgba(233, 30, 99, 0.8)',
-    orange: 'rgb(255, 159, 64)',
-    yellow: 'rgb(255, 180, 0)',
-    green: 'rgb(34, 182, 110)',
-    blue: 'rgb(68, 159, 238)',
-    primary: 'rgb(68,159,238)',
-    primaryTransparent: 'rgba(68,159,238,0.8)',
-    purple: 'rgb(153, 102, 255)',
-    grey: 'rgb(201, 203, 207)',
-    primaryShade1: 'rgb(68,159,238)',
-    primaryShade2: 'rgb(23,139,234)',
-    primaryShade3: 'rgb(14,117,202)',
-    primaryShade4: 'rgb(9,85,148)',
-    primaryShade5: 'rgb(12,70,117)',
-    primaryShade6: 'rgb(10,56,93)',
-    primaryShade7: 'rgb(10,49,81)',
-};
 
 class PITree extends Component {
     constructor(props) {
@@ -39,7 +17,7 @@ class PITree extends Component {
     }
 
     renderSvgNode = ({nodeDatum, toggleNode}) => {
-        let colour = 'rgb(153, 102, 255, 0.8)';
+        let colour = 'rgba(153,102,255,0.8)';
 
         switch (nodeDatum.attributes?.value) {
             case 5:
@@ -81,7 +59,15 @@ class PITree extends Component {
     handleSubmit() {
         return (e => {
             e.preventDefault()
-            console.log('submit')
+
+            let formData = new FormData(e.currentTarget);
+            let data = {
+                msisdn: formData.get('msisdn'),
+                date: formData.get('date'),
+            }
+            console.log(data)
+            //TODO: Handle data requests to the API for tree. Talk to Stef
+
             this.setState(prevState => {return({...prevState, treeData: tree})})
         })
     }
@@ -98,7 +84,7 @@ class PITree extends Component {
                                         <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN/empty"/>
                                     </FormGroup>
                                     <FormGroup className='p-t-md'>
-                                        <Input type="month" name="endDate" id="endDate"
+                                        <Input type="month" name="date" id="endDate"
                                                max={this.state.thisMonth.toString()}
                                                placeholder="20yy-MM"
                                                defaultValue={this.state.thisMonth.toString()}

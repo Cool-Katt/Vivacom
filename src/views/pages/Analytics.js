@@ -179,7 +179,7 @@ export default class AnalyticsPage extends Component {
             <DashboardLayoutContext.Consumer>{context => (
                 <div
                     onMouseEnter={!context.sidebarCollapsed ? context.toggleSideCollapse : null}
-                    //onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
+                    onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
                 >
                     <Row>
                         <Col className='m-a-auto' md={{size: 11}}>

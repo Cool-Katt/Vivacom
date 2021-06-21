@@ -70,7 +70,7 @@ const hierarchy = [
 
 export const tree = {
     name: 'Network',
-    attributes: {},
+    attributes: {value: null, weight: '100%'},
     children: [
         {
             name: 'CS',

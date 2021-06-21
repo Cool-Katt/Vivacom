@@ -18,25 +18,21 @@ class PITree extends Component {
 
     renderSvgNode = ({nodeDatum, toggleNode}) => {
         let colour = 'rgba(153,102,255,0.8)';
+        let testedValue = nodeDatum.attributes?.value;
 
-        switch (nodeDatum.attributes?.value) {
-            case 5:
-                colour = 'rgba(68,159,238,0.8)';
-                break;
-            case 4:
-                colour = 'rgba(34,182,110,0.8)';
-                break;
-            case 3:
-                colour = 'rgba(255,230,0,0.8)';
-                break;
-            case 2:
-                colour = 'rgba(255,159,64,0.8)';
-                break;
-            case 1:
-                colour = 'rgba(233,30,99,0.8)';
-                break;
-            default:
-                break;
+        if (testedValue <= 1) {
+            colour = 'rgba(233,30,99,0.8)';
+        } else if (testedValue <= 2) {
+            colour = 'rgba(255,159,64,0.8)';
+        } else if (testedValue <= 3) {
+            colour = 'rgba(255,230,0,0.8)';
+        } else if (testedValue <= 4) {
+            colour = 'rgba(34,182,110,0.8)';
+        } else if (testedValue <= 5) {
+            colour = 'rgba(68,159,238,0.8)';
+        }
+        if (testedValue === null) {
+            colour = 'rgba(153,102,255,0.8)';
         }
 
         return (
@@ -45,9 +41,11 @@ class PITree extends Component {
                 <text fill="black" strokeWidth="1" x="30">
                     {nodeDatum.name}
                 </text>
-                {nodeDatum.attributes?.value ? (
+                {(nodeDatum.attributes?.value || nodeDatum.attributes?.value === 0) ? (
                     <text fill="gray" stroke="gray" x="30" dy="20" strokeWidth="1">
-                        Value: {nodeDatum.attributes?.value}
+                        <tspan x="30" dy="20">Value: {nodeDatum.attributes?.value}</tspan>
+                        {nodeDatum.attributes?.weight ?
+                        <tspan x="30" dy="20">Weight: {nodeDatum.attributes?.weight}</tspan> : null}
                     </text>
                 ) : (
                     <text fill="gray" stroke="gray" x="30" dy="20" strokeWidth="1">
@@ -102,7 +100,7 @@ class PITree extends Component {
                             <CardBody>
                                 {this.state.treeData ?
                                     (<Tree data={this.state.treeData} translate={{x: '200', y: '330'}} zoom='0.6'
-                                                              initialDepth='7'
+                                                              initialDepth='1'
                                                               //separation={{nonSiblings: 2, siblings:3.5}} orientation='vertical'
                                                               depthFactor='400'
                                                               enableLegacyTransitions={true}

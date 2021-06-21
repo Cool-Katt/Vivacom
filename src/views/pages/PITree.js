@@ -103,6 +103,8 @@ class PITree extends Component {
                                 {this.state.treeData ?
                                     (<Tree data={this.state.treeData} translate={{x: '200', y: '330'}} zoom='0.6'
                                                               initialDepth='7'
+                                                              //separation={{nonSiblings: 2, siblings:3.5}} orientation='vertical'
+                                                              depthFactor='400'
                                                               enableLegacyTransitions={true}
                                                               renderCustomNodeElement={this.renderSvgNode}/>)
                                     : (<p className='m-a-auto p-a-xxl'>Nothing to see here yet.</p>)

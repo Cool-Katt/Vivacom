@@ -386,133 +386,8 @@ export const tree = {
     ],
 }
 
-const flatJson = [
-    {
-        parent: "CSVNode1",
-        child: "CSVNode2",
-        value: 22,
-    },
-    {
-        parent: "CSVNode1",
-        child: "CSVNode3",
-        value: 23,
-    },
-    {
-        parent: "CSVNode2",
-        child: "CSVNode4",
-        value: 1,
-    },
-    {
-        parent: "CSVNode2",
-        child: "CSVNode5",
-        value: 2,
-    },
-    {
-        "parent": "CSVNode2",
-        "child": "CSVNode6",
-        "value": "3",
-    },
-    {
-        "parent": "CSVNode2",
-        "child": "CSVNode7",
-        "value": "4",
-    },
-    {
-        "parent": "CSVNode2",
-        "child": "CSVNode8",
-        "value": "5",
-    },
-    {
-        "parent": "CSVNode2",
-        "child": "CSVNode9",
-        "value": "6",
-    },
-    {
-        "parent": "CSVNode2",
-        "child": "CSVNode10",
-        "value": "7",
-    },
-    {
-        "parent": "CSVNode4",
-        "child": "CSVNode11",
-        "value": "8",
-    },
-    {
-        "parent": "CSVNode7",
-        "child": "CSVNode12",
-        "value": "9",
-    },
-    {
-        "parent": "CSVNode9",
-        "child": "CSVNode13",
-        "value": "10",
-    },
-    {
-        "parent": "CSVNode10",
-        "child": "CSVNode14",
-        "value": "11",
-    },
-    {
-        "parent": "CSVNode11",
-        "child": "CSVNode15",
-        "value": "12",
-    },
-    {
-        "parent": "CSVNode3",
-        "child": "CSVNode16",
-        "value": "13",
-    },
-    {
-        "parent": "CSVNode16",
-        "child": "CSVNode17",
-        "value": "14",
-    },
-    {
-        "parent": "CSVNode16",
-        "child": "CSVNode18",
-        "value": "15",
-    },
-    {
-        "parent": "CSVNode16",
-        "child": "CSVNode19",
-        "value": "16",
-    },
-    {
-        "parent": "CSVNode16",
-        "child": "CSVNode20",
-        "value": "17",
-    },
-    {
-        "parent": "CSVNode17",
-        "child": "CSVNode21",
-        "value": "18",
-    },
-    {
-        "parent": "CSVNode18",
-        "child": "CSVNode22",
-        "value": "19",
-    },
-    {
-        "parent": "CSVNode19",
-        "child": "CSVNode23",
-        "value": "20",
-    },
-    {
-        "parent": "CSVNode20",
-        "child": "CSVNode24",
-        "value": "21",
-    }
-];
-
-const generateHierarchy = (links, attributeFields) => {
+export const generateHierarchy = (links, attributeFields) => {
     const nodesByName = {};
-
-    const assignNode = name => {
-        if (!nodesByName[name]) {
-            nodesByName[name] = { name };
-        }
-        return nodesByName[name];
-    };
 
     const assignNodeWithAttributes = (name, attributes) => {
         if (!nodesByName[name]) {
@@ -524,9 +399,7 @@ const generateHierarchy = (links, attributeFields) => {
         return nodesByName[name];
     };
 
-    // Create nodes for each unique source and target.
     links.forEach(link => {
-        // if `attributeFields` is defined, create/overwrite current `link.attributes`
         if (attributeFields) {
             const customAttributes = {};
             attributeFields.forEach(field => {
@@ -535,7 +408,6 @@ const generateHierarchy = (links, attributeFields) => {
             link.attributes = customAttributes;
         }
 
-        //link.source = assignNode(link.parent);
         link.source = assignNodeWithAttributes(link.parent, link.attributes);
         link.target = assignNodeWithAttributes(link.child, link.attributes);
         const parent = link.source;
@@ -544,55 +416,13 @@ const generateHierarchy = (links, attributeFields) => {
         child.parent = parent.name || null;
         parent.children ? parent.children.push(child) : (parent.children = [child]);
     });
-    // Extract & return the root node
     const rootLinks = links.filter(link => !link.source.parent);
     return rootLinks[0].source;
 }
 
 export const testGenerateHierarchy = () => {
-    return generateHierarchy(hierarchy, ['level', 'colour'])
+    return generateHierarchy(hierarchy, ['colour']);
 }
-
-/*export const treeDataParser = (dataToParse) => {
-    /!*let newTree = JSON.parse(JSON.stringify(hierarchy));
-    let dictionary = {};
-    for (let i = 0; i < newTree.length; i++) {
-        dictionary[newTree[i].label] = newTree[i];
-        if (newTree[i].father) {
-            let parent = dictionary[newTree[i].father];
-            if (parent) {
-                if (!parent.children) {
-                    parent.children = [];
-                }
-                parent.children.push(newTree[i]);
-            }
-        }
-    }
-    console.log(dictionary)*!/
-    let newTree = Object.create(tree);
-    let data = dataToParse[0];
-
-    for (const [key, value] of Object.entries(data)) {
-        if (key.toLowerCase() !== 'date' && key.toLowerCase() !== 'msisdn') {
-            //console.log(`this is ${key} with ${value}`)
-            console.log(key)
-            console.log(key.replaceAll('_', ' '))
-            hierarchy.forEach((elem) => {
-                if (elem.label === key.replaceAll('_', ' ')) {
-                    console.log('ass')
-                }
-            })
-
-        }
-    }
-
-    /!*for (const [key, value] of Object.entries(dataToParse)) {
-        if (key.toLowerCase() !== 'date' && key.toLowerCase() !== 'msisdn') {
-            let level = hierarchy.forEach((elem) => elem.label === key ? elem.level : null)
-            console.log(level)
-        }
-    }*!/
-}*/
 
 export const colourMaker = (key) => {
     let colour = '#7181A6';
@@ -601,5 +431,5 @@ export const colourMaker = (key) => {
             colour = item.colour
         }
     })
-    return chroma(colour).css()
+    return chroma(colour).css();
 }

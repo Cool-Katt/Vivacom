@@ -1,73 +1,74 @@
 import chroma from 'chroma-js'
 
 const hierarchy = [
-    {level: 0, color: '#000080', father: 'Network', label: 'CS',},
-    {level: 0, color: '#006400', father: 'Network', label: 'PS',},
-    {level: 1, color: '#00B8D9', father: 'CS', label: 'Voice'},
-    {level: 1, color: '#0052CC', father: 'CS', label: 'SMS'},
-    {level: 1, color: '#5243AA', father: 'PS', label: 'WEB'},
-    {level: 1, color: '#32CD32', father: 'PS', label: 'Video_Streaming'},
-    {level: 1, color: '#00c66b', father: 'PS', label: 'IM'},
-    {level: 1, color: '#008000', father: 'PS', label: 'File_Transfer'},
-    {level: 2, color: '#0093B3', father: 'Voice', label: 'Call_Setup_Success_Rate'},
-    {level: 2, color: '#006F8E', father: 'Voice', label: 'Call_Completion_Failure_Rate'},
-    {level: 2, color: '#004D6B', father: 'Voice', label: 'Call_Setup_Time'},
-    {level: 2, color: '#738EFF', father: 'SMS', label: 'SMS_Delay_ms'},
-    {level: 2, color: '#496FEF', father: 'SMS', label: 'SMS_Service_Availability'},
-    {level: 2, color: '#7662CE', father: 'WEB', label: 'WEB_Browsing_Integrity'},
-    {level: 2, color: '#4C3EA5', father: 'WEB', label: 'WEB_Browsing_Retainability'},
-    {level: 2, color: '#00A400', father: 'Video_Streaming', label: 'Video_Streaming_Integrity'},
-    {level: 2, color: '#007D00', father: 'Video_Streaming', label: 'Video_Streaming_Retainability'},
-    {level: 2, color: '#009F48', father: 'IM', label: 'IM_Integrity'},
-    {level: 2, color: '#00C66B', father: 'IM', label: 'IM_Retainability'},
-    {level: 2, color: '#349D2B', father: 'File_Transfer', label: 'File_Sharing_Integrity'},
-    {level: 2, color: '#005900', father: 'File_Transfer', label: 'File_Sharing_Retainability'},
-    {level: 2, color: '#08830C', father: 'File_Transfer', label: 'Multimedia_Integrity'},
-    {level: 3, color: '#6b88fc', father: 'SMS_Delay', label: 'SMS_Origination_Delay_ms'},
-    {level: 3, color: '#6481f9', father: 'SMS_Delay', label: 'SMS_Termination_Delay_ms'},
-    {level: 3, color: '#5b7bf5', father: 'SMS_Service_Availability', label: 'SMS_Termination_Rate'},
-    {level: 3, color: '#5375f2', father: 'SMS_Service_Availability', label: 'SMS_Origination_Success_Rate'},
-    {level: 3, color: '#008cac', father: 'Call_Setup_Success_Rate', label: 'Perceived_Call_Success_Rate'},
-    {level: 3, color: '#0086a5', father: 'Call_Setup_Success_Rate', label: 'VoLTE_MO_Network_Connection_Rate'},
-    {level: 3, color: '#007f9f', father: 'Call_Setup_Success_Rate', label: 'VoWiFi_MO_Connection_Rate'},
-    {level: 3, color: '#007998', father: 'Call_Completion_Failure_Rate', label: 'Perceived_Call_Drop_Rate'},
-    {level: 3, color: '#007291', father: 'Call_Completion_Failure_Rate', label: 'VoLTE_Call_Drop_Rate'},
-    {level: 3, color: '#006c8b', father: 'Call_Completion_Failure_Rate', label: 'VoWiFi_MO_Call_Drop_Rate'},
-    {level: 3, color: '#006684', father: 'Call_Setup_Time', label: 'E2E_Call_Connection_Delay_ms'},
-    {level: 3, color: '#005f7e', father: 'Call_Setup_Time', label: 'V2V_MO_Connection_Delay'},
-    {level: 3, color: '#005978', father: 'Call_Setup_Time', label: 'VoWiFi_MO_Connection_Delay_ms'},
-    {level: 3, color: '#005371', father: 'Call_Setup_Time', label: 'VoLTE_to_VoLTE_Voice_MOS'},
-    {level: 3, color: '#715dc9', father: 'WEB_Browsing_Retainability', label: 'Page_UL_TCP_Retransmission_Rate'},
-    {level: 3, color: '#6c59c4', father: 'WEB_Browsing_Retainability', label: 'Page_DL_TCP_Retransmission_Rate'},
-    {level: 3, color: '#6654be', father: 'WEB_Browsing_Integrity', label: 'Page_Server_Side_RTT'},
-    {level: 3, color: '#6150b9', father: 'WEB_Browsing_Integrity', label: 'Page_Client_Side_RTT'},
-    {level: 3, color: '#5c4bb4', father: 'WEB_Browsing_Integrity', label: 'Page_E2E_Delay'},
-    {level: 3, color: '#5747af', father: 'WEB_Browsing_Integrity', label: 'Page_Response_Delay_ms'},
-    {level: 3, color: '#5142aa', father: 'WEB_Browsing_Integrity', label: 'Page_DL_Throughput_Kbps'},
-    {level: 3, color: '#009f00', father: 'Video_Streaming_Retainability', label: 'Video_Stream_DL_TCP_Retransmission_Rate'},
-    {level: 3, color: '#009a00', father: 'Video_Streaming_Retainability', label: 'Video_Stream_UL_TCP_Retransmission_Rate'},
-    {level: 3, color: '#009500', father: 'Video_Streaming_Integrity', label: 'Video_Streaming_xKB_Start_Delay'},
-    {level: 3, color: '#009000', father: 'Video_Streaming_Integrity', label: 'Video_Stream_Client_Side_Round_Trip_Time_ms'},
-    {level: 3, color: '#008b00', father: 'Video_Streaming_Integrity', label: 'Video_Stream_E2E_Delay'},
-    {level: 3, color: '#008700', father: 'Video_Streaming_Integrity', label: 'Video_Stream_Server_Side_Round_Trip_Time_ms'},
-    {level: 3, color: '#008200', father: 'Video_Streaming_Integrity', label: 'Video_Streaming_Download_Throughput_Kbps'},
-    {level: 3, color: '#00a54e', father: 'IM_Retainability', label: 'IM_DL_TCP_Packets_Loss_Rate'},
-    {level: 3, color: '#01ac54', father: 'IM_Retainability', label: 'IM_UL_TCP_Packets_Loss_Rate'},
-    {level: 3, color: '#01b259', father: 'IM_Integrity', label: 'IM_Interacting_Delay'},
-    {level: 3, color: '#01b95f', father: 'IM_Integrity', label: 'IM_Server_Side_Round_Trip_Time_ms'},
-    {level: 3, color: '#00bf65', father: 'IM_Integrity', label: 'IM_Client_Side_Round_Trip_Time_ms'},
-    {level: 3, color: '#329b2a', father: 'File_Sharing_Retainability', label: 'File_Access_Server_Side_Uplink_TCP_Packet_Loss_Rate'},
-    {level: 3, color: '#319828', father: 'File_Sharing_Retainability', label: 'File_Access_Server_Side_Downlink_TCP_Packet_Loss_Rate'},
-    {level: 3, color: '#2f9627', father: 'File_Sharing_Retainability', label: 'File_Access_Client_Side_Uplink_TCP_Packet_Loss_Rate'},
-    {level: 3, color: '#2d9325', father: 'File_Sharing_Retainability', label: 'File_Access_Client_Side_Downlink_TCP_Packet_Loss_Rate'},
-    {level: 3, color: '#2c9123', father: 'File_Sharing_Integrity', label: 'File_Sharing_Response_Delay'},
-    {level: 3, color: '#2a8e22', father: 'File_Sharing_Integrity', label: 'File_Sharing_UL_Throughput_Kbps'},
-    {level: 3, color: '#288c20', father: 'File_Sharing_Integrity', label: 'File_Sharing_DL_Throughput_Kbps'},
-    {level: 3, color: '#26891f', father: 'Multimedia_Integrity', label: 'Multimedia_Response_Delay'},
-    {level: 3, color: '#25871d', father: 'Multimedia_Integrity', label: 'Multimedia_UL_Throughput_Kbps'},
-    {level: 3, color: '#23841b', father: 'Multimedia_Integrity', label: 'Multimedia_DL_Throughput_Kbps'},
+    {level: 0, colour: '#000080', parent: 'Network', child: 'CS',},
+    {level: 0, colour: '#006400', parent: 'Network', child: 'PS',},
+    {level: 1, colour: '#00B8D9', parent: 'CS', child: 'Voice'},
+    {level: 1, colour: '#0052CC', parent: 'CS', child: 'SMS'},
+    {level: 1, colour: '#5243AA', parent: 'PS', child: 'WEB'},
+    {level: 1, colour: '#32CD32', parent: 'PS', child: 'Video_Streaming'},
+    {level: 1, colour: '#00c66b', parent: 'PS', child: 'IM'},
+    {level: 1, colour: '#008000', parent: 'PS', child: 'File_Transfer'},
+    {level: 2, colour: '#0093B3', parent: 'Voice', child: 'Call_Setup_Success_Rate'},
+    {level: 2, colour: '#006F8E', parent: 'Voice', child: 'Call_Completion_Failure_Rate'},
+    {level: 2, colour: '#004D6B', parent: 'Voice', child: 'Call_Setup_Time'},
+    {level: 2, colour: '#738EFF', parent: 'SMS', child: 'SMS_Delay_ms'},
+    {level: 2, colour: '#496FEF', parent: 'SMS', child: 'SMS_Service_Availability'},
+    {level: 2, colour: '#7662CE', parent: 'WEB', child: 'WEB_Browsing_Integrity'},
+    {level: 2, colour: '#4C3EA5', parent: 'WEB', child: 'WEB_Browsing_Retainability'},
+    {level: 2, colour: '#00A400', parent: 'Video_Streaming', child: 'Video_Streaming_Integrity'},
+    {level: 2, colour: '#007D00', parent: 'Video_Streaming', child: 'Video_Streaming_Retainability'},
+    {level: 2, colour: '#009F48', parent: 'IM', child: 'IM_Integrity'},
+    {level: 2, colour: '#00C66B', parent: 'IM', child: 'IM_Retainability'},
+    {level: 2, colour: '#349D2B', parent: 'File_Transfer', child: 'File_Sharing_Integrity'},
+    {level: 2, colour: '#005900', parent: 'File_Transfer', child: 'File_Sharing_Retainability'},
+    {level: 2, colour: '#08830C', parent: 'File_Transfer', child: 'Multimedia_Integrity'},
+    {level: 3, colour: '#6b88fc', parent: 'SMS_Delay', child: 'SMS_Origination_Delay_ms'},
+    {level: 3, colour: '#6481f9', parent: 'SMS_Delay', child: 'SMS_Termination_Delay_ms'},
+    {level: 3, colour: '#5b7bf5', parent: 'SMS_Service_Availability', child: 'SMS_Termination_Rate'},
+    {level: 3, colour: '#5375f2', parent: 'SMS_Service_Availability', child: 'SMS_Origination_Success_Rate'},
+    {level: 3, colour: '#008cac', parent: 'Call_Setup_Success_Rate', child: 'Perceived_Call_Success_Rate'},
+    {level: 3, colour: '#0086a5', parent: 'Call_Setup_Success_Rate', child: 'VoLTE_MO_Network_Connection_Rate'},
+    {level: 3, colour: '#007f9f', parent: 'Call_Setup_Success_Rate', child: 'VoWiFi_MO_Connection_Rate'},
+    {level: 3, colour: '#007998', parent: 'Call_Completion_Failure_Rate', child: 'Perceived_Call_Drop_Rate'},
+    {level: 3, colour: '#007291', parent: 'Call_Completion_Failure_Rate', child: 'VoLTE_Call_Drop_Rate'},
+    {level: 3, colour: '#006c8b', parent: 'Call_Completion_Failure_Rate', child: 'VoWiFi_MO_Call_Drop_Rate'},
+    {level: 3, colour: '#006684', parent: 'Call_Setup_Time', child: 'E2E_Call_Connection_Delay_ms'},
+    {level: 3, colour: '#005f7e', parent: 'Call_Setup_Time', child: 'V2V_MO_Connection_Delay'},
+    {level: 3, colour: '#005978', parent: 'Call_Setup_Time', child: 'VoWiFi_MO_Connection_Delay_ms'},
+    {level: 3, colour: '#005371', parent: 'Call_Setup_Time', child: 'VoLTE_to_VoLTE_Voice_MOS'},
+    {level: 3, colour: '#715dc9', parent: 'WEB_Browsing_Retainability', child: 'Page_UL_TCP_Retransmission_Rate'},
+    {level: 3, colour: '#6c59c4', parent: 'WEB_Browsing_Retainability', child: 'Page_DL_TCP_Retransmission_Rate'},
+    {level: 3, colour: '#6654be', parent: 'WEB_Browsing_Integrity', child: 'Page_Server_Side_RTT'},
+    {level: 3, colour: '#6150b9', parent: 'WEB_Browsing_Integrity', child: 'Page_Client_Side_RTT'},
+    {level: 3, colour: '#5c4bb4', parent: 'WEB_Browsing_Integrity', child: 'Page_E2E_Delay'},
+    {level: 3, colour: '#5747af', parent: 'WEB_Browsing_Integrity', child: 'Page_Response_Delay_ms'},
+    {level: 3, colour: '#5142aa', parent: 'WEB_Browsing_Integrity', child: 'Page_DL_Throughput_Kbps'},
+    {level: 3, colour: '#009f00', parent: 'Video_Streaming_Retainability', child: 'Video_Stream_DL_TCP_Retransmission_Rate'},
+    {level: 3, colour: '#009a00', parent: 'Video_Streaming_Retainability', child: 'Video_Stream_UL_TCP_Retransmission_Rate'},
+    {level: 3, colour: '#009500', parent: 'Video_Streaming_Integrity', child: 'Video_Streaming_xKB_Start_Delay'},
+    {level: 3, colour: '#009000', parent: 'Video_Streaming_Integrity', child: 'Video_Stream_Client_Side_Round_Trip_Time_ms'},
+    {level: 3, colour: '#008b00', parent: 'Video_Streaming_Integrity', child: 'Video_Stream_E2E_Delay'},
+    {level: 3, colour: '#008700', parent: 'Video_Streaming_Integrity', child: 'Video_Stream_Server_Side_Round_Trip_Time_ms'},
+    {level: 3, colour: '#008200', parent: 'Video_Streaming_Integrity', child: 'Video_Streaming_Download_Throughput_Kbps'},
+    {level: 3, colour: '#00a54e', parent: 'IM_Retainability', child: 'IM_DL_TCP_Packets_Loss_Rate'},
+    {level: 3, colour: '#01ac54', parent: 'IM_Retainability', child: 'IM_UL_TCP_Packets_Loss_Rate'},
+    {level: 3, colour: '#01b259', parent: 'IM_Integrity', child: 'IM_Interacting_Delay'},
+    {level: 3, colour: '#01b95f', parent: 'IM_Integrity', child: 'IM_Server_Side_Round_Trip_Time_ms'},
+    {level: 3, colour: '#00bf65', parent: 'IM_Integrity', child: 'IM_Client_Side_Round_Trip_Time_ms'},
+    {level: 3, colour: '#329b2a', parent: 'File_Sharing_Retainability', child: 'File_Access_Server_Side_Uplink_TCP_Packet_Loss_Rate'},
+    {level: 3, colour: '#319828', parent: 'File_Sharing_Retainability', child: 'File_Access_Server_Side_Downlink_TCP_Packet_Loss_Rate'},
+    {level: 3, colour: '#2f9627', parent: 'File_Sharing_Retainability', child: 'File_Access_Client_Side_Uplink_TCP_Packet_Loss_Rate'},
+    {level: 3, colour: '#2d9325', parent: 'File_Sharing_Retainability', child: 'File_Access_Client_Side_Downlink_TCP_Packet_Loss_Rate'},
+    {level: 3, colour: '#2c9123', parent: 'File_Sharing_Integrity', child: 'File_Sharing_Response_Delay'},
+    {level: 3, colour: '#2a8e22', parent: 'File_Sharing_Integrity', child: 'File_Sharing_UL_Throughput_Kbps'},
+    {level: 3, colour: '#288c20', parent: 'File_Sharing_Integrity', child: 'File_Sharing_DL_Throughput_Kbps'},
+    {level: 3, colour: '#26891f', parent: 'Multimedia_Integrity', child: 'Multimedia_Response_Delay'},
+    {level: 3, colour: '#25871d', parent: 'Multimedia_Integrity', child: 'Multimedia_UL_Throughput_Kbps'},
+    {level: 3, colour: '#23841b', parent: 'Multimedia_Integrity', child: 'Multimedia_DL_Throughput_Kbps'},
 ]
 
+//TODO: delete this once the API endpoint for tree data is set and working
 export const tree = {
     name: 'Network',
     attributes: {value: null, weight: '100%'},
@@ -385,11 +386,219 @@ export const tree = {
     ],
 }
 
+const flatJson = [
+    {
+        parent: "CSVNode1",
+        child: "CSVNode2",
+        value: 22,
+    },
+    {
+        parent: "CSVNode1",
+        child: "CSVNode3",
+        value: 23,
+    },
+    {
+        parent: "CSVNode2",
+        child: "CSVNode4",
+        value: 1,
+    },
+    {
+        parent: "CSVNode2",
+        child: "CSVNode5",
+        value: 2,
+    },
+    {
+        "parent": "CSVNode2",
+        "child": "CSVNode6",
+        "value": "3",
+    },
+    {
+        "parent": "CSVNode2",
+        "child": "CSVNode7",
+        "value": "4",
+    },
+    {
+        "parent": "CSVNode2",
+        "child": "CSVNode8",
+        "value": "5",
+    },
+    {
+        "parent": "CSVNode2",
+        "child": "CSVNode9",
+        "value": "6",
+    },
+    {
+        "parent": "CSVNode2",
+        "child": "CSVNode10",
+        "value": "7",
+    },
+    {
+        "parent": "CSVNode4",
+        "child": "CSVNode11",
+        "value": "8",
+    },
+    {
+        "parent": "CSVNode7",
+        "child": "CSVNode12",
+        "value": "9",
+    },
+    {
+        "parent": "CSVNode9",
+        "child": "CSVNode13",
+        "value": "10",
+    },
+    {
+        "parent": "CSVNode10",
+        "child": "CSVNode14",
+        "value": "11",
+    },
+    {
+        "parent": "CSVNode11",
+        "child": "CSVNode15",
+        "value": "12",
+    },
+    {
+        "parent": "CSVNode3",
+        "child": "CSVNode16",
+        "value": "13",
+    },
+    {
+        "parent": "CSVNode16",
+        "child": "CSVNode17",
+        "value": "14",
+    },
+    {
+        "parent": "CSVNode16",
+        "child": "CSVNode18",
+        "value": "15",
+    },
+    {
+        "parent": "CSVNode16",
+        "child": "CSVNode19",
+        "value": "16",
+    },
+    {
+        "parent": "CSVNode16",
+        "child": "CSVNode20",
+        "value": "17",
+    },
+    {
+        "parent": "CSVNode17",
+        "child": "CSVNode21",
+        "value": "18",
+    },
+    {
+        "parent": "CSVNode18",
+        "child": "CSVNode22",
+        "value": "19",
+    },
+    {
+        "parent": "CSVNode19",
+        "child": "CSVNode23",
+        "value": "20",
+    },
+    {
+        "parent": "CSVNode20",
+        "child": "CSVNode24",
+        "value": "21",
+    }
+];
+
+const generateHierarchy = (links, attributeFields) => {
+    const nodesByName = {};
+
+    const assignNode = name => {
+        if (!nodesByName[name]) {
+            nodesByName[name] = { name };
+        }
+        return nodesByName[name];
+    };
+
+    const assignNodeWithAttributes = (name, attributes) => {
+        if (!nodesByName[name]) {
+            nodesByName[name] = {
+                name,
+                attributes,
+            };
+        }
+        return nodesByName[name];
+    };
+
+    // Create nodes for each unique source and target.
+    links.forEach(link => {
+        // if `attributeFields` is defined, create/overwrite current `link.attributes`
+        if (attributeFields) {
+            const customAttributes = {};
+            attributeFields.forEach(field => {
+                customAttributes[field] = link[field];
+            });
+            link.attributes = customAttributes;
+        }
+
+        //link.source = assignNode(link.parent);
+        link.source = assignNodeWithAttributes(link.parent, link.attributes);
+        link.target = assignNodeWithAttributes(link.child, link.attributes);
+        const parent = link.source;
+        const child = link.target;
+
+        child.parent = parent.name || null;
+        parent.children ? parent.children.push(child) : (parent.children = [child]);
+    });
+    // Extract & return the root node
+    const rootLinks = links.filter(link => !link.source.parent);
+    return rootLinks[0].source;
+}
+
+export const testGenerateHierarchy = () => {
+    return generateHierarchy(hierarchy, ['level', 'colour'])
+}
+
+/*export const treeDataParser = (dataToParse) => {
+    /!*let newTree = JSON.parse(JSON.stringify(hierarchy));
+    let dictionary = {};
+    for (let i = 0; i < newTree.length; i++) {
+        dictionary[newTree[i].label] = newTree[i];
+        if (newTree[i].father) {
+            let parent = dictionary[newTree[i].father];
+            if (parent) {
+                if (!parent.children) {
+                    parent.children = [];
+                }
+                parent.children.push(newTree[i]);
+            }
+        }
+    }
+    console.log(dictionary)*!/
+    let newTree = Object.create(tree);
+    let data = dataToParse[0];
+
+    for (const [key, value] of Object.entries(data)) {
+        if (key.toLowerCase() !== 'date' && key.toLowerCase() !== 'msisdn') {
+            //console.log(`this is ${key} with ${value}`)
+            console.log(key)
+            console.log(key.replaceAll('_', ' '))
+            hierarchy.forEach((elem) => {
+                if (elem.label === key.replaceAll('_', ' ')) {
+                    console.log('ass')
+                }
+            })
+
+        }
+    }
+
+    /!*for (const [key, value] of Object.entries(dataToParse)) {
+        if (key.toLowerCase() !== 'date' && key.toLowerCase() !== 'msisdn') {
+            let level = hierarchy.forEach((elem) => elem.label === key ? elem.level : null)
+            console.log(level)
+        }
+    }*!/
+}*/
+
 export const colourMaker = (key) => {
     let colour = '#7181A6';
     hierarchy.forEach(item => {
-        if (key === item.label) {
-            colour = item.color
+        if (key === item.child) {
+            colour = item.colour
         }
     })
     return chroma(colour).css()

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Input} from 'reactstrap';
-import {tree} from '../../KQICategorizedList'
+import {tree, testGenerateHierarchy} from '../../KQICategorizedList'
 import Tree from 'react-d3-tree'
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 
@@ -67,6 +67,7 @@ class PITree extends Component {
             }
             console.log(data)
             //TODO: Handle data requests to the API for tree. Talk to Stef
+            console.log(testGenerateHierarchy())
 
             this.setState(prevState => {return({...prevState, treeData: tree})})
         })

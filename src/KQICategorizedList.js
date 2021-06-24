@@ -420,10 +420,6 @@ export const generateHierarchy = (links, attributeFields) => {
     return rootLinks[0].source;
 }
 
-export const testGenerateHierarchy = () => {
-    return generateHierarchy(hierarchy, ['colour']);
-}
-
 export const colourMaker = (key) => {
     let colour = '#7181A6';
     hierarchy.forEach(item => {

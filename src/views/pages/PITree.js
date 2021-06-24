@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Input} from 'reactstrap';
-import {tree, testGenerateHierarchy} from '../../KQICategorizedList'
+import {tree} from '../../KQICategorizedList'
 import Tree from 'react-d3-tree'
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 
@@ -12,7 +12,7 @@ class PITree extends Component {
         thisMonth = thisMonth.toISOString().split("T")[0].slice(0, 7);
         this.state = {
             thisMonth,
-            //treeData: tree,
+            treeData: tree,
         };
     }
 
@@ -67,9 +67,9 @@ class PITree extends Component {
             }
             console.log(data)
             //TODO: Handle data requests to the API for tree. Talk to Stef
-            console.log(testGenerateHierarchy())
+            let jsonData = require('./../../DemoSerialTreePi.json');
 
-            this.setState(prevState => {return({...prevState, treeData: tree})})
+            this.setState(prevState => {return({...prevState, treeData: jsonData})})
         })
     }
 

@@ -4,6 +4,7 @@ import {tree} from '../../KQICategorizedList';
 import Tree from 'react-d3-tree';
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 import downloadSvg, {downloadPng} from "svg-crowbar";
+import html2canvas from "html2canvas";
 
 class PITree extends Component {
     constructor(props) {
@@ -79,7 +80,7 @@ class PITree extends Component {
             <div>
                 <Row style={{height: '83vh'}}>
                     <Col md={11} className='m-a-auto'>
-                        <Card className='capture-node' style={{height: '100%'}}>
+                        <Card style={{height: '100%'}}>
                             <CardHeader>
                                 <Form onSubmit={this.handleSubmit()} style={{display: 'flex', alignContent: 'flex-start'}}>
                                     <FormGroup className='p-t-md p-r-sm p-l'>
@@ -99,15 +100,29 @@ class PITree extends Component {
                                         <Button color='info' outline onClick={e => {
                                             e.preventDefault();
                                             let svg = document.querySelector('.rd3t-svg').cloneNode(true);
-
                                             downloadSvg(svg, 'test2', {css: 'internal'})
                                         }}>
                                             <i className='fa fa-save'/>
+                                            &nbsp;Save As SVG
+                                        </Button>
+                                        <Button color='success' outline onClick={e => {
+                                            e.preventDefault();
+                                            let captureNode = document.querySelector('.capture-node')
+                                            html2canvas(captureNode).then(canvas => {
+                                                let a = document.createElement('a');
+                                                a.download = 'testCapture.png'
+                                                a.href = canvas.toDataURL()
+                                                a.target = '_blank'
+                                                a.click();
+                                            })
+                                        }}>
+                                            <i className='fa fa-save'/>
+                                            &nbsp;Save As PNG
                                         </Button>
                                     </FormGroup>
                                 </Form>
                             </CardHeader>
-                            <CardBody>
+                            <CardBody className='capture-node'>
                                 {this.state.treeData ?
                                     (<Tree data={this.state.treeData} translate={{x: '200', y: '330'}} zoom='0.6'
                                                               initialDepth='1'

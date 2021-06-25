@@ -195,11 +195,13 @@ export default class AnalyticsPage extends Component {
                                 </CardBody>
                                 <CardFooter className='m-a-auto'>
                                     <Button color="info" outline
-                                            onClick={() => this.ref.table.download("csv", "data.cv")}>Download
-                                        Data (CSV format)</Button>
+                                            onClick={() => this.ref.table.download("csv", "data.cv")}>
+                                        <i className='fa fa-save'/>
+                                        &nbsp;Download Data (CSV format)</Button>
                                     <Button color="success" outline
-                                            onClick={() => this.ref.table.download("xlsx", "data.xlsx")}>Download
-                                        Data (XLSx format)</Button>
+                                            onClick={() => this.ref.table.download("xlsx", "data.xlsx")}>
+                                        <i className='fa fa-save'/>
+                                        &nbsp;Download Data (XLSx format)</Button>
                                 </CardFooter>
                             </Card>
                         </Col>
@@ -233,7 +235,12 @@ export default class AnalyticsPage extends Component {
                                 </CardBody>
                                 <CardFooter className='m-a-auto' id='mainGraph'
                                             style={{display: 'none'}}>
-                                    <Button color='info' outline><a href='/'>Save As Image</a></Button>
+                                    <Button color='info' outline>
+                                        <a href='/'>
+                                            <i className='fa fa-save'/>
+                                            &nbsp;Save As Image
+                                        </a>
+                                    </Button>
                                 </CardFooter>
                             </Card>
                         </Col>
@@ -276,7 +283,7 @@ export default class AnalyticsPage extends Component {
                                         </CardBody>
                                         <CardFooter className='m-a-auto' id={col.datasets[0].label}
                                                     style={{display: 'none'}}>
-                                            <Button color='info' outline><a href='/'>Save As Image</a></Button>
+                                            <Button color='info' outline><a href='/'><i className='fa fa-save'/>&nbsp;Save As Image</a></Button>
                                             <Button color='warning' outline onClick={() => {
                                                 if (this.state.isScaleZero){
                                                     this.childChart[col.datasets[0].label]

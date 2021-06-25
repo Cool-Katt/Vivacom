@@ -24,6 +24,7 @@
     "react-select": "^4.1.0",
     "react-tabulator": "^0.14.4",
     "reactstrap": "6.4.0",
+    "svg-crowbar": "^0.6.5",
     "tabulator-tables": "^4.9.3"
   },
   "scripts": {

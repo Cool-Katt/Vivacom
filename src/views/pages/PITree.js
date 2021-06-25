@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Input} from 'reactstrap';
-import {tree} from '../../KQICategorizedList'
-import Tree from 'react-d3-tree'
+import {tree} from '../../KQICategorizedList';
+import Tree from 'react-d3-tree';
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
+import downloadSvg, {downloadPng} from "svg-crowbar";
 
 class PITree extends Component {
     constructor(props) {
@@ -92,8 +93,16 @@ class PITree extends Component {
                                                pattern="20[0-9]{2}-[0-1][0-9]"/>
                                     </FormGroup>
                                     <FormGroup className='p-t-md'>
-                                        <Button color='info' outline>
+                                        <Button color='primary' outline>
                                             <i className='fa fa-search'/>
+                                        </Button>
+                                        <Button color='info' outline onClick={e => {
+                                            e.preventDefault();
+                                            let svg = document.querySelector('.rd3t-svg').cloneNode(true);
+
+                                            downloadSvg(svg, 'test2', {css: 'internal'})
+                                        }}>
+                                            <i className='fa fa-save'/>
                                         </Button>
                                     </FormGroup>
                                 </Form>
@@ -103,6 +112,7 @@ class PITree extends Component {
                                     (<Tree data={this.state.treeData} translate={{x: '200', y: '330'}} zoom='0.6'
                                                               initialDepth='1'
                                                               //separation={{nonSiblings: 2, siblings:3.5}} orientation='vertical'
+                                                              separation={{nonSiblings: 1, siblings:0.5}}
                                                               depthFactor='400'
                                                               enableLegacyTransitions={true}
                                                               renderCustomNodeElement={this.renderSvgNode}/>)

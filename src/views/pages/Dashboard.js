@@ -5,13 +5,14 @@ import areaFeature from '../../assets/images/planet-earth-svgrepo-com.svg';
 import networkFeature from '../../assets/images/server-svgrepo-com.svg';
 import treeFeature from '../../assets/images/sprout-tree-svgrepo-com.svg';
 import underConstructionFeature from '../../assets/images/construction-svgrepo-com.svg';
+import newVibeFeature from '../../assets/images/Color logo - no background.svg';
 import {Card, CardBody, CardFooter, Button, Row, Col} from 'reactstrap';
 
 class Dashboard extends Component {
 
     render() {
         const heroStyles = {
-            padding: '50px 0 70px'
+            padding: '30px 20px 55px'
         };
 
         return (
@@ -19,7 +20,12 @@ class Dashboard extends Component {
                 <Row>
                     <Col md={6}>
                         <div className="home-hero" style={heroStyles}>
-                            <h1>Welcome to Vibe.</h1>
+                            <h1>Welcome to <img
+                                src={newVibeFeature}
+                                style={{width: 140, height: 90,}}
+                                alt="Vibe Logo"
+                                aria-hidden={true}/>
+                            </h1>
                             <p className="text-muted">
                                 This is a work in progress tool and it's goal is to help manage and query KQIs and PIs.
                             </p>
@@ -85,7 +91,7 @@ class Dashboard extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={6} >
+                    <Col md={6}>
                         <Card>
                             <CardBody className="display-flex">
                                 <img

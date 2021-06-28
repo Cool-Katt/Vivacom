@@ -2,6 +2,7 @@ export const getData = (data) => {
     const baseURL = 'http://panoramamed/API_KQI_PI';
     let {startDate, endDate, kqis, type, ...rest}  = data;
     let [mod, typ] = type.split('-');
+    let nomAndDenom = rest.nomAndDenom;
     let region = rest.region ? rest.region : null;
     let msisdn = rest.msisdn ? rest.msisdn : null;
     let regionLevel = rest.regionLevel ? rest.regionLevel : null;

@@ -128,7 +128,7 @@ class Dashboard extends Component {
                                 <div className="m-l">
                                     <h2 className="h4">Check PI Tree</h2>
                                     <p className="text-muted">
-                                        See PIs in a hierarchical structure for a specific MSISDN or whole network.
+                                        See PIs in a hierarchical structure for a specific MSISDN or the whole network.
                                     </p>
                                 </div>
                             </CardBody>

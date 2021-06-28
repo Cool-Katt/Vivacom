@@ -1,10 +1,9 @@
 {
   "name": "vibe-react",
-  "version": "1.0.2",
-  "description": "Vibe Dashboard React Theme",
-  "author": "Nice Dash",
-  "homepage": "http://nicedash.com",
-  "copyright": "Copyright 2019 Nice Dash",
+  "version": "0.9.2",
+  "description": "Vibe KQI/PI Dashboard",
+  "author": "Cool-Katt",
+  "copyright": "Vivacom 2021 (GPL-3.0 License)",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",

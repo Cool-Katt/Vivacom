@@ -124,8 +124,8 @@ class PITree extends Component {
                             </CardHeader>
                             <CardBody className='capture-node'>
                                 {this.state.treeData ?
-                                    (<Tree data={this.state.treeData} translate={{x: '200', y: '330'}} zoom='0.6'
-                                                              initialDepth='1'
+                                    (<Tree data={this.state.treeData} translate={{x: '120', y: '300'}} zoom='0.7'
+                                                              initialDepth='2'
                                                               //separation={{nonSiblings: 2, siblings:3.5}} orientation='vertical'
                                                               separation={{nonSiblings: 1, siblings:0.5}}
                                                               depthFactor='400'

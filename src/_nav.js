@@ -56,7 +56,7 @@ const nav = {
     {
       name: 'PI Tree',
       url: '/tree',
-      icon: 'Layers',
+      icon: 'GitMerge',
     },
     /*{
       name: 'Go to Google',

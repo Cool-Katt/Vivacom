@@ -100,7 +100,7 @@ class PITree extends Component {
                                         <Button color='info' outline onClick={e => {
                                             e.preventDefault();
                                             let svg = document.querySelector('.rd3t-svg').cloneNode(true);
-                                            downloadSvg(svg, 'test2', {css: 'internal'})
+                                            downloadSvg(svg, 'PITree', {css: 'internal'})
                                         }}>
                                             <i className='fa fa-save'/>
                                             &nbsp;Save As SVG
@@ -110,7 +110,7 @@ class PITree extends Component {
                                             let captureNode = document.querySelector('.capture-node')
                                             html2canvas(captureNode).then(canvas => {
                                                 let a = document.createElement('a');
-                                                a.download = 'testCapture.png'
+                                                a.download = 'PITree.png'
                                                 a.href = canvas.toDataURL()
                                                 a.target = '_blank'
                                                 a.click();

@@ -23,6 +23,7 @@
     "react-select": "^4.1.0",
     "react-tabulator": "^0.14.4",
     "reactstrap": "6.4.0",
+    "serve": "^12.0.0",
     "svg-crowbar": "^0.6.5",
     "tabulator-tables": "^4.9.3",
     "workbox-background-sync": "^5.1.4",
@@ -39,10 +40,12 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"

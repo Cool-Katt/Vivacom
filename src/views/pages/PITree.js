@@ -13,7 +13,7 @@ class PITree extends Component {
         thisMonth = thisMonth.toISOString().split("T")[0].slice(0, 7);
         this.state = {
             thisMonth,
-            treeData: tree,
+            //treeData: tree,
         };
     }
 
@@ -64,17 +64,28 @@ class PITree extends Component {
             let formData = new FormData(e.currentTarget);
             let data = {
                 msisdn: formData.get('msisdn'),
-                date: formData.get('date'),
+                dateStart: formData.get('date'),
             }
             console.log(data)
             //TODO: Handle data requests to the API for tree. Talk to Stef
             let jsonData = require('./../../DemoSerialTreePi.json');
+            let jsonData2 = JSON.parse(require('./../../test.json'));
 
-            this.setState(prevState => {return({...prevState, treeData: jsonData})})
+            fetch('http://panoramamed/API_KQI_PI/userPi/monthly', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({...data}),
+            })
+                .then(response => response.json())
+                .then(r => this.setState({treeData: JSON.parse(r)}))
+                .catch(err => console.log(err));
         })
     }
 
     render() {
+        console.log(this.state.treeData)
         return (
             <div>
                 <Row style={{height: '83vh'}}>
@@ -83,7 +94,7 @@ class PITree extends Component {
                             <CardHeader>
                                 <Form onSubmit={this.handleSubmit()} style={{display: 'flex', alignContent: 'flex-start'}}>
                                     <FormGroup className='p-t-md p-r-sm p-l'>
-                                        <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN -or- empty"/>
+                                        <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN" required/>
                                     </FormGroup>
                                     <FormGroup className='p-t-md'>
                                         <Input type="month" name="date" id="endDate"
@@ -99,7 +110,7 @@ class PITree extends Component {
                                         <Button color='info' outline onClick={e => {
                                             e.preventDefault();
                                             let svg = document.querySelector('.rd3t-svg');
-                                            downloadSvg(svg, 'PITree', {css: 'internal'});
+                                            downloadSvg(svg, 'PITreeAsSVG', {css: 'internal'});
                                         }}>
                                             <i className='fa fa-save'/>
                                             &nbsp;Save As SVG
@@ -107,7 +118,7 @@ class PITree extends Component {
                                         <Button color='success' outline onClick={e => {
                                             e.preventDefault();
                                             let svg = document.querySelector('.rd3t-svg');
-                                            downloadPng(svg, 'PITree', {css: 'internal'});
+                                            downloadPng(svg, 'PITreeASPNG', {css: 'internal'});
                                         }}>
                                             <i className='fa fa-save'/>
                                             &nbsp;Save As PNG

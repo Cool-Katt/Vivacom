@@ -3,12 +3,17 @@
   "name": "Vibe KQI/PI Dashboard",
   "icons": [
     {
-      "src": "favicon.svg",
-      "sizes": "any"
+      "src": "favicon.png",
+      "sizes": "any",
+      "type": "image/png"
+    },
+    {
+       "src": "image.png",
+       "sizes": "512x512",
+       "type": "image/png"
     }
   ],
   "start_url": "./index.html",
-  "scope": "./index.html",
   "display": "standalone",
   "orientation": "landscape-primary",
   "theme_color": "#162c50",

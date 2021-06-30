@@ -5,16 +5,12 @@
     {
       "src": "favicon.svg",
       "sizes": "any"
-    },
-    {
-      "src": "padded_logo.png",
-      "sizes": "any",
-      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
   "scope": "./index.html",
   "display": "standalone",
+  "orientation": "landscape-primary",
   "theme_color": "#162c50",
   "background_color": "#91befe"
 }

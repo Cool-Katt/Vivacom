@@ -4,7 +4,6 @@ import {tree} from '../../KQICategorizedList';
 import Tree from 'react-d3-tree';
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 import downloadSvg, {downloadPng} from "svg-crowbar";
-import html2canvas from "html2canvas";
 
 class PITree extends Component {
     constructor(props) {
@@ -99,22 +98,16 @@ class PITree extends Component {
                                         </Button>
                                         <Button color='info' outline onClick={e => {
                                             e.preventDefault();
-                                            let svg = document.querySelector('.rd3t-svg').cloneNode(true);
-                                            downloadSvg(svg, 'PITree', {css: 'internal'})
+                                            let svg = document.querySelector('.rd3t-svg');
+                                            downloadSvg(svg, 'PITree', {css: 'internal'});
                                         }}>
                                             <i className='fa fa-save'/>
                                             &nbsp;Save As SVG
                                         </Button>
                                         <Button color='success' outline onClick={e => {
                                             e.preventDefault();
-                                            let captureNode = document.querySelector('.capture-node')
-                                            html2canvas(captureNode).then(canvas => {
-                                                let a = document.createElement('a');
-                                                a.download = 'PITree.png'
-                                                a.href = canvas.toDataURL()
-                                                a.target = '_blank'
-                                                a.click();
-                                            })
+                                            let svg = document.querySelector('.rd3t-svg');
+                                            downloadPng(svg, 'PITree', {css: 'internal'});
                                         }}>
                                             <i className='fa fa-save'/>
                                             &nbsp;Save As PNG

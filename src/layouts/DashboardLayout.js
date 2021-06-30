@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {Header, SidebarNav, Footer, PageContent, PageAlert, Page} from '../vibe';
-import Logo from '../assets/images/vibe-logo.svg';
+import Logo from '../assets/images/White logo - no background.svg';
 import nav from '../_nav';
 import routes from '../views';
 import ContextProviders from '../vibe/components/utilities/ContextProviders';
@@ -101,7 +101,7 @@ export default class DashboardLayout extends Component {
                                 <SidebarNav
                                     nav={nav}
                                     logo={Logo}
-                                    logoText="VIBE"
+                                    //logoText="VIBE"
                                     isSidebarCollapsed={sidebarCollapsed}
                                     toggleSidebar={this.toggleSideCollapse}
                                     {...this.props}

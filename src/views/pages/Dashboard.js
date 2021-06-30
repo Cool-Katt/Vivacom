@@ -22,7 +22,7 @@ class Dashboard extends Component {
                         <div className="home-hero" style={heroStyles}>
                             <h1>Welcome to <img
                                 src={newVibeFeature}
-                                style={{width: 140, height: 90,}}
+                                style={{width: 140,}}
                                 alt="Vibe Logo"
                                 aria-hidden={true}/>
                             </h1>

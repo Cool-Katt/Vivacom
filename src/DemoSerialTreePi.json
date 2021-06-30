@@ -1,0 +1,52 @@
+{
+  "attributes": {
+    "value": 3.0
+  },
+  "name": "Network",
+  "children": [
+    {
+      "attributes": {
+        "value": 4.0
+      },
+      "name": "CS",
+      "children": [
+        {
+          "attributes": {
+            "value": 2.0
+          },
+          "name": "Voice",
+          "children": []
+        },
+        {
+          "attributes": {
+            "value": 1.0
+          },
+          "name": "SMS",
+          "children": []
+        }
+      ]
+    },
+    {
+      "attributes": {
+        "value": 4.0
+      },
+      "name": "PS",
+      "children": [
+        {
+          "attributes": {
+            "value": 2.0
+          },
+          "name": "WEB",
+          "children": []
+        }
+      ]
+    },
+    {
+      "attributes": {
+        "value": 4.9
+      },
+      "name": "Video Streaming",
+      "children": []
+    }
+  ]
+}

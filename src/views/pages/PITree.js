@@ -69,7 +69,7 @@ class PITree extends Component {
             submitButton.removeAttribute('disabled');
             this.setState(prevState => {return {...prevState, buttonDisabled: !prevState.buttonDisabled}});
         }
-    }
+    };
 
     handleSubmit(e) {
         e.preventDefault();

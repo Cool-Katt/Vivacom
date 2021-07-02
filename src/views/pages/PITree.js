@@ -4,6 +4,7 @@ import {tree} from '../../KQICategorizedList';
 import Tree from 'react-d3-tree';
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 import downloadSvg, {downloadPng} from "svg-crowbar";
+import {Loader} from "../../vibe";
 
 class PITree extends Component {
     constructor(props) {
@@ -13,8 +14,10 @@ class PITree extends Component {
         thisMonth = thisMonth.toISOString().split("T")[0].slice(0, 7);
         this.state = {
             thisMonth,
+            buttonDisabled: false,
             //treeData: tree,
         };
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     renderSvgNode = ({nodeDatum, toggleNode}) => {
@@ -46,7 +49,7 @@ class PITree extends Component {
                     <text fill="gray" stroke="gray" x="30" dy="20" strokeWidth="1">
                         <tspan x="30" dy="20">Value: {nodeDatum.attributes?.value}</tspan>
                         {nodeDatum.attributes?.weight ?
-                        <tspan x="30" dy="20">Weight: {nodeDatum.attributes?.weight}</tspan> : null}
+                            <tspan x="30" dy="20">Weight: {nodeDatum.attributes?.weight}</tspan> : null}
                     </text>
                 ) : (
                     <text fill="gray" stroke="gray" x="30" dy="20" strokeWidth="1">
@@ -57,31 +60,42 @@ class PITree extends Component {
         )
     };
 
-    handleSubmit() {
-        return (e => {
-            e.preventDefault()
+    toggleButton = (buttonState) => {
+        let submitButton = document.querySelector('.submitButton');
+        if (buttonState === 'disabled') {
+            submitButton.setAttribute('disabled', 'true');
+            this.setState(prevState => {return {...prevState, buttonDisabled: !prevState.buttonDisabled}});
+        } else if (buttonState === 'enabled') {
+            submitButton.removeAttribute('disabled');
+            this.setState(prevState => {return {...prevState, buttonDisabled: !prevState.buttonDisabled}});
+        }
+    }
 
-            let formData = new FormData(e.currentTarget);
-            let data = {
-                msisdn: formData.get('msisdn'),
-                dateStart: formData.get('date'),
-            }
-            console.log(data)
-            //TODO: Handle data requests to the API for tree. Talk to Stef
-            let jsonData = require('./../../DemoSerialTreePi.json');
-            let jsonData2 = JSON.parse(require('./../../test.json'));
+    handleSubmit(e) {
+        e.preventDefault();
 
-            fetch('http://panoramamed/API_KQI_PI/userPi/monthly', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({...data}),
-            })
-                .then(response => response.json())
-                .then(r => this.setState({treeData: JSON.parse(r)}))
-                .catch(err => console.log(err));
+        let formData = new FormData(e.currentTarget);
+        let data = {
+            msisdn: formData.get('msisdn'),
+            dateStart: formData.get('date'),
+        }
+        console.log(data)
+        this.toggleButton('disabled')
+        //TODO: Handle data requests to the API for tree. Talk to Stef
+        fetch('http://panoramamed/API_KQI_PI/userPi/monthly', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({...data}),
         })
+            .then(response => response.json())
+            .then(r => this.setState({treeData: JSON.parse(r)}))
+            .then(()=> this.toggleButton('enabled'))
+            .catch(err => {
+                console.log(err);
+                this.toggleButton('enabled');
+            });
     }
 
     render() {
@@ -92,7 +106,8 @@ class PITree extends Component {
                     <Col md={11} className='m-a-auto'>
                         <Card style={{height: '100%'}}>
                             <CardHeader>
-                                <Form onSubmit={this.handleSubmit()} style={{display: 'flex', alignContent: 'flex-start'}}>
+                                <Form onSubmit={this.handleSubmit}
+                                      style={{display: 'flex', alignContent: 'flex-start'}}>
                                     <FormGroup className='p-t-md p-r-sm p-l'>
                                         <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN" required/>
                                     </FormGroup>
@@ -104,8 +119,11 @@ class PITree extends Component {
                                                pattern="20[0-9]{2}-[0-1][0-9]"/>
                                     </FormGroup>
                                     <FormGroup className='p-t-md'>
-                                        <Button color='primary' outline>
-                                            <i className='fa fa-search'/>
+                                        <Button className='submitButton' color='primary' outline>
+                                            {this.state.buttonDisabled ?
+                                                <Loader type='spin' small/> :
+                                                <i className='fa fa-search'/>
+                                            }
                                         </Button>
                                         <Button color='info' outline onClick={e => {
                                             e.preventDefault();
@@ -129,12 +147,12 @@ class PITree extends Component {
                             <CardBody className='capture-node'>
                                 {this.state.treeData ?
                                     (<Tree data={this.state.treeData} translate={{x: '120', y: '300'}} zoom='0.7'
-                                                              initialDepth='2'
-                                                              //separation={{nonSiblings: 2, siblings:3.5}} orientation='vertical'
-                                                              separation={{nonSiblings: 1, siblings:0.5}}
-                                                              depthFactor='400'
-                                                              enableLegacyTransitions={true}
-                                                              renderCustomNodeElement={this.renderSvgNode}/>)
+                                           initialDepth='2'
+                                        //separation={{nonSiblings: 2, siblings:3.5}} orientation='vertical'
+                                           separation={{nonSiblings: 1, siblings: 0.5}}
+                                           depthFactor='400'
+                                           enableLegacyTransitions={true}
+                                           renderCustomNodeElement={this.renderSvgNode}/>)
                                     : (<p className='m-a-auto p-a-xxl'>Nothing to see here yet.</p>)
                                 }
                             </CardBody>

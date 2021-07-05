@@ -94,6 +94,7 @@ class PITree extends Component {
             .then(()=> this.toggleButton('enabled'))
             .catch(err => {
                 console.log(err);
+                this.setState({treeData: null});
                 this.toggleButton('enabled');
             });
     }
@@ -153,7 +154,7 @@ class PITree extends Component {
                                            depthFactor='400'
                                            enableLegacyTransitions={true}
                                            renderCustomNodeElement={this.renderSvgNode}/>)
-                                    : (<p className='m-a-auto p-a-xxl'>Nothing to see here yet.</p>)
+                                    : (<legend className='m-a-auto p-a-xxl'>Nothing to see here yet.<br />Go ahead and make a new query.</legend>)
                                 }
                             </CardBody>
                             <CardFooter>

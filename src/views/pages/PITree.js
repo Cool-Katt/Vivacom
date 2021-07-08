@@ -45,16 +45,10 @@ class PITree extends Component {
                 <text fill="black" strokeWidth="1" x="30">
                     {nodeDatum.name}
                 </text>
-                {(nodeDatum.attributes?.value || nodeDatum.attributes?.value === 0) ? (
                     <text fill="gray" stroke="gray" x="30" dy="20" strokeWidth="1">
-                        <tspan x="30" dy="20">Value: {nodeDatum.attributes?.value}</tspan>
-                        <tspan x="30" dy="20">Weight: {nodeDatum.attributes?.weight}</tspan>
+                        <tspan x="30" dy="20">Value: {nodeDatum.attributes?.value ?? 'no data!'}</tspan>
+                        <tspan x="30" dy="20">Weight: {nodeDatum.attributes?.weight ?? 'no data!'}</tspan>
                     </text>
-                ) : (
-                    <text fill="gray" stroke="gray" x="30" dy="20" strokeWidth="1">
-                        Value: no data!
-                    </text>
-                )}
             </g>
         )
     };

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Input} from 'reactstrap';
-import {tree} from '../../KQICategorizedList';
 import Tree from 'react-d3-tree';
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 import downloadSvg, {downloadPng} from "svg-crowbar";
@@ -15,7 +14,6 @@ class PITree extends Component {
         this.state = {
             thisMonth,
             buttonDisabled: false,
-            //treeData: tree,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -91,6 +89,8 @@ class PITree extends Component {
                 this.setState({treeData: null});
                 this.toggleButton('enabled');
             });
+
+        sessionStorage.setItem('treeData', JSON.stringify(data))
     }
 
     render() {
@@ -103,14 +103,15 @@ class PITree extends Component {
                                 <Form onSubmit={this.handleSubmit}
                                       style={{display: 'flex', alignContent: 'flex-start'}}>
                                     <FormGroup className='p-t-md p-r-sm p-l'>
-                                        <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN" required/>
+                                        <Input type="number" name="msisdn" id="msisdn" placeholder="MSISDN"
+                                               defaultValue={JSON.parse(sessionStorage.getItem('treeData'))?.msisdn} required/>
                                     </FormGroup>
                                     <FormGroup className='p-t-md'>
                                         <Input type="month" name="date" id="endDate"
                                                max={this.state.thisMonth.toString()}
                                                placeholder="20yy-MM"
-                                               defaultValue={this.state.thisMonth.toString()}
-                                               pattern="20[0-9]{2}-[0-1][0-9]"/>
+                                               defaultValue={JSON.parse(sessionStorage.getItem('treeData'))?.dateStart ?? this.state.thisMonth.toString()}
+                                               pattern="20[0-9]{2}-[0-1][0-9]" required/>
                                     </FormGroup>
                                     <FormGroup className='p-t-md'>
                                         <Button className='submitButton' color='primary' outline>

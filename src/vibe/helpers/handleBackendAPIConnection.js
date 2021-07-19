@@ -14,7 +14,8 @@ export const getData = (data) => {
                 let thisDay = new Date();
                 thisDay.setDate(thisDay.getDate() - 1);
                 endDate = thisDay.toISOString().split("T")[0];
-            }            break;
+            }
+            break;
         case 'monthly':
             if (!endDate){
                 let thisMonth = new Date();

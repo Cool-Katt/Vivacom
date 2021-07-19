@@ -74,7 +74,6 @@ class PITree extends Component {
             msisdn: formData.get('msisdn'),
             dateStart: formData.get('date'),
         }
-        console.log(data)
         this.toggleButton('disabled')
         //TODO: Handle data requests to the API for tree. Talk to Stef
         fetch('http://panoramamed/API_KQI_PI/userPi/monthly', {
@@ -95,7 +94,6 @@ class PITree extends Component {
     }
 
     render() {
-        console.log(this.state.treeData)
         return (
             <div>
                 <Row style={{height: '83vh'}}>

@@ -46,7 +46,7 @@ export default class FormMonthlyRegion extends Component {
                         <legend>Query selection:</legend>
                         <FormGroup>
                             <Label for="name">Regions</Label>
-                            {SelectRegionComponent(JSON.parse(sessionStorage.getItem(this.state.type))?.region)}
+                            {SelectRegionComponent(JSON.parse(sessionStorage.getItem(this.state.type)))}
                         </FormGroup>
                         <FormGroup>
                             <Label for="name">Start Month </Label>

@@ -308,7 +308,7 @@ class SelectComponent extends Component {
             .then(response => response.json())
             .then(text => {
                 text.split(',').forEach(word => {
-                    if(word !== 'Date' && !word.startsWith('L2') && !word.startsWith('L3') && !word.startsWith('Msisdn')) {
+                    if(word !== 'Date' && !word.startsWith('L2') && !word.startsWith('L3') && !word.startsWith('Msisdn') && !word.endsWith('Traffic_MB')) {
                         obj.push({
                             value: word,
                             label: word,

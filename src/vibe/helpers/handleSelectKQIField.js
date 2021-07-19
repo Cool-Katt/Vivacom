@@ -276,11 +276,13 @@ class SelectComponent extends Component {
         super(props);
         this.state = {
             someOptions: [],
+            type: props.type.split('-')[1],
         }
     }
 
     read() {
         let obj = [];
+        let getUrl = '';
         let SMS = {label: 'SMS', options: [{value: '*-SMS', label: 'Select All in Category', color: '#0088a7',}],};
         let WEB = {label: 'WEB', options: [{value: '*-WEB', label: 'Select All in Category', color: '#191b7a',}],};
         let Voice = {label: 'Voice', options: [{value: '*-Voice', label: 'Select All in Category', color: '#002b9a',}],};
@@ -290,39 +292,51 @@ class SelectComponent extends Component {
         let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category', color: '#445577',}],};
         let SelectAll = {label: '*', options: [{value: '*', label: 'Select All', color: '#c55c00',}]};
 
-        //TODO: Change api url, maybe  surround the fetch in try too
-        fetch(`http://panorama3:8001/file.txt?type=${this.props.type}`)
-            //fetch(`http://panoramamed:8001/file.txt?type=${this.props.type}`)
-            .then(response => response.text())
+        switch (this.state.type){
+            case 'network':
+                getUrl = 'http://panoramamed/API_KQI_PI/network/kqi';
+                break;
+            case 'region':
+                getUrl = 'http://panoramamed/API_KQI_PI/region/kqi';
+                break;
+            case 'MSISDN':
+                getUrl = 'http://panoramamed/API_KQI_PI/user/kqi';
+                break;
+        }
+
+        fetch(getUrl)
+            .then(response => response.json())
             .then(text => {
-                text.split('\n').forEach(word => {
-                    obj.push({
-                        value: word,
-                        label: word,
-                        color: '#FF8B00',
-                    })
-                    if (word.startsWith('SMS_')) {
-                        //SMS
-                        SMS.options.push({value: word, label: word, color: '#00B8D9',});
-                    } else if (word.startsWith('VoLTE_') || word.startsWith('VoWiFi_') || word.startsWith('V2V_') ||
-                        word.startsWith('E2E_') || word.startsWith('Perceived_')) {
-                        //Voice
-                        Voice.options.push({value: word, label: word, color: '#0052CC',});
-                    } else if (word.startsWith('Page_')) {
-                        //WEB
-                        WEB.options.push({value: word, label: word, color: '#5243AA',});
-                    } else if (word.startsWith('Video_') || word.startsWith('Video_Streaming_')) {
-                        //Video_Streaming
-                        Video.options.push({value: word, label: word, color: '#32cd32',});
-                    } else if (word.startsWith('IM_')) {
-                        //IM
-                        IM.options.push({value: word, label: word, color: '#00c66b',});
-                    } else if (word.startsWith('Multimedia_') || word.startsWith('File_')) {
-                        //File_Transfer
-                        File.options.push({value: word, label: word, color: '#008000',});
-                    } else {
-                        //Other
-                        Other.options.push({value: word, label: word, color: '#7181A6',});
+                text.split(',').forEach(word => {
+                    if(word !== 'Date' && !word.startsWith('L2') && !word.startsWith('L3') && !word.startsWith('Msisdn')) {
+                        obj.push({
+                            value: word,
+                            label: word,
+                            color: '#FF8B00',
+                        })
+                        if (word.startsWith('SMS_')) {
+                            //SMS
+                            SMS.options.push({value: word, label: word, color: '#00B8D9',});
+                        } else if (word.startsWith('VoLTE_') || word.startsWith('VoWiFi_') || word.startsWith('V2V_') ||
+                            word.startsWith('E2E_') || word.startsWith('Perceived_')) {
+                            //Voice
+                            Voice.options.push({value: word, label: word, color: '#0052CC',});
+                        } else if (word.startsWith('Page_')) {
+                            //WEB
+                            WEB.options.push({value: word, label: word, color: '#5243AA',});
+                        } else if (word.startsWith('Video_') || word.startsWith('Video_Streaming_')) {
+                            //Video_Streaming
+                            Video.options.push({value: word, label: word, color: '#32cd32',});
+                        } else if (word.startsWith('IM_')) {
+                            //IM
+                            IM.options.push({value: word, label: word, color: '#00c66b',});
+                        } else if (word.startsWith('Multimedia_') || word.startsWith('File_')) {
+                            //File_Transfer
+                            File.options.push({value: word, label: word, color: '#008000',});
+                        } else {
+                            //Other
+                            Other.options.push({value: word, label: word, color: '#7181A6',});
+                        }
                     }
                 })
             })

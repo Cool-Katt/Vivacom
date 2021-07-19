@@ -1,7 +1,7 @@
 export const getData = (data) => {
     const baseURL = 'http://panoramamed/API_KQI_PI';
     let {startDate, endDate, kqis, type, ...rest}  = data;
-    let [mod, typ] = type.split('-');
+    let [mod, typ] = type.split('-'); //mod -> daily/monthly; typ -> network, MSISDN, region
     let nomAndDenom = rest.nomAndDenom;
     let region = rest.region ? rest.region : null;
     let msisdn = rest.msisdn ? rest.msisdn : null;
@@ -43,10 +43,8 @@ export const getData = (data) => {
             Object.assign(body, {Msisdn: msisdn});
             break;
         case 'network':
-            //TODO: change this to POST too
-            return fetch(`http://panoramamed/API_KQI_PI/network/${mod}?dateStart=${startDate}&dateEnd=${endDate}&selectedFields=${kqis.join(',')}`)
-                .then(response => response.json())
-                .catch(err => console.log(err));
+            url += `/${typ}/${mod}/p`;
+            break;
         default:
             break;
     }

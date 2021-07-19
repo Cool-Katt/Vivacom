@@ -276,7 +276,7 @@ class SelectComponent extends Component {
         super(props);
         this.state = {
             someOptions: [],
-            type: props.type.split('-')[1],
+            type: props.type.split('-'),
         }
     }
 
@@ -292,7 +292,7 @@ class SelectComponent extends Component {
         let Other = {label: 'Other', options: [{value: '*-Other', label: 'Select All in Category', color: '#445577',}],};
         let SelectAll = {label: '*', options: [{value: '*', label: 'Select All', color: '#c55c00',}]};
 
-        switch (this.state.type){
+        switch (this.state.type[1]){
             case 'network':
                 getUrl = 'http://panoramamed/API_KQI_PI/network/kqi';
                 break;
@@ -308,7 +308,8 @@ class SelectComponent extends Component {
             .then(response => response.json())
             .then(text => {
                 text.split(',').forEach(word => {
-                    if(word !== 'Date' && !word.startsWith('L2') && !word.startsWith('L3') && !word.startsWith('Msisdn') && !word.endsWith('Traffic_MB')) {
+                    if(word !== 'Date' && !word.startsWith('L2') && !word.startsWith('L3') && !word.startsWith('Msisdn') &&
+                        (this.state.type[0]!=='monthly' || !word.endsWith('Traffic_MB'))) {
                         obj.push({
                             value: word,
                             label: word,

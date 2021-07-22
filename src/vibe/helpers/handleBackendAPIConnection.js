@@ -51,6 +51,7 @@ export const getData = (data) => {
             break;
         case 'network':
             url += `/${typ}/${mod}/p`;
+            //url += `/${typ}/nomdenom/p`;
             break;
         default:
             break;

@@ -28,7 +28,7 @@ export default class FormsMonthlyMSISDN extends Component {
 
     componentDidMount() {
         let data = JSON.parse(sessionStorage.getItem(this.state.type));
-        this.setState(prevState => {return {...prevState, prevQuery: data}})
+        this.setState(prevState => {return {...prevState, nomAndDenom: data.nomAndDenom, prevQuery: data}})
     }
 
     render() {

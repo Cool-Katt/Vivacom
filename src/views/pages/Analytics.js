@@ -20,7 +20,7 @@ const columns = [];
 const tableOptions = {
     height: 475,
     layout: "fitColumns",
-    columnMinWidth: 200,
+    columnMinWidth: 120,
     autoColumns: true,
     tooltipsHeader: true,
     movableColumns: true,
@@ -42,17 +42,11 @@ function transformDataForCharts(data, isMulti = true) {
         const newObj = {
             label: key,
             data: [],
-            //backgroundColor: chartColors[Object.keys(chartColors)[Math.floor(Math.random() * Object.keys(chartColors).length)]],
-            //backgroundColor: Object.values(chartColors)[count++],
             backgroundColor: colourMaker(key),
             fill: false,
         }
         if (!isMulti){
-            //newObj.steppedLine = true;
             newObj.tension = 0.3;
-            //newObj.pointRadius= 6;
-            //newObj.pointHitRadius= 10;
-            //newObj.pointHoverRadius= 8;
             newObj.borderColor = JSON.parse(JSON.stringify(newObj.backgroundColor));
             delete(newObj.backgroundColor)
         }
@@ -79,17 +73,7 @@ function transformDataForCharts(data, isMulti = true) {
         }
     }
     datasets.splice(0, delCount);
-    /*let ddd = JSON.parse(JSON.stringify(datasets));
-    let avr = [];
-    ddd.forEach((o) => {
-        avr.push(o.data.reduce((a,b) => a + b, 0)/o.data.length);
-    })
-for (let i = 0; i < avr.length; i++) {
-    if (avr[i] < 10* avr[i+1])
-    {
-        datasets[i]['yAxisID'] = 'ass';
-    }
-}*/
+
     if (!isMulti) {
         let res = [];
         datasets.forEach(s => res.push({

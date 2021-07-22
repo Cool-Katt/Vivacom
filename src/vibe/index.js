@@ -10,14 +10,14 @@ import SubNavigation from './components/Page/SubNavigation';
 import Switch from './components/utilities/Switch/Switch';
 
 export {
-   Footer,
-  Header,
-  Loader,
-  Page,
-  PageContent,
-  SidebarNav,
-  Switch,
-  SubNavigation,
-  PageLoader,
-  PageAlert
+    Footer,
+    Header,
+    Loader,
+    Page,
+    PageContent,
+    SidebarNav,
+    Switch,
+    SubNavigation,
+    PageLoader,
+    PageAlert
 };

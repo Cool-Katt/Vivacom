@@ -1,4 +1,10 @@
 export const getData = (data) => {
+    if (!data) {
+        return new Promise(resolve => {
+            resolve("[{\"No_Data_Selected\": \"Please make a query, instead of trying to access this page directly!\"}]")
+        })
+    }
+
     const baseURL = 'http://panoramamed/API_KQI_PI';
     let {startDate, endDate, kqis, type, ...rest}  = data;
     let [mod, typ] = type.split('-'); //mod -> daily/monthly; typ -> network, MSISDN, region

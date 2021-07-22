@@ -72,7 +72,7 @@ export default class FormsMonthlyMSISDN extends Component {
                                         <Button>Submit</Button>
                                         {/*TODO: implement in other forms too */}
                                         {this.state.redirect ? <Redirect to={{
-                                            pathname: '/apps/analytics',
+                                            pathname: '/analytics',
                                             state: {data: this.props.location.state.data}
                                         }}/> : ''}
                                     </Form>

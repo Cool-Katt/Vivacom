@@ -123,7 +123,7 @@ export default class AnalyticsPage extends Component {
     }
 
     componentDidMount() {
-        API.getData(this.props.location.state.data).then(res => this.setState({res: JSON.parse(res)}));
+        API.getData(this.props.location.state.data).then(res => this.setState({res: JSON.parse(res)})).catch(err => console.log(err));
         //API.getData(this.props.location.state.data).then(res => console.log(res));
     }
 

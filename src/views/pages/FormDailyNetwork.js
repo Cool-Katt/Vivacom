@@ -67,7 +67,7 @@ export default class FormsDailyMSISDN extends Component {
                                         </FormGroup>
                                         <Button>Submit</Button>
                                         {this.state.redirect ? <Redirect to={{
-                                            pathname: '/apps/analytics',
+                                            pathname: '/analytics',
                                             state: {data: this.props.location.state.data}
                                         }}/> : ''}
                                     </Form>

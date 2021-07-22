@@ -53,7 +53,7 @@ const pageList = [
   },
   {
     name: 'Analytics',
-    path: '/apps/analytics',
+    path: '/analytics',
     component: Analytics,
   },
   {

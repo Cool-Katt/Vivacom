@@ -50,8 +50,11 @@ export const getData = (data) => {
             Object.assign(body, {Msisdn: msisdn});
             break;
         case 'network':
-            url += `/${typ}/${mod}/p`;
-            //url += `/${typ}/nomdenom/p`;
+            if (nomAndDenom){
+                url += `/${typ}/nomdenom/p`;
+            } else {
+                url += `/${typ}/${mod}/p`;
+            }
             break;
         default:
             break;

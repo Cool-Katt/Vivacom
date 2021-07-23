@@ -78,7 +78,6 @@ class PITree extends Component {
     handleSubmit(context) {
         return (e => {
             e.preventDefault();
-
             let formData = new FormData(e.currentTarget);
             let data = {
                 msisdn: formData.get('msisdn'),
@@ -101,7 +100,6 @@ class PITree extends Component {
                     this.setState({treeData: null});
                     this.toggleButton('enabled');
                 });
-
             context.setAlert('⚠️ Please wait for data to load. It shouldn\'t take more than a minute.', 'primary');
             sessionStorage.setItem('treeData', JSON.stringify(data))
         })

@@ -24,7 +24,7 @@ export class PageAlertProvider extends Component {
     this.setState({ alert: NewAlert },()=>{
       window.setTimeout(()=>{
         this.closeAlert()
-      },3000)
+      },2500)
     });
   }
 

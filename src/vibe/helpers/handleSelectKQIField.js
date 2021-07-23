@@ -391,8 +391,6 @@ class SelectComponent extends Component {
     }
 
     render() {
-        //console.log(this.state.someOptions)
-        //console.log(this.state.prevOptions)
         return (<Select
             isMulti
             name="kqi"
@@ -403,7 +401,6 @@ class SelectComponent extends Component {
             className="selectKQIs"
             classNamePrefix="select"
             placeholder="Click here to select something"
-            //defaultValue={this.props?.prevSelection}
             defaultValue={this.state.someOptions}
             formatGroupLabel={formatGroupLabel}
             onChange={this.onChange}

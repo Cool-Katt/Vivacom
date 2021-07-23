@@ -113,7 +113,7 @@ export default class FormMonthlyRegion extends Component {
             } else if(!formData.get('region')) {
                 context.setAlert('⚠️ Please select a Region!', 'warning')
             } else {
-                context.setAlert('⚠️ Please wait for data to load. It shouldn\'t take more than a minute.', 'info')
+                context.setAlert('⚠️ Please wait for data to load. It shouldn\'t take more than a minute.', 'primary')
                 props.location.state.data = data;
                 //console.log(data);
                 let tempData = JSON.parse(JSON.stringify(data));

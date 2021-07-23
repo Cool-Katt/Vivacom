@@ -18,6 +18,13 @@ class PITree extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        if (sessionStorage.getItem('treeData'))
+        {
+            document.querySelector('.submitButton').click()
+        }
+    }
+
     renderSvgNode = ({nodeDatum, toggleNode}) => {
         let colour = 'rgba(153,102,255,0.8)';
         let testedValue = nodeDatum.attributes?.value;

@@ -51,7 +51,12 @@ function transformDataForCharts(data, isMulti = true) {
             delete(newObj.backgroundColor)
         }
         data.forEach((obj) => {
-            newObj['data'].push(obj[key]);
+            if (obj[key] === 'no data')
+            {
+                newObj['data'].push(null);
+            } else {
+                newObj['data'].push(obj[key]);
+            }
         })
 
         if (newObj['data'].reduce((acc, curr) => acc + curr) === 0) {
@@ -144,6 +149,7 @@ export default class AnalyticsPage extends Component {
         this.state.res.forEach(obj => {
             Object.keys(obj).forEach(key => {
                 //obj[key] === null && delete (obj[key]);
+                obj[key] === null && (obj[key] = 'no data');
                 key !== 'Msisdn' && (!isNaN(obj[key]) && (Object.assign(obj,
                     {[key]: Math.round((obj[key] + Number.EPSILON) * 1000) / 1000})));
                 key === 'L2regionid' && delete obj[key];

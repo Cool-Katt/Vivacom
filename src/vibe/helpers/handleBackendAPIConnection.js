@@ -50,7 +50,7 @@ export const getData = (data) => {
             Object.assign(body, {Msisdn: msisdn});
             break;
         case 'network':
-            if (nomAndDenom){
+            if (nomAndDenom && mod === 'daily'){
                 url += `/${typ}/nomdenom/p`;
             } else {
                 url += `/${typ}/${mod}/p`;

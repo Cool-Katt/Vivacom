@@ -3,7 +3,6 @@ import {Button, Form, FormGroup, Label, Input, Col, Row, Card, CardBody} from 'r
 import Redirect from "react-router-dom/Redirect";
 import PageAlertContext from "../../vibe/components/PageAlert/PageAlertContext";
 import SelectComponent from '../../vibe/helpers/handleSelectKQIField'
-import Switch from "../../vibe/components/utilities/Switch/Switch";
 
 export default class FormsMonthlyMSISDN extends Component {
     constructor(props) {
@@ -17,7 +16,6 @@ export default class FormsMonthlyMSISDN extends Component {
             redirectFlag: false,
             type: 'monthly-network',
             prevQuery: null,
-            nomAndDenom: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         if (!props.location.state) {
@@ -62,13 +60,6 @@ export default class FormsMonthlyMSISDN extends Component {
                                             <SelectComponent type={this.state.type} prevSelection={this.state.prevQuery?.kqis}
                                                              ref={this.selectRef}/>
                                         </FormGroup>
-                                        <FormGroup>
-                                            <Switch
-                                                enabled={this.state.nomAndDenom} toggle={() => {
-                                                this.setState(prevState => ({ nomAndDenom: !prevState.nomAndDenom }));
-                                            }}/>
-                                            <Label for="nom/denom">&nbsp;&nbsp;Include nom/denom KPIs? (if applicable)</Label>
-                                        </FormGroup>
                                         <Button>Submit</Button>
                                         {/*TODO: implement in other forms too */}
                                         {this.state.redirect ? <Redirect to={{
@@ -96,7 +87,6 @@ export default class FormsMonthlyMSISDN extends Component {
                     endDate: formData.get('endDate'),
                     kqis: formData.getAll('kqi'),
                     type: this.state.type,
-                    nomAndDenom: this.state.nomAndDenom,
                 }
 
                 if (formData.getAll('kqi')[0] === '') {

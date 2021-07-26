@@ -4,7 +4,6 @@ import Redirect from "react-router-dom/Redirect";
 import PageAlertContext from "../../vibe/components/PageAlert/PageAlertContext";
 import SelectComponent from "../../vibe/helpers/handleSelectKQIField";
 import SelectRegionComponent from "../../vibe/helpers/handleSelectRegionField";
-import Switch from "../../vibe/components/utilities/Switch/Switch";
 
 
 export default class FormMonthlyRegion extends Component {
@@ -20,7 +19,6 @@ export default class FormMonthlyRegion extends Component {
             redirectFlag: false,
             type: 'monthly-region',
             prevQuery: null,
-            nomAndDenom: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -70,13 +68,6 @@ export default class FormMonthlyRegion extends Component {
                             <SelectComponent type={this.state.type} prevSelection={this.state.prevQuery?.kqis}
                                              ref={this.selectRef}/>
                         </FormGroup>
-                        <FormGroup>
-                            <Switch
-                                enabled={this.state.nomAndDenom} toggle={() => {
-                                this.setState(prevState => ({ nomAndDenom: !prevState.nomAndDenom }));
-                            }}/>
-                            <Label for="nom/denom">&nbsp;&nbsp;Include nom/denom KPIs? (if applicable)</Label>
-                        </FormGroup>
                         <Button>Submit</Button>
                         {this.state.redirect ? <Redirect to={{
                             pathname: '/analytics',
@@ -105,7 +96,6 @@ export default class FormMonthlyRegion extends Component {
                 endDate: formData.get('endDate'),
                 kqis: formData.getAll('kqi'),
                 type: this.state.type,
-                nomAndDenom: this.state.nomAndDenom,
             }
 
             if (formData.getAll('kqi')[0] === '') {

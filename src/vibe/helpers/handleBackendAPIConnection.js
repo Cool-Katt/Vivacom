@@ -1,7 +1,7 @@
 export const getData = (data) => {
     if (!data) {
         return new Promise(resolve => {
-            resolve("[{\"No_Data_Selected\": \"Please make a query, instead of trying to access this page directly!\"}]")
+            resolve(JSON.parse("{\"No Data Selected\": \"Please make a query, instead of trying to access this page directly!\"}"))
         })
     }
 
@@ -41,13 +41,17 @@ export const getData = (data) => {
     }
 
     switch (typ){
-        case 'region':
-            url += `/${regionLevel}/${mod}`;
-            Object.assign(body, {Region: region});
-            break;
         case 'MSISDN':
             url += `/userp/${mod}`;
             Object.assign(body, {Msisdn: msisdn});
+            break;
+        case 'region':
+            if (nomAndDenom && mod === 'daily') {
+                url += `/${regionLevel}/nomdenom`;
+            } else {
+                url += `/${regionLevel}/${mod}`;
+            }
+            Object.assign(body, {Region: region});
             break;
         case 'network':
             if (nomAndDenom && mod === 'daily'){

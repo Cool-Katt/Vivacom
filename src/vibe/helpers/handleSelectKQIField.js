@@ -107,90 +107,6 @@ const newOptions = [
         options: level4options,
     },
 ]*/
-/*
-const optionGroups = [
-    /!*
-        {value: 'Voice', label: 'Voice'},
-        {value: 'SMS', label: 'SMS'},
-        {value: 'WEB', label: 'WEB'},
-        {value: 'Video_Streaming', label: 'Video_Streaming'},
-        {value: 'IM', label: 'IM'},
-        {value: 'File_Transfer', label: 'File_Transfer'},
-
-
-        {value: 'SMS_Delay_ms', label: 'SMS_Delay_ms'},
-        {value: 'SMS_Service_Availability', label: 'SMS_Service_Availability'},
-        {value: 'Call_Setup_Success_Rate', label: 'Call_Setup_Success_Rate'},
-        {value: 'Call_Completion_Failure_Rate', label: 'Call_Completion_Failure_Rate'},
-        {value: 'Call_Setup_Time', label: 'Call_Setup_Time'},
-        {value: 'WEB_Browsing_Integrity', label: 'WEB_Browsing_Integrity'},
-        {value: 'WEB_Browsing_Retainability', label: 'WEB_Browsing_Retainability'},
-        {value: 'Video_Streaming_Integrity', label: 'Video_Streaming_Integrity'},
-        {value: 'Video_Streaming_Retainability', label: 'Video_Streaming_Retainability'},
-        {value: 'IM_Integrity', label: 'IM_Integrity'},
-        {value: 'IM_Retainability', label: 'IM_Retainability'},
-        {value: 'File_Sharing_Integrity', label: 'File_Sharing_Integrity'},
-        {value: 'File_Sharing_Retainability', label: 'File_Sharing_Retainability'},
-        {value: 'Multimedia_Integrity', label: 'Multimedia_Integrity'},
-
-    *!/
-    /!*{group: 'SMS', label: 'SMS_Origination_Delay_ms'},
-    {group: 'SMS', label: 'SMS_Termination_Delay_ms'},
-    {group: 'SMS', label: 'SMS_Termination_Rate'},
-    {group: 'SMS', label: 'SMS_Origination_Success_Rate'},*!/
-    {group: 'SMS', label: 'SMS_'},
-    /!*{group: 'Voice', label: 'Perceived_Call_Success_Rate'},
-    {group: 'Voice', label: 'VoLTE_MO_Network_Connection_Rate'},
-    {group: 'Voice', label: 'VoWiFi_MO_Connection_Rate'},
-    {group: 'Voice', label: 'Perceived_Call_Drop_Rate'},
-    {group: 'Voice', label: 'VoLTE_Call_Drop_Rate'},
-    {group: 'Voice', label: 'VoWiFi_MO_Call_Drop_Rate'},
-    {group: 'Voice', label: 'E2E_Call_Connection_Delay_ms'},
-    {group: 'Voice', label: 'V2V_MO_Connection_Delay'},
-    {group: 'Voice', label: 'VoWiFi_MO_Connection_Delay_ms'},
-    {group: 'Voice', label: 'VoLTE_to_VoLTE_Voice_MOS'},*!/
-    {group: 'Voice', label: 'VoLTE_'},
-    {group: 'Voice', label: 'VoWiFi_'},
-    {group: 'Voice', label: 'V2V_'},
-    {group: 'Voice', label: 'E2E_'},
-    {group: 'Voice', label: 'Perceived_'},
-    /!*{group: 'WEB', label: 'Page_UL_TCP_Retransmission_Rate'},
-    {group: 'WEB', label: 'Page_DL_TCP_Retransmission_Rate'},
-    {group: 'WEB', label: 'Page_Server_Side_RTT'},
-    {group: 'WEB', label: 'Page_Client_Side_RTT'},
-    {group: 'WEB', label: 'Page_E2E_Delay'},
-    {group: 'WEB', label: 'Page_Response_Delay_ms'},
-    {group: 'WEB', label: 'Page_DL_Throughput_Kbps'},*!/
-    {group: 'WEB', label: 'Page_'},
-    /!* {group: 'Video_Streaming', label: 'Video_Stream_DL_TCP_Retransmission_Rate'},
-     {group: 'Video_Streaming', label: 'Video_Streaming_xKB_Start_Delay'},
-     {group: 'Video_Streaming', label: 'Video_Stream_Client_Side_Round_Trip_Time_ms'},
-     {group: 'Video_Streaming', label: 'Video_Stream_E2E_Delay'},
-     {group: 'Video_Streaming', label: 'Video_Stream_UL_TCP_Retransmission_Rate'},
-     {group: 'Video_Streaming', label: 'Video_Stream_Server_Side_Round_Trip_Time_ms'},
-     {group: 'Video_Streaming', label: 'Video_Streaming_Download_Throughput_Kbps'},*!/
-    {group: 'Video_Streaming', label: 'Video_Streaming_'},
-    {group: 'Video_Streaming', label: 'Video_'},
-    /!* {group: 'IM', label: 'IM_DL_TCP_Packets_Loss_Rate'},
-     {group: 'IM', label: 'IM_UL_TCP_Packets_Loss_Rate'},
-     {group: 'IM', label: 'IM_Interacting_Delay'},
-     {group: 'IM', label: 'IM_Server_Side_Round_Trip_Time_ms'},
-     {group: 'IM', label: 'IM_Client_Side_Round_Trip_Time_ms'},*!/
-    {group: 'IM', label: 'IM_'},
-    /!*{group: 'File_Transfer', label: 'File_Access_Server_Side_Uplink_TCP_Packet_Loss_Rate'},
-    {group: 'File_Transfer', label: 'File_Access_Server_Side_Downlink_TCP_Packet_Loss_Rate'},
-    {group: 'File_Transfer', label: 'File_Access_Client_Side_Uplink_TCP_Packet_Loss_Rate'},
-    {group: 'File_Transfer', label: 'File_Access_Client_Side_Downlink_TCP_Packet_Loss_Rate'},
-    {group: 'File_Transfer', label: 'File_Sharing_Response_Delay'},
-    {group: 'File_Transfer', label: 'File_Sharing_UL_Throughput_Kbps'},
-    {group: 'File_Transfer', label: 'File_Sharing_DL_Throughput_Kbps'},
-    {group: 'File_Transfer', label: 'Multimedia_Response_Delay'},
-    {group: 'File_Transfer', label: 'Multimedia_UL_Throughput_Kbps'},
-    {group: 'File_Transfer', label: 'Multimedia_DL_Throughput_Kbps'},*!/
-    {group: 'File_Transfer', label: 'Multimedia_'},
-    {group: 'File_Transfer', label: 'File_'},
-]
-*/
 
 const animate = makeAnimated();
 let newNewNewOptions = [];
@@ -294,10 +210,18 @@ class SelectComponent extends Component {
 
         switch (this.state.type[1]){
             case 'network':
-                getUrl = 'http://panoramamed/API_KQI_PI/network/kqi';
+                if (this.state.type[0] === 'daily') {
+                    getUrl = 'http://panoramamed/API_KQI_PI/network/daily/kqi_name';
+                } else {
+                    getUrl = 'http://panoramamed/API_KQI_PI/network/monthly/kqi_name';
+                }
                 break;
             case 'region':
-                getUrl = 'http://panoramamed/API_KQI_PI/region/kqi';
+                if (this.state.type[0] === 'daily') {
+                    getUrl = 'http://panoramamed/API_KQI_PI/regionL2/daily/kqi_name';
+                } else {
+                    getUrl = 'http://panoramamed/API_KQI_PI/regionL2/monthly/kqi_name';
+                }
                 break;
             case 'MSISDN':
                 getUrl = 'http://panoramamed/API_KQI_PI/user/kqi';
@@ -311,7 +235,7 @@ class SelectComponent extends Component {
             .then(text => {
                 text.split(',').forEach(word => {
                     if(word !== 'Date' && !word.startsWith('L2') && !word.startsWith('L3') && !word.startsWith('Msisdn') &&
-                        (this.state.type[0]!=='monthly' || !word.endsWith('Traffic_MB'))) {
+                        (this.state.type[1] === 'network' || !word.endsWith('Traffic_MB'))) {
                         obj.push({
                             value: word,
                             label: word,

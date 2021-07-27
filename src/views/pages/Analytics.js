@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-    Row,
-    Col,
-    Card,
-    CardHeader,
-    CardBody,
-    Button, CardFooter
-} from 'reactstrap';
+import {Row, Col, Card, CardHeader, CardBody, Button, CardFooter, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import {Bar, Line} from 'react-chartjs-2';
 import Chart from 'chart.js'
 import 'react-tabulator/lib/css/tabulator_modern.css'
@@ -22,11 +15,11 @@ const tableOptions = {
     layout: "fitColumns",
     columnMinWidth: 120,
     autoColumns: true,
+    //autoColumnsDefinitions: [{field:"Date", frozen: true}],
     tooltipsHeader: true,
     movableColumns: true,
     placeholder: 'Please Wait! Your data is being loaded.',
-    //responsiveLayout: 'collapse',
-    initialSort: {column: 'date', dir: 'asc'},
+    initialSort: {column: 'Date', dir: 'asc'},
     downloadDataFormatter: (data) => data,
     downloadReady: (fileContents, blob) => blob,
 };
@@ -45,14 +38,13 @@ function transformDataForCharts(data, isMulti = true) {
             backgroundColor: colourMaker(key),
             fill: false,
         }
-        if (!isMulti){
+        if (!isMulti) {
             newObj.tension = 0.3;
             newObj.borderColor = JSON.parse(JSON.stringify(newObj.backgroundColor));
-            delete(newObj.backgroundColor)
+            delete (newObj.backgroundColor)
         }
         data.forEach((obj) => {
-            if (obj[key] === 'no data')
-            {
+            if (obj[key] === 'no data') {
                 newObj['data'].push(null);
             } else {
                 newObj['data'].push(obj[key]);
@@ -104,15 +96,29 @@ export default class AnalyticsPage extends Component {
         this.state = {
             res: [],
             isScaleZero: true,
+            modal: true,
         };
 
-        if (!props.location.state) {
-            props.location.state = {}
-        }
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+        this.props.history.push('/home');
     }
 
     componentDidMount() {
-        API.getData(this.props.location.state.data).then(res => this.setState({res: JSON.parse(res)})).catch(err => console.log(err));
+        API.getData(this.props.location.state?.data)
+            .then(res => {
+                if (typeof res === 'string') {
+                    this.setState({res: JSON.parse(res), resErr: false})
+                } else {
+                    this.setState({res: [res], resErr: true})
+                }
+            })
+            .catch(err => console.log(err));
         //API.getData(this.props.location.state.data).then(res => console.log(res));
     }
 
@@ -149,14 +155,14 @@ export default class AnalyticsPage extends Component {
         this.state.res.forEach(obj => {
             Object.keys(obj).forEach(key => {
                 //obj[key] === null && delete (obj[key]);
+                key === 'Date' && (Object.assign(obj, {[key]: obj[key].split('T')[0]}));
                 obj[key] === null && (obj[key] = 'no data');
                 key !== 'Msisdn' && (!isNaN(obj[key]) && (Object.assign(obj,
                     {[key]: Math.round((obj[key] + Number.EPSILON) * 1000) / 1000})));
                 key === 'L2regionid' && delete obj[key];
                 key === 'L3regionid' && delete obj[key];
-                key === 'L2regionname' && obj[key] === 0 && delete obj[key];
-                key === 'L3regionname' && obj[key] === 0 && delete obj[key];
-                key === 'Date' && (Object.assign(obj, {[key]: obj[key].split('T')[0]}));
+                key === 'L2regionname' && obj[key] === 'no data' && delete obj[key];
+                key === 'L3regionname' && obj[key] === 'no data' && delete obj[key];
             });
         })
 
@@ -171,6 +177,16 @@ export default class AnalyticsPage extends Component {
                     onMouseEnter={!context.sidebarCollapsed ? context.toggleSideCollapse : null}
                     onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
                 >
+                    {(this.state.res.length === 1 && this.state.resErr) ?
+                        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                            <ModalHeader toggle={this.toggle}>{Object.keys(this.state.res[0])[0]}</ModalHeader>
+                            <ModalBody>
+                                {Object.values(this.state.res[0])[0]}
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" onClick={this.toggle}>Back to homepage?</Button>
+                            </ModalFooter>
+                        </Modal> : null}
                     <Row>
                         <Col className='m-a-auto' md={{size: 11}}>
                             <Card>
@@ -199,8 +215,9 @@ export default class AnalyticsPage extends Component {
                     <hr/>
                     <Row>
                         <Col className='m-l-auto' md={8}>
-                            <Card onMouseEnter={() => document.getElementById('mainGraph').style.display = 'inline-block'}
-                                  onMouseLeave={() => document.getElementById('mainGraph').style.display = 'none'}>
+                            <Card
+                                onMouseEnter={() => document.getElementById('mainGraph').style.display = 'inline-block'}
+                                onMouseLeave={() => document.getElementById('mainGraph').style.display = 'none'}>
                                 <CardHeader> Graph </CardHeader>
                                 <CardBody>
                                     <div>
@@ -257,27 +274,36 @@ export default class AnalyticsPage extends Component {
                                             <Line ref={ref => (this.childChart[col.datasets[0].label] = ref)}
                                                   data={col}
                                                   options={{
-                                                     legend: {display: false}, tooltips: {enabled: true},
-                                                     //scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
-                                                     scales: {yAxes: [{ticks: {padding: 21}}]},
-                                                     layout: {padding: 15,},
-                                                     animation: {
-                                                         onComplete: function () {
-                                                             let a = document.getElementById(col.datasets[0].label).firstChild.firstChild;
-                                                             a.setAttribute('href', this.toBase64Image());
-                                                             a.download = `${col.datasets[0].label}.png`;
-                                                         }
-                                                     },
-                                                 }}
+                                                      legend: {display: false}, tooltips: {enabled: true},
+                                                      //scales: {yAxes: [{ticks: {suggestedMin: 0, min: 0}}]},
+                                                      scales: {yAxes: [{ticks: {padding: 21}}]},
+                                                      layout: {padding: 15,},
+                                                      animation: {
+                                                          onComplete: function () {
+                                                              let a = document.getElementById(col.datasets[0].label).firstChild.firstChild;
+                                                              a.setAttribute('href', this.toBase64Image());
+                                                              a.download = `${col.datasets[0].label}.png`;
+                                                          }
+                                                      },
+                                                  }}
                                             />
                                         </CardBody>
                                         <CardFooter className='m-a-auto' id={col.datasets[0].label}
                                                     style={{display: 'none'}}>
-                                            <Button color='info' outline><a href='/'><i className='fa fa-save'/>&nbsp;Save As Image</a></Button>
+                                            <Button color='info' outline><a href='/'><i
+                                                className='fa fa-save'/>&nbsp;Save As Image</a></Button>
                                             <Button color='warning' outline onClick={() => {
-                                                if (this.state.isScaleZero){
+                                                if (this.state.isScaleZero) {
                                                     this.childChart[col.datasets[0].label]
-                                                        .chart_instance.options.scales = {yAxes:[{ticks: {padding: 21, suggestedMin: 0, min: 0}}]};
+                                                        .chart_instance.options.scales = {
+                                                        yAxes: [{
+                                                            ticks: {
+                                                                padding: 21,
+                                                                suggestedMin: 0,
+                                                                min: 0
+                                                            }
+                                                        }]
+                                                    };
 
                                                     this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointRadius = 0
                                                     this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointHoverRadius = 0
@@ -286,7 +312,7 @@ export default class AnalyticsPage extends Component {
                                                     this.setState({isScaleZero: false});
                                                 } else {
                                                     this.childChart[col.datasets[0].label]
-                                                        .chart_instance.options.scales = {yAxes:[{ticks: {padding: 21,}}]};
+                                                        .chart_instance.options.scales = {yAxes: [{ticks: {padding: 21,}}]};
 
                                                     this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointRadius = 6
                                                     this.childChart[col.datasets[0].label].chart_instance.data.datasets[0].pointHoverRadius = 8
@@ -304,7 +330,7 @@ export default class AnalyticsPage extends Component {
                                             <h1 className='m-a-auto p-a-xxl'>No Data!</h1>
                                         </CardBody>
                                     </Card>)
-                            }</Col>))}
+                                }</Col>))}
                         </Row>
                     ))}
                 </div>

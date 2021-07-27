@@ -174,11 +174,13 @@ export default class AnalyticsPage extends Component {
         return (
             <DashboardLayoutContext.Consumer>{context => (
                 <div
-                    onMouseEnter={!context.sidebarCollapsed ? context.toggleSideCollapse : null}
+                    onMouseOver={!context.sidebarCollapsed ? context.toggleSideCollapse : null}
                     onMouseLeave={context.sidebarCollapsed ? context.toggleSideCollapse : null}
                 >
                     {(this.state.res.length === 1 && this.state.resErr) ?
-                        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                        <Modal isOpen={this.state.modal} toggle={this.toggle}
+                               onExit={context.sidebarCollapsed ? context.toggleSideCollapse : null}
+                        >
                             <ModalHeader toggle={this.toggle}>{Object.keys(this.state.res[0])[0]}</ModalHeader>
                             <ModalBody>
                                 {Object.values(this.state.res[0])[0]}
@@ -196,8 +198,7 @@ export default class AnalyticsPage extends Component {
                                                     columns={columns}
                                                     options={tableOptions}
                                                     ref={ref => (this.ref = ref)}
-                                                    hover
-                                    />
+                                                    hover/>
                                 </CardBody>
                                 <CardFooter className='m-a-auto'>
                                     <Button color="info" outline

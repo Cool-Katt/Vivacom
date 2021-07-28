@@ -157,16 +157,21 @@ class PITree extends Component {
                             </CardHeader>
                             <CardBody className='capture-node'>
                                 {this.state.treeData ?
-                                    (<Tree data={this.state.treeData} translate={{x: '120', y: '300'}} zoom='0.7'
+                                    <Tree data={this.state.treeData} translate={{x: '120', y: '300'}} zoom='0.7'
                                            initialDepth='2'
                                         //separation={{nonSiblings: 2, siblings:3.5}} orientation='vertical'
                                            separation={{nonSiblings: 1, siblings: 0.5}}
                                            depthFactor='400'
                                            enableLegacyTransitions={true}
-                                           renderCustomNodeElement={this.renderSvgNode}/>)
-                                    : (<legend className='m-a-auto p-a-xxl'>Nothing to see here yet.<br/>Go ahead and
-                                        make a new query.</legend>)
-                                }
+                                           renderCustomNodeElement={this.renderSvgNode}/>
+                                    : (sessionStorage.getItem('treeData') ?
+                                            <legend className='m-a-auto p-a-xxl'>
+                                                Please wait!<br/>Your data is being loaded.
+                                            </legend> :
+                                            <legend className='m-a-auto p-a-xxl'>
+                                                Nothing to see here yet.<br/>Go ahead and make a new query.
+                                            </legend>
+                                    )}
                             </CardBody>
                             <CardFooter>
                                 {TreeLegend()}

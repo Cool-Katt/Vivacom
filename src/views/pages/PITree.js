@@ -85,7 +85,7 @@ class PITree extends Component {
             }
             this.toggleButton('disabled')
             //TODO: Handle data requests to the API for tree. Talk to Stef
-            fetch('//panoramamed/API_KQI_PI/userPi/monthly', {
+            fetch('http://panoramamed/API_KQI_PI/userPi/monthly', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

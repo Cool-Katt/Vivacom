@@ -1,20 +1,5 @@
 import React, {Component} from 'react';
-import {
-    Card,
-    CardBody,
-    CardFooter,
-    Button,
-    Row,
-    Col,
-    CardHeader,
-    Form,
-    FormGroup,
-    Input,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter
-} from 'reactstrap';
+import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Input, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import Tree from 'react-d3-tree';
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 import PageAlertContext from "../../vibe/components/PageAlert/PageAlertContext";

@@ -1,5 +1,20 @@
 import React, {Component} from 'react';
-import {Card, CardBody, CardFooter, Button, Row, Col, CardHeader, Form, FormGroup, Input} from 'reactstrap';
+import {
+    Card,
+    CardBody,
+    CardFooter,
+    Button,
+    Row,
+    Col,
+    CardHeader,
+    Form,
+    FormGroup,
+    Input,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter
+} from 'reactstrap';
 import Tree from 'react-d3-tree';
 import TreeLegend from "../../vibe/components/PITree/TreeLegend";
 import PageAlertContext from "../../vibe/components/PageAlert/PageAlertContext";
@@ -15,8 +30,10 @@ class PITree extends Component {
         this.state = {
             thisMonth,
             buttonDisabled: false,
+            modal: false,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
     }
 
     componentDidMount() {
@@ -75,6 +92,13 @@ class PITree extends Component {
         }
     };
 
+    toggleModal() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+        this.props.history.push('/tree');
+    }
+
     handleSubmit(context) {
         return (e => {
             e.preventDefault();
@@ -93,7 +117,13 @@ class PITree extends Component {
                 body: JSON.stringify({...data}),
             })
                 .then(response => response.json())
-                .then(r => this.setState({treeData: JSON.parse(r)}))
+                .then(r => {
+                    if (typeof r === 'string') {
+                        this.setState({treeData: JSON.parse(r), treeDataErr: null});
+                    } else {
+                        this.setState({treeDataErr: r, modal: true});
+                    }
+                })
                 .then(() => this.toggleButton('enabled'))
                 .catch(err => {
                     console.log(err);
@@ -108,6 +138,17 @@ class PITree extends Component {
     render() {
         return (
             <div>
+                <Modal isOpen={this.state.modal} toggle={this.toggleModal} backdrop='static'>
+                    <ModalHeader
+                        toggle={this.toggleModal}>{Object.keys(this.state.treeDataErr ?? {})[0]}
+                    </ModalHeader>
+                    <ModalBody>
+                        {Object.values(this.state?.treeDataErr ?? {})[0]}
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="danger" onClick={this.toggleModal}>Back to tree?</Button>
+                    </ModalFooter>
+                </Modal>
                 <Row style={{height: '83vh'}}>
                     <Col md={11} className='m-a-auto'>
                         <Card style={{height: '100%'}}>
@@ -158,12 +199,12 @@ class PITree extends Component {
                             <CardBody className='capture-node'>
                                 {this.state.treeData ?
                                     <Tree data={this.state.treeData} translate={{x: '120', y: '300'}} zoom='0.7'
-                                           initialDepth='2'
+                                          initialDepth='2'
                                         //separation={{nonSiblings: 2, siblings:3.5}} orientation='vertical'
-                                           separation={{nonSiblings: 1, siblings: 0.5}}
-                                           depthFactor='400'
-                                           enableLegacyTransitions={true}
-                                           renderCustomNodeElement={this.renderSvgNode}/>
+                                          separation={{nonSiblings: 1, siblings: 0.5}}
+                                          depthFactor='400'
+                                          enableLegacyTransitions={true}
+                                          renderCustomNodeElement={this.renderSvgNode}/>
                                     : (sessionStorage.getItem('treeData') ?
                                             <legend className='m-a-auto p-a-xxl'>
                                                 Please wait!<br/>Your data is being loaded.

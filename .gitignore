@@ -215,3 +215,5 @@ dist
 .vscode-test
 
 filer - Copy
+cert.pem
+key.pem

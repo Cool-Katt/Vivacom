@@ -15,6 +15,10 @@ const pageList = [
     name: 'Dashboard',
     path: '/index.html',
     component: Dashboard,
+  },{
+    name: 'Dashboard',
+    path: '/vibe',
+    component: Dashboard,
   },
   {
     name: 'Dashboard',

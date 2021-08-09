@@ -2,6 +2,7 @@
   "name": "vibe-react",
   "version": "0.9.2",
   "description": "Vibe KQI/PI Dashboard",
+  "homepage": "https://panoramamed.ad.btk.bg/vibe",
   "author": "Cool-Katt",
   "copyright": "Vivacom 2021 (GPL-3.0 License)",
   "private": true,

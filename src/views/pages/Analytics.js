@@ -112,9 +112,11 @@ export default class AnalyticsPage extends Component {
     componentDidMount() {
         API.getData(this.props.location.state?.data)
             .then(res => {
-                if (typeof res === 'string') {
+                if (typeof res === 'string' && res.includes('{')) {
                     this.setState({res: JSON.parse(res), resErr: false})
-                } else {
+                } else if (typeof res === 'string'){
+                    this.setState({res: [{Error: res,}], resErr: true})
+                } else if (typeof res === 'object'){
                     this.setState({res: [res], resErr: true})
                 }
             })
@@ -156,7 +158,6 @@ export default class AnalyticsPage extends Component {
     render() {
         this.state.res.forEach(obj => {
             Object.keys(obj).forEach(key => {
-                //obj[key] === null && delete (obj[key]);
                 key === 'Date' && (Object.assign(obj, {[key]: obj[key].split('T')[0]}));
                 obj[key] === null && (obj[key] = 'no data');
                 key !== 'Msisdn' && (!isNaN(obj[key]) && (Object.assign(obj,

@@ -42,7 +42,11 @@ export const getData = (data) => {
 
     switch (typ){
         case 'MSISDN':
-            url += `/userp/${mod}`;
+            if (nomAndDenom && mod === 'daily') {
+                url += `/userp/nomdenom`;
+            } else {
+                url += `/userp/${mod}`;
+            }
             Object.assign(body, {Msisdn: msisdn});
             break;
         case 'region':

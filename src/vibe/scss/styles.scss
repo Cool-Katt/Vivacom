@@ -32,6 +32,13 @@
   height: 10vh;
 }
 
+.tabulator .tabulator-tableHolder .tabulator-placeholder span {
+  background-image: url('../components/Loader/styles/spin.svg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  padding: 53px;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
   display: none;

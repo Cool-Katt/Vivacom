@@ -12,15 +12,31 @@
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png"/>
     <link
             href="https://fonts.googleapis.com/css?family=Open+Sans"
-            rel="stylesheet"
+            rel="preload"
+            as="style" onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+        <link
+                href="https://fonts.googleapis.com/css?family=Open+Sans"
+                rel="stylesheet"
+        />
+    </noscript>
     <link
             href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-            rel="stylesheet"
+            rel="preload"
+            as="style" onload="this.onload=null;this.rel='stylesheet'"
             integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
             crossorigin="anonymous"
     />
-    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+    <noscript>
+        <link
+                href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+                rel="stylesheet"
+                integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+                crossorigin="anonymous"
+        />
+    </noscript>
+    <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js" defer></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

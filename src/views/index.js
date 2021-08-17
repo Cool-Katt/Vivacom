@@ -1,13 +1,25 @@
-import Dashboard from './pages/Dashboard';
-import FormsDailyMSISDN from './pages/FormDailyMSISDN';
-import FormsMonthlyMSISDN from './pages/FormMonthlyMSISDN';
-import FormDailyNetwork from "./pages/FormDailyNetwork";
-import FormMonthlyNetwork from "./pages/FormMonthlyNetwork";
-import FormDailyRegions from "./pages/FormDailyRegions";
-import FormMonthlyRegions from "./pages/FormMonthlyRegions";
-import Analytics from './pages/Analytics';
-import ErrorPage from './pages/404';
-import PITree from "./pages/PITree";
+//import Dashboard from './pages/Dashboard';
+//import FormsDailyMSISDN from './pages/FormDailyMSISDN';
+//import FormsMonthlyMSISDN from './pages/FormMonthlyMSISDN';
+//import FormDailyNetwork from "./pages/FormDailyNetwork";
+//import FormMonthlyNetwork from "./pages/FormMonthlyNetwork";
+//import FormDailyRegions from "./pages/FormDailyRegions";
+//import FormMonthlyRegions from "./pages/FormMonthlyRegions";
+//import Analytics from './pages/Analytics';
+//import ErrorPage from './pages/404';
+//import PITree from "./pages/PITree";
+import {lazy} from "react";
+
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const FormsDailyMSISDN = lazy(() => import('./pages/FormDailyMSISDN'));
+const FormsMonthlyMSISDN = lazy(() => import('./pages/FormMonthlyMSISDN'));
+const FormDailyNetwork = lazy(() => import('./pages/FormDailyNetwork'));
+const FormMonthlyNetwork = lazy(() => import('./pages/FormMonthlyNetwork'));
+const FormDailyRegions = lazy(() => import('./pages/FormDailyRegions'));
+const FormMonthlyRegions = lazy(() => import('./pages/FormMonthlyRegions'));
+const Analytics = lazy(() => import('./pages/Analytics'));
+const ErrorPage = lazy(() => import('./pages/404'));
+const PITree = lazy(() => import('./pages/PITree'));
 
 // See React Router documentation for details: https://reacttraining.com/react-router/web/api/Route
 const pageList = [

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
-import {Header, SidebarNav, Footer, PageContent, PageAlert, Page} from '../vibe';
+import {Header, SidebarNav, Footer, PageContent, PageAlert, Page, Loader} from '../vibe';
 import Logo from '../assets/images/White logo - no background.svg';
 import nav from '../_nav';
 import routes from '../views';
@@ -78,7 +78,7 @@ export default class DashboardLayout extends Component {
         const {sidebarCollapsed} = this.state;
         const sidebarCollapsedClass = sidebarCollapsed ? 'side-menu-collapsed' : '';
         return (
-            <>
+            <Suspense fallback={<Loader type='spin' />}>
 
                 {sessionStorage.getItem('user') ?
                /* {!sessionStorage.getItem('user') ?*/
@@ -139,7 +139,7 @@ export default class DashboardLayout extends Component {
                         </div>
                     </ContextProviders>
                 }
-            </>
+            </Suspense>
         );
     }
 }

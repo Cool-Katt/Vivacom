@@ -9,7 +9,6 @@ import newVibeFeature from '../../assets/images/Color logo - no background.svg';
 import {Card, CardBody, CardFooter, Button, Row, Col} from 'reactstrap';
 
 class Dashboard extends Component {
-
     render() {
         const heroStyles = {
             padding: '30px 20px 55px'
@@ -22,7 +21,7 @@ class Dashboard extends Component {
                         <div className="home-hero" style={heroStyles}>
                             <h1>Welcome to <img
                                 src={newVibeFeature}
-                                style={{width: 140,}}
+                                style={{width: 140, height: 79}}
                                 alt="Vibe Logo"
                                 aria-hidden={true}/>
                             </h1>

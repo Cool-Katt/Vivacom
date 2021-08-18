@@ -43,13 +43,14 @@ export default class FormsDailyRegion extends Component {
                                         <legend>Query selection:</legend>
                                         <FormGroup>
                                             <Label for="name">Regions</Label>
-                                            {SelectRegionComponent(JSON.parse(sessionStorage.getItem(this.state.type)))}
+                                            {/*{SelectRegionComponent(JSON.parse(sessionStorage.getItem(this.state.type)), this.state.test)}*/}
+                                            <SelectRegionComponent prevQuery={JSON.parse(sessionStorage.getItem(this.state.type))} startDate={this.state.dateForRegion} />
                                         </FormGroup>
                                         <FormGroup>
                                             <Label for="name">Start Date</Label>
                                             <Input type="date" name="startDate" id="startDate" required
                                                    defaultValue={this.state.prevQuery?.startDate}
-                                                   max={this.state.today.toString()}/>
+                                                   max={this.state.today.toString()}  onChange={e => this.setState({dateForRegion: e.currentTarget.value})}/>
                                         </FormGroup>
                                         <FormGroup>
                                             <Label for="name">End Date</Label>

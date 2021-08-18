@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
 import makeAnimated from 'react-select/animated'
 
 const animate = makeAnimated();
@@ -229,7 +230,7 @@ const level3options = [
     {group: 'regionL3p', value: 'gr. Tutrakan', label: 'gr. Tutrakan'},
     {group: 'regionL3p', value: 'Silistra_rest', label: 'Silistra_rest'},
 
-]
+];
 const level2options = [
     {group: 'regionL2p', value: 'Burgas_Region', label: 'Burgas_Region'},
     {group: 'regionL2p', value: 'Plovdiv_Region', label: 'Plovdiv_Region'},
@@ -259,9 +260,10 @@ const level2options = [
     {group: 'regionL2p', value: 'Targovishte_Region', label: 'Targovishte_Region'},
     {group: 'regionL2p', value: 'Sliven_Region', label: 'Sliven_Region'},
     {group: 'regionL2p', value: 'Sofia', label: 'Sofia'},
-]
+];
 
-const newOptions = [
+let opsAfterMarch = [];
+let newOptions = [
     {
         label: 'Level 2',
         options: level2options,
@@ -270,7 +272,7 @@ const newOptions = [
         label: 'Level 3',
         options: level3options,
     },
-]
+];
 
 const groupStyles = {
     display: 'flex',
@@ -297,21 +299,85 @@ const formatGroupLabel = data => (
     </div>
 );
 
-export default function SelectRegionComponent(prevQuery) {
-    return (<Select
+const getRegions = () => {
+    let ops = [];
+    let lowerCaseOps = [];
+    let level2 = [];
+    let level3 = [];
+    fetch('http://panoramamed/API_KQI_PI/regions_name/daily')
+        .then(res => res.json())
+        .then(o => ops = JSON.parse(o))
+        .then(() => {
+            lowerCaseOps = ops.map((item) => {
+                let mapped = {};
+                for (const itemKey in item) {
+                    mapped[itemKey.toLowerCase()] = item[itemKey];
+                }
+                return mapped;
+            })
+        })
+        .then(() => {
+            lowerCaseOps.forEach(op => {
+                if (op.group === 'regionL2p') {
+                    level2.push(op);
+                } else if (op.group === 'regionL3p') {
+                    level3.push(op)
+                }
+            })
+        })
+        .then(() => {
+            level3.sort((a, b) => (a.value > b.value) ? 1 : -1)
+            opsAfterMarch = [
+                {
+                    label: 'Level 2',
+                    options: level2,
+                },
+                {
+                    label: 'Level 3',
+                    options: level3,
+                },
+            ]
+        })
+}
+
+export default function SelectRegionComponent({prevQuery, startDate}) {
+    getRegions();
+    if (startDate && typeof startDate === 'string') {
+        if(Date.parse(startDate) >= new Date('2021-03-12'))
+        {
+            return (<AsyncSelect
                 //isMulti={true}
                 components={animate}
                 name="region"
                 closeMenuOnSelect={true}
                 isSearchable={true}
                 isClearable={true}
-                options={newOptions}
                 className="selectRegion"
                 classNamePrefix="select"
                 placeholder="Click here to select something"
-                defaultValue={prevQuery?.region ? {group: prevQuery.regionLevel, value: prevQuery.region, label: prevQuery.region} : null}
                 formatGroupLabel={formatGroupLabel}
                 required={true}
                 getOptionValue={op => `${op.value}:${op.group}`}
+                cacheOptiopns
+                defaultOptions={opsAfterMarch}
             />)
+        }
+    }
+
+    return (<Select
+        //isMulti={true}
+        components={animate}
+        name="region"
+        closeMenuOnSelect={true}
+        isSearchable={true}
+        isClearable={true}
+        options={newOptions}
+        className="selectRegion"
+        classNamePrefix="select"
+        placeholder="Click here to select something"
+        defaultValue={(prevQuery?.region && isNaN(prevQuery?.region)) ? {group: prevQuery.regionLevel, value: prevQuery.region, label: prevQuery.region} : null}
+        formatGroupLabel={formatGroupLabel}
+        required={true}
+        getOptionValue={op => `${op.value}:${op.group}`}
+    />)
 }

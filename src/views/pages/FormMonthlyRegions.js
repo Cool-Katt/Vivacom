@@ -44,7 +44,8 @@ export default class FormMonthlyRegion extends Component {
                         <legend>Query selection:</legend>
                         <FormGroup>
                             <Label for="name">Regions</Label>
-                            {SelectRegionComponent(JSON.parse(sessionStorage.getItem(this.state.type)))}
+                            {/*{SelectRegionComponent(JSON.parse(sessionStorage.getItem(this.state.type)))}*/}
+                            <SelectRegionComponent prevQuery={JSON.parse(sessionStorage.getItem(this.state.type))} startDate={this.state.dateForRegion} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="name">Start Month </Label>
@@ -52,7 +53,8 @@ export default class FormMonthlyRegion extends Component {
                                    max={this.state.thisMonth.toString()}
                                    placeholder="20yy-MM"
                                    defaultValue={this.state.prevQuery?.startDate}
-                                   pattern="20[0-9]{2}-[0-1][0-9]"/>
+                                   pattern="20[0-9]{2}-[0-1][0-9]"
+                                   onChange={e => this.setState({dateForRegion: e.currentTarget.value})}/>
                         </FormGroup>
                         <FormGroup>
                             <Label for="name">End Month </Label>

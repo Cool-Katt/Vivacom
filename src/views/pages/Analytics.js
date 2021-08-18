@@ -181,7 +181,7 @@ export default class AnalyticsPage extends Component {
                            onExit={context.sidebarCollapsed ? context.toggleSideCollapse : null}>
                         <ModalHeader toggle={this.toggle}>{Object.keys(this.state.res[0])[0]}</ModalHeader>
                         <ModalBody>
-                            {Object.values(this.state.res[0])[0]}
+                            {Object.values(this.state.res[0])[0].split(',').join(' ')}
                         </ModalBody>
                         <ModalFooter>
                             <Button color="danger" onClick={this.toggle}>Back to homepage?</Button>

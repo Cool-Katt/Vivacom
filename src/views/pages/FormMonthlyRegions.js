@@ -49,6 +49,7 @@ export default class FormMonthlyRegion extends Component {
                         </FormGroup>
                         <FormGroup>
                             <Label for="name">Start Month </Label>
+                            <Label className='text-danger'>Please select date before region!</Label>
                             <Input type="month" name="startDate" id="startDate" required
                                    max={this.state.thisMonth.toString()}
                                    placeholder="20yy-MM"

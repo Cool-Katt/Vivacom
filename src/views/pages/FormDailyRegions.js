@@ -48,6 +48,7 @@ export default class FormsDailyRegion extends Component {
                                         </FormGroup>
                                         <FormGroup>
                                             <Label for="name">Start Date</Label>
+                                            <Label className='text-danger'>Please select date before region!</Label>
                                             <Input type="date" name="startDate" id="startDate" required
                                                    defaultValue={this.state.prevQuery?.startDate}
                                                    max={this.state.today.toString()}  onChange={e => this.setState({dateForRegion: e.currentTarget.value})}/>

@@ -340,6 +340,18 @@ const getRegions = () => {
         })
 }
 
+const filterOptions = (inputValue) => {
+    let found = [{ label: 'Matches', options: []}];
+    opsAfterMarch.forEach(o =>
+        Object.assign(found[0].options, o.options.filter(i =>
+            i.label.toLowerCase().includes(inputValue.toLowerCase()))));
+    return found;
+};
+
+const loadOptions = (inputValue, callback) => {
+    callback(filterOptions(inputValue))
+}
+
 export default function SelectRegionComponent({prevQuery, startDate}) {
     getRegions();
     if (startDate && typeof startDate === 'string') {
@@ -360,6 +372,7 @@ export default function SelectRegionComponent({prevQuery, startDate}) {
                 getOptionValue={op => `${op.value}:${op.group}`}
                 cacheOptiopns
                 defaultOptions={opsAfterMarch}
+                loadOptions={loadOptions}
             />)
         }
     }
